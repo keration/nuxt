@@ -10,6 +10,13 @@ export default defineNuxtConfig({
     // 禁用 Google 字体，避免之前的网络错误
     fonts: false,
   },
+  css: ["~/assets/css/tailwind.css"],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   // 禁用 @nuxt/fonts 模块，消除 Google 资源警告
   features: {
     fonts: false,

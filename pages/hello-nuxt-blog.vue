@@ -28,7 +28,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useMarkdown } from '~/composables/useMarkdown';
+// ❶ 删除错误的动态导入（Nuxt会自动导入useMarkdown）
+// const useMarkdown = () => import('~/composables/useMarkdown').then(m => m.useMarkdown);
 
 const route = useRoute();
 const loading = ref(true);
@@ -39,51 +40,53 @@ const html = ref('');
 try {
   // 调用服务端接口获取 Markdown 内容
   const { data } = await useFetch(`/api/article/${route.params.slug || 'hello-nuxt-blog'}`);
-  
-  if (data.value.code !== 200) {
-    throw new Error(data.value.message);
-  }
+  // ❷ 加容错：验证data.value是否存在，避免解构undefined
+  if (!data.value) throw new Error("接口返回数据为空");
+  if (data.value.code !== 200) throw new Error(data.value.message);
+  // ❸ 验证content是否存在
+  if (!data.value.data?.content) throw new Error("文章内容为空");
 
-  // 解析 Markdown（包含代码高亮）
-  const parsed = useMarkdown(data.value.data.content);
-  frontmatter.value = parsed.frontmatter;
-  html.value = parsed.html;
+  // ❹ 直接调用自动导入的useMarkdown（无需动态导入）
+  const parsed = await useMarkdown(data.value.data.content);
+  frontmatter.value = parsed.frontmatter || {}; // 加兜底
+  html.value = parsed.html || '';
 } catch (err) {
+  // ❺ 打印具体错误（看浏览器控制台，定位到底哪步错）
+  console.error("前端解析/渲染错误：", err);
   error.value = err;
 } finally {
   loading.value = false;
 }
 </script>
 
-<!-- 文章详情页（pages/hello-nuxt-blog.vue） -->
 <style scoped>
-/* 强制代码块样式，完全隔离全局干扰 */
-.markdown-content pre {
+/* 替换所有 ::v-deep 为 :deep() */
+.markdown-content :deep(pre) {
   padding: 1.5rem !important;
   border-radius: 8px !important;
-  background: #282c34 !important; /* atom-one-dark 主题背景 */
+  background: #282c34 !important;
   overflow-x: auto !important;
   font-family: 'Consolas', 'Monaco', monospace !important;
 }
 
-/* 强制代码块内的文字样式 */
-.markdown-content pre code {
-  color: #abb2bf !important; /* 基础文字色 */
+.markdown-content :deep(pre code) {
+  color: #abb2bf !important;
   font-size: 0.95rem !important;
   line-height: 1.6 !important;
 }
 
-/* 匹配 highlight.js 的语法类名（对应 atom-one-dark 主题） */
-.markdown-content .language-javascript .keyword {
-  color: #c678dd !important; /* 关键词（如 async、const） */
+/* 高亮样式 */
+.markdown-content :deep(.hljs-keyword) {
+  color: #c678dd !important;
 }
-.markdown-content .language-javascript .string {
-  color: #98c379 !important; /* 字符串 */
+.markdown-content :deep(.hljs-string) {
+  color: #98c379 !important;
 }
-.markdown-content .language-javascript .function {
-  color: #61afef !important; /* 函数名 */
+.markdown-content :deep(.hljs-comment) {
+  color: #5c6370 !important;
+  font-style: italic;
 }
-.markdown-content .language-javascript .comment {
-  color: #5c6370 !important; /* 注释 */
+.markdown-content :deep(.hljs-function) {
+  color: #61afef !important;
 }
 </style>
