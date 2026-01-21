@@ -1,0 +1,14 @@
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "strict": true, // 仅保留严格模式（核心）
+    "esModuleInterop": true, // 兼容CommonJS模块（如markdown-it）
+    "allowSyntheticDefaultImports": true, // 解决第三方模块默认导入问题
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"] // 保留路径别名（Nuxt默认也有，但显式写更清晰）
+    }
+  },
+  "include": ["**/*.ts", "**/*.vue", ".nuxt/**/*"],
+  "exclude": ["node_modules"]
+}
