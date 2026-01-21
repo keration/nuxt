@@ -3,11 +3,23 @@ import type { Serialize, Simplify } from "nitropack/types";
 declare module "nitropack/types" {
   type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T
   interface InternalApi {
+    '/api/archives': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/archives').default>>>>
+    }
     '/api/article/:id': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/article/[id]').default>>>>
     }
+    '/api/article/filter': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/article/filter').default>>>>
+    }
     '/api/articles': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/articles').default>>>>
+    }
+    '/api/categories': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/categories').default>>>>
+    }
+    '/api/tags': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/tags').default>>>>
     }
     '/__nuxt_error': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_e72f7e60f03be106008d8a3766706cc6/node_modules/@nuxt/nitro-server/dist/runtime/handlers/renderer').default>>>>

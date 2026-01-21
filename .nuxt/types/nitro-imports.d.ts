@@ -43,6 +43,7 @@ declare global {
   const fromNodeMiddleware: typeof import('../../node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3').fromNodeMiddleware
   const fromPlainHandler: typeof import('../../node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3').fromPlainHandler
   const fromWebHandler: typeof import('../../node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3').fromWebHandler
+  const getAllArticlesMeta: typeof import('../../server/utils/articles').getAllArticlesMeta
   const getCookie: typeof import('../../node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3').getCookie
   const getHeader: typeof import('../../node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3').getHeader
   const getHeaders: typeof import('../../node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3').getHeaders
@@ -125,6 +126,12 @@ declare global {
   const useStorage: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/storage').useStorage
   const writeEarlyHints: typeof import('../../node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3').writeEarlyHints
 }
+// for type re-export
+declare global {
+  // @ts-ignore
+  export type { ArticleMeta } from '../../server/utils/articles'
+  import('../../server/utils/articles')
+}
 export { useNitroApp } from 'nitropack/runtime/internal/app';
 export { useRuntimeConfig, useAppConfig } from 'nitropack/runtime/internal/config';
 export { defineNitroPlugin, nitroPlugin } from 'nitropack/runtime/internal/plugin';
@@ -139,3 +146,4 @@ export { defineNitroErrorHandler } from 'nitropack/runtime/internal/error/utils'
 export { appendCorsHeaders, appendCorsPreflightHeaders, appendHeader, appendHeaders, appendResponseHeader, appendResponseHeaders, assertMethod, callNodeListener, clearResponseHeaders, clearSession, createApp, createAppEventHandler, createError, createEvent, createEventStream, createRouter, defaultContentType, defineEventHandler, defineLazyEventHandler, defineNodeListener, defineNodeMiddleware, defineRequestMiddleware, defineResponseMiddleware, defineWebSocket, defineWebSocketHandler, deleteCookie, dynamicEventHandler, eventHandler, fetchWithEvent, fromNodeMiddleware, fromPlainHandler, fromWebHandler, getCookie, getHeader, getHeaders, getMethod, getProxyRequestHeaders, getQuery, getRequestFingerprint, getRequestHeader, getRequestHeaders, getRequestHost, getRequestIP, getRequestPath, getRequestProtocol, getRequestURL, getRequestWebStream, getResponseHeader, getResponseHeaders, getResponseStatus, getResponseStatusText, getRouterParam, getRouterParams, getSession, getValidatedQuery, getValidatedRouterParams, handleCacheHeaders, handleCors, isCorsOriginAllowed, isError, isEvent, isEventHandler, isMethod, isPreflightRequest, isStream, isWebResponse, lazyEventHandler, parseCookies, promisifyNodeListener, proxyRequest, readBody, readFormData, readMultipartFormData, readRawBody, readValidatedBody, removeResponseHeader, sanitizeStatusCode, sanitizeStatusMessage, sealSession, send, sendError, sendIterable, sendNoContent, sendProxy, sendRedirect, sendStream, sendWebResponse, serveStatic, setCookie, setHeader, setHeaders, setResponseHeader, setResponseHeaders, setResponseStatus, splitCookiesString, toEventHandler, toNodeListener, toPlainHandler, toWebHandler, toWebRequest, unsealSession, updateSession, useBase, useSession, writeEarlyHints } from 'h3';
 export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_e72f7e60f03be106008d8a3766706cc6/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
 export { defineAppConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_e72f7e60f03be106008d8a3766706cc6/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
+export { getAllArticlesMeta } from 'C:/Users/admin/Desktop/nuxt/server/utils/articles';

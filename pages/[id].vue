@@ -436,21 +436,3 @@ onUnmounted(() => {
   }
 }
 </style>
-
-<!-- 引入代码高亮样式（全局） -->
-<style>
-@import 'prismjs/themes/prism-tomorrow.css';
-.prose pre {
-  padding: 1rem;
-  border-radius: 8px;
-  background: #282c34 !important; /* ❾ 适配暗黑模式代码块背景 */
-}
-.prose code {
-  padding: 0.15rem 0.3rem;
-  border-radius: 4px;
-}
-/* 暗黑模式下的链接样式优化 */
-.dark .prose a {
-  color: #60a5fa !important;
-}
-</style>

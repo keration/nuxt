@@ -1,5 +1,5 @@
 ---
-title: "Nuxt4 + Nuxt Content 博客搭建全指南"
+title: "从零开始的Nuxt4博客搭建（re.0回复术士）"
 date: "2026-01-20"
 tags: ["Nuxt4", "前端开发", "博客搭建", "Markdown"]
 description: "从零开始用 Nuxt4 + Nuxt Content 搭建个人博客，支持 Markdown 解析、代码高亮、响应式布局，这是一篇样式齐全的示例文章"

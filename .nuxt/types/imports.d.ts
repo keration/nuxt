@@ -215,6 +215,9 @@ declare global {
   // @ts-ignore
   export type { Component, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from '../../node_modules/.pnpm/vue@3.5.26_typescript@5.9.3/node_modules/vue'
   import('../../node_modules/.pnpm/vue@3.5.26_typescript@5.9.3/node_modules/vue')
+  // @ts-ignore
+  export type { MarkdownParsedResult } from '../../composables/useMarkdown'
+  import('../../composables/useMarkdown')
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'

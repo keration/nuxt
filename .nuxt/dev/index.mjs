@@ -5,8 +5,10 @@ import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
 import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createError, getQuery as getQuery$1, readBody, getResponseStatus, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getResponseStatusText } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@1.15.5/node_modules/h3/dist/index.mjs';
 import { escapeHtml } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@vue+shared@3.5.26/node_modules/@vue/shared/dist/shared.cjs.js';
-import { getRequestURL as getRequestURL$1, eventHandler as eventHandler$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3/dist/_entries/node.mjs';
+import { getRequestURL as getRequestURL$1, eventHandler as eventHandler$1, getQuery as getQuery$2 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3/dist/_entries/node.mjs';
 import fs, { readFile } from 'node:fs/promises';
+import { marked, Renderer } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/marked@17.0.1/node_modules/marked/lib/marked.esm.js';
+import hljs from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/highlight.js@11.11.1/node_modules/highlight.js/es/index.js';
 import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/vue-bundle-renderer@2.2.0/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, joinRelativeURL } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/ufo@1.6.3/node_modules/ufo/dist/index.mjs';
 import destr, { destr as destr$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/destr@2.0.5/node_modules/destr/dist/index.mjs';
@@ -1770,22 +1772,7 @@ _OjGx467j_yVFfD32ZxB5ityRlAybIo1nxh4Tsers5k,
 _93Dmfyl3mVJsxqA_0MvmlrmNkdKPFubPvKNmMi44mkU
 ];
 
-const assets = {
-  "/index.mjs": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"17fb2-yKOLPsuJ/SneZgvQ7pKz1dZhqX4\"",
-    "mtime": "2026-01-20T05:35:59.191Z",
-    "size": 98226,
-    "path": "index.mjs"
-  },
-  "/index.mjs.map": {
-    "type": "application/json",
-    "etag": "\"5594f-Lb0PAbVoClmvEceY+W1pGisVJEg\"",
-    "mtime": "2026-01-20T05:35:59.191Z",
-    "size": 350543,
-    "path": "index.mjs.map"
-  }
-};
+const assets = {};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -2271,6 +2258,161 @@ async function runTask(name, {
   }
 }
 
+const markedOptions = {
+  gfm: true,
+  // 仅保留17.x支持的配置
+  breaks: true,
+  // 换行符转<br>
+  async: false
+  // 禁用异步解析
+  // 移除headerIds（17.x已移除该配置）
+};
+marked.setOptions(markedOptions);
+const createCustomRenderer = () => {
+  const renderer = new Renderer();
+  renderer.code = (rawCodeObj) => {
+    var _a, _b, _c;
+    const rawCode = ((_a = rawCodeObj.text) != null ? _a : "").trim();
+    const targetLang = ((_b = rawCodeObj.lang) != null ? _b : "javascript").toLowerCase().trim();
+    const unescapedCode = rawCode.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+    let highlightedCode = unescapedCode;
+    try {
+      const supportedLang = hljs.getLanguage(targetLang);
+      if (supportedLang) {
+        const highlightResult = hljs.highlight(unescapedCode, {
+          language: targetLang,
+          ignoreIllegals: true
+        });
+        highlightedCode = (_c = highlightResult.value) != null ? _c : unescapedCode;
+      }
+    } catch (err) {
+      console.warn(`\u26A0\uFE0F [${targetLang}] \u4EE3\u7801\u9AD8\u4EAE\u5931\u8D25\uFF1A`, err);
+    }
+    return `
+      <pre class="hljs language-${targetLang}" style="
+        padding: 1.5rem;
+        border-radius: 8px;
+        background: #282c34 !important;
+        overflow-x: auto;
+        font-family: Consolas, Monaco, 'Courier New', monospace;
+        color: #abb2bf;
+        margin: 1rem 0;
+      ">
+        <code class="language-${targetLang}">${highlightedCode}</code>
+      </pre>
+    `.trim();
+  };
+  return renderer;
+};
+marked.use({ renderer: createCustomRenderer() });
+const parseFrontmatter = (markdown) => {
+  if (!markdown || typeof markdown !== "string") return {};
+  const frontmatter = {};
+  const frontmatterMatch = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!(frontmatterMatch == null ? void 0 : frontmatterMatch[1])) return frontmatter;
+  frontmatterMatch[1].split(/\r?\n/).filter((line) => line.trim() && !line.trim().startsWith("#")).forEach((line) => {
+    const colonIndex = line.indexOf(":");
+    if (colonIndex === -1) return;
+    const key = line.slice(0, colonIndex).trim();
+    let valueStr = line.slice(colonIndex + 1).trim();
+    let value = valueStr;
+    if (typeof valueStr === "string" && valueStr.startsWith("[") && valueStr.endsWith("]")) {
+      try {
+        const parsedArr = JSON.parse(valueStr.replace(/'/g, '"'));
+        value = Array.isArray(parsedArr) ? parsedArr : valueStr;
+      } catch (err) {
+        console.warn(`\u26A0\uFE0F Frontmatter\u6570\u7EC4\u89E3\u6790\u5931\u8D25 [${key}]\uFF1A`, err);
+        value = valueStr.slice(1, -1).split(",").map((item) => item.trim().replace(/['"]/g, ""));
+      }
+    } else if (valueStr === "true" || valueStr === "false") {
+      value = JSON.parse(valueStr);
+    } else if (typeof valueStr === "string" && !isNaN(Number(valueStr))) {
+      value = Number(valueStr);
+    } else if (typeof valueStr === "string" && (valueStr.startsWith('"') && valueStr.endsWith('"') || valueStr.startsWith("'") && valueStr.endsWith("'"))) {
+      value = valueStr.slice(1, -1);
+    }
+    frontmatter[key] = value;
+  });
+  return frontmatter;
+};
+const useMarkdown = async (markdown) => {
+  const rawMarkdown = (markdown != null ? markdown : "").trim();
+  try {
+    const frontmatter = parseFrontmatter(rawMarkdown);
+    const content = rawMarkdown.replace(/^---\r?\n([\s\S]*?)\r?\n---/, "").trim();
+    const html = marked.parse(content);
+    return {
+      frontmatter,
+      html,
+      raw: rawMarkdown
+    };
+  } catch (err) {
+    console.error("\u274C Markdown\u89E3\u6790\u5931\u8D25\uFF1A", err);
+    return {
+      frontmatter: {},
+      html: `<div class="text-red-500">\u89E3\u6790\u5931\u8D25\uFF1A${err.message}</div>`,
+      raw: rawMarkdown
+    };
+  }
+};
+
+const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
+const getAllArticlesMeta = async () => {
+  const articlesDir = path.join(PROJECT_ROOT, "public", "content");
+  try {
+    await fs.access(articlesDir);
+  } catch {
+    console.error("\u274C \u6587\u7AE0\u76EE\u5F55\u4E0D\u5B58\u5728\uFF1A", articlesDir);
+    return [];
+  }
+  const files = await fs.readdir(articlesDir);
+  const markdownFiles = files.filter((file) => file.endsWith(".md"));
+  if (markdownFiles.length === 0) {
+    console.warn("\u26A0\uFE0F content\u76EE\u5F55\u4E0B\u65E0.md\u6587\u4EF6");
+    return [];
+  }
+  const articles = [];
+  for (const file of markdownFiles) {
+    try {
+      const id = file.replace(".md", "");
+      const filePath = path.join(articlesDir, file);
+      const content = await fs.readFile(filePath, "utf-8");
+      const { frontmatter } = await useMarkdown(content);
+      articles.push({
+        id,
+        frontmatter: {
+          title: frontmatter.title || id,
+          date: frontmatter.date || "\u672A\u53D1\u5E03",
+          updated: frontmatter.updated,
+          category: frontmatter.category || "\u672A\u5206\u7C7B",
+          tags: frontmatter.tags || [],
+          description: frontmatter.description || "\u6682\u65E0\u7B80\u4ECB"
+        },
+        path: `/${id}`
+      });
+    } catch (err) {
+      console.warn(`\u26A0\uFE0F \u89E3\u6790\u6587\u7AE0 ${file} \u5931\u8D25\uFF1A`, err.message);
+      const id = file.replace(".md", "");
+      articles.push({
+        id,
+        frontmatter: {
+          title: id,
+          date: "\u672A\u53D1\u5E03",
+          category: "\u672A\u5206\u7C7B",
+          tags: [],
+          description: "\u89E3\u6790\u5931\u8D25\uFF08\u683C\u5F0F\u9519\u8BEF\uFF09"
+        },
+        path: `/${id}`
+      });
+    }
+  }
+  return articles.sort((a, b) => {
+    const dateA = a.frontmatter.date === "\u672A\u53D1\u5E03" ? /* @__PURE__ */ new Date(0) : new Date(a.frontmatter.date);
+    const dateB = b.frontmatter.date === "\u672A\u53D1\u5E03" ? /* @__PURE__ */ new Date(0) : new Date(b.frontmatter.date);
+    return dateB.getTime() - dateA.getTime();
+  });
+};
+
 const warnOnceSet = /* @__PURE__ */ new Set();
 const DEFAULT_ENDPOINT = "https://api.iconify.design";
 const _woxXNo = defineCachedEventHandler(async (event) => {
@@ -2331,14 +2473,22 @@ const _woxXNo = defineCachedEventHandler(async (event) => {
   // 1 week
 });
 
+const _lazy_3QEHK6 = () => Promise.resolve().then(function () { return archives$1; });
 const _lazy_VC8XV2 = () => Promise.resolve().then(function () { return _id_$1; });
+const _lazy_qPqm8Z = () => Promise.resolve().then(function () { return filter$1; });
 const _lazy_ihvkrF = () => Promise.resolve().then(function () { return articles$1; });
+const _lazy_39yEXt = () => Promise.resolve().then(function () { return categories$1; });
+const _lazy_cGTLZZ = () => Promise.resolve().then(function () { return tags$1; });
 const _lazy_jN5tLD = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '', handler: _DSquQr, lazy: false, middleware: true, method: undefined },
+  { route: '/api/archives', handler: _lazy_3QEHK6, lazy: true, middleware: false, method: undefined },
   { route: '/api/article/:id', handler: _lazy_VC8XV2, lazy: true, middleware: false, method: undefined },
+  { route: '/api/article/filter', handler: _lazy_qPqm8Z, lazy: true, middleware: false, method: undefined },
   { route: '/api/articles', handler: _lazy_ihvkrF, lazy: true, middleware: false, method: undefined },
+  { route: '/api/categories', handler: _lazy_39yEXt, lazy: true, middleware: false, method: undefined },
+  { route: '/api/tags', handler: _lazy_cGTLZZ, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_jN5tLD, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/api/_nuxt_icon/:collection', handler: _woxXNo, lazy: false, middleware: false, method: undefined },
@@ -2604,6 +2754,36 @@ const styles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: styles
 }, Symbol.toStringTag, { value: 'Module' }));
 
+const archives = eventHandler$1(async () => {
+  const articles = await getAllArticlesMeta();
+  const archiveMap = {};
+  articles.forEach((article) => {
+    const dateStr = article.frontmatter.date;
+    if (dateStr === "\u672A\u53D1\u5E03") return;
+    const date = new Date(dateStr);
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const monthName = `${date.getMonth() + 1}\u6708`;
+    const key = `${year}-${month}`;
+    if (!archiveMap[key]) {
+      archiveMap[key] = { year, month, monthName, articles: [] };
+    }
+    archiveMap[key].articles.push(article);
+  });
+  const archives = Object.values(archiveMap).sort((a, b) => {
+    return `${b.year}${b.month}`.localeCompare(`${a.year}${a.month}`);
+  });
+  return {
+    code: 200,
+    data: archives
+  };
+});
+
+const archives$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: archives
+}, Symbol.toStringTag, { value: 'Module' }));
+
 const _id_ = eventHandler$1(async (event) => {
   var _a;
   const params = Object.assign({}, event.context.params);
@@ -2642,26 +2822,41 @@ const _id_$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: _id_
 }, Symbol.toStringTag, { value: 'Module' }));
 
+const filter = eventHandler$1(async (event) => {
+  const query = getQuery$2(event);
+  const tag = query.tag;
+  const category = query.category;
+  const year = query.year;
+  const month = query.month;
+  let articles = await getAllArticlesMeta();
+  if (tag) {
+    articles = articles.filter((article) => article.frontmatter.tags.includes(tag));
+  }
+  if (category) {
+    articles = articles.filter((article) => article.frontmatter.category === category);
+  }
+  if (year && month) {
+    articles = articles.filter((article) => {
+      const dateStr = article.frontmatter.date;
+      if (dateStr === "\u672A\u53D1\u5E03") return false;
+      const date = new Date(dateStr);
+      return date.getFullYear().toString() === year && (date.getMonth() + 1).toString().padStart(2, "0") === month;
+    });
+  }
+  return {
+    code: 200,
+    data: articles
+  };
+});
+
+const filter$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: filter
+}, Symbol.toStringTag, { value: 'Module' }));
+
 const articles = eventHandler$1(async () => {
   try {
-    const contentDir = path.resolve(process.cwd(), "public", "content");
-    const files = await fs.readdir(contentDir);
-    const articleIds = files.filter((file) => file.endsWith(".md")).map((file) => file.replace(".md", ""));
-    const articles = [];
-    for (const id of articleIds) {
-      const filePath = path.resolve(contentDir, `${id}.md`);
-      const content = await fs.readFile(filePath, "utf-8");
-      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-      const frontmatter = frontmatterMatch ? Object.fromEntries(
-        frontmatterMatch[1].split("\n").filter((line) => line).map((line) => line.split(": ").map((part) => part.trim()))
-      ) : { title: id, date: "\u672A\u53D1\u5E03", tags: [], description: "\u6682\u65E0\u7B80\u4ECB" };
-      articles.push({
-        id,
-        frontmatter,
-        path: `/${id}`
-        // 前端跳转路径，对应 pages/[id].vue
-      });
-    }
+    const articles = await getAllArticlesMeta();
     return {
       code: 200,
       data: articles,
@@ -2679,6 +2874,50 @@ const articles = eventHandler$1(async () => {
 const articles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: articles
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const categories = eventHandler$1(async () => {
+  const articles = await getAllArticlesMeta();
+  const categoryMap = {};
+  articles.forEach((article) => {
+    categoryMap[article.frontmatter.category] = (categoryMap[article.frontmatter.category] || 0) + 1;
+  });
+  const categories = Object.entries(categoryMap).map(([name, count]) => ({
+    name,
+    count
+  })).sort((a, b) => b.count - a.count);
+  return {
+    code: 200,
+    data: categories
+  };
+});
+
+const categories$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: categories
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const tags = eventHandler$1(async () => {
+  const articles = await getAllArticlesMeta();
+  const tagMap = {};
+  articles.forEach((article) => {
+    article.frontmatter.tags.forEach((tag) => {
+      tagMap[tag] = (tagMap[tag] || 0) + 1;
+    });
+  });
+  const tags = Object.entries(tagMap).map(([name, count]) => ({
+    name,
+    count
+  })).sort((a, b) => b.count - a.count);
+  return {
+    code: 200,
+    data: tags
+  };
+});
+
+const tags$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: tags
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {

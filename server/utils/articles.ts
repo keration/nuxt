@@ -3,9 +3,8 @@ import fs from "fs/promises";
 import path from "path";
 import { useMarkdown } from "~/composables/useMarkdown";
 
-// 定义文章基础类型（兼容你现有返回结构）
 export interface ArticleMeta {
-  id: string; // 文章文件名（唯一标识）
+  id: string;
   frontmatter: {
     title: string;
     date: string;
@@ -14,15 +13,30 @@ export interface ArticleMeta {
     tags: string[];
     description?: string;
   };
-  path: string; // 前端跳转路径（如 /nuxt4-guide）
+  path: string;
 }
 
-// 获取所有文章的元信息（适配你的 public/content 路径）
+// 项目根路径（替换为你的实际路径）
+const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
+
 export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
-  // ❶ 改为你的文章路径：public/content
-  const articlesDir = path.resolve(process.cwd(), "public", "content");
+  const articlesDir = path.join(PROJECT_ROOT, "public", "content");
+
+  // 检查目录是否存在
+  try {
+    await fs.access(articlesDir);
+  } catch {
+    console.error("❌ 文章目录不存在：", articlesDir);
+    return [];
+  }
+
   const files = await fs.readdir(articlesDir);
   const markdownFiles = files.filter((file) => file.endsWith(".md"));
+
+  if (markdownFiles.length === 0) {
+    console.warn("⚠️ content目录下无.md文件");
+    return [];
+  }
 
   const articles: ArticleMeta[] = [];
   for (const file of markdownFiles) {
@@ -31,10 +45,9 @@ export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
       const filePath = path.join(articlesDir, file);
       const content = await fs.readFile(filePath, "utf-8");
 
-      // ❷ 复用你的 useMarkdown 解析 frontmatter（更健壮）
+      // 调用修复后的useMarkdown
       const { frontmatter } = await useMarkdown(content);
 
-      // ❸ 兜底处理（兼容你的现有逻辑）
       articles.push({
         id,
         frontmatter: {
@@ -45,10 +58,23 @@ export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
           tags: frontmatter.tags || [],
           description: frontmatter.description || "暂无简介",
         },
-        path: `/${id}`, // 保持和你现有接口一致的路径
+        path: `/${id}`,
       });
-    } catch (err) {
-      console.warn(`解析文章 ${file} 失败：`, err);
+    } catch (err: any) {
+      console.warn(`⚠️ 解析文章 ${file} 失败：`, err.message);
+      // 容错：即使解析失败，也添加基础数据，避免接口空返回
+      const id = file.replace(".md", "");
+      articles.push({
+        id,
+        frontmatter: {
+          title: id,
+          date: "未发布",
+          category: "未分类",
+          tags: [],
+          description: "解析失败（格式错误）",
+        },
+        path: `/${id}`,
+      });
     }
   }
 
