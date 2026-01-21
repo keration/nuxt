@@ -210,6 +210,9 @@
 <script setup lang="ts">
 import { useMarkdown } from '~/composables/useMarkdown';
 import type { MarkdownParsedResult } from '~/composables/useMarkdown';
+import type { ApiResponse } from '~/types/api';
+import type { ArticleMeta } from '~/server/utils/articles'; 
+
 
 // 类型定义
 interface TocItem {
@@ -284,11 +287,11 @@ const fetchArticle = async () => {
     // 这里兼容两种接口：/api/article/${id} 或 /api/articles（返回列表后筛选）
     let articleData = null;
     // 方式1：单篇文章接口（原逻辑）
-    const { data } = await useFetch(`/api/article/${articleId}`);
+    const { data } = await useFetch<ApiResponse<{content:string}>>(`/api/article/${articleId}`);
     
     if (!data.value || (data.value as any).code !== 200) {
       // 方式2：备用 - 从文章列表接口筛选
-      const { data: listData } = await useFetch(`/api/articles`);
+      const { data: listData } = await useFetch<ApiResponse<ArticleMeta[]>>(`/api/articles`);
       if (listData.value?.code === 200) {
         const article = listData.value.data.find((item: any) => item.id === articleId);
         if (article) {

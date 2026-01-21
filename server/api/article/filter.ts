@@ -1,6 +1,7 @@
 // server/api/articles/filter.ts
 import { eventHandler, getQuery } from "h3";
-import { getAllArticlesMeta, ArticleMeta } from "~/server/utils/articles";
+import { getAllArticlesMeta } from "~/server/utils/articles";
+import type { ArticleMeta } from "~/server/utils/articles"; // 类型 → import type
 
 export default eventHandler(async (event) => {
   const query = getQuery(event);
