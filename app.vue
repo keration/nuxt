@@ -98,15 +98,6 @@ watch(isDark, (newVal) => {
 </script>
 
 <style>
-/* 全局样式重置 + 现代排版规范 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  /* 更现代的字体栈 + 舒适行高 */
-  font-family: "Inter", "Alibaba PuHuiTi 2.0", system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-  line-height: 1.6;
-}
 
 /* 基础页面样式（优化配色+过渡） */
 .min-h-screen {
@@ -161,23 +152,6 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   0%, 100% { transform: rotate(0deg); }
   25% { transform: rotate(-3deg); }
   75% { transform: rotate(3deg); }
-}
-
-/* 响应式适配（移动端优化） */
-@media (max-width: 768px) {
-  /* 移动端按钮缩小+位置调整 */
-  [aria-label="切换暗黑模式"] {
-    top: 4px !important;
-    right: 4px !important;
-  }
-  [aria-label="切换暗黑模式"] span {
-    padding: 1.5px 8px !important;
-    font-size: 12px !important;
-  }
-  /* 移动端页脚间距优化 */
-  footer {
-    padding: 4px 0 !important;
-  }
 }
 
 /* 全局链接样式（统一+现代） */

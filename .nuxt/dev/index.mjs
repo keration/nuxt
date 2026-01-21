@@ -1,11 +1,12 @@
 import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { tmpdir } from 'node:os';
 import { Server } from 'node:http';
-import { resolve, dirname, join } from 'node:path';
+import path, { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
 import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createError, getQuery as getQuery$1, readBody, getResponseStatus, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getResponseStatusText } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@1.15.5/node_modules/h3/dist/index.mjs';
 import { escapeHtml } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@vue+shared@3.5.26/node_modules/@vue/shared/dist/shared.cjs.js';
 import { getRequestURL as getRequestURL$1, eventHandler as eventHandler$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3/dist/_entries/node.mjs';
+import fs, { readFile } from 'node:fs/promises';
 import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/vue-bundle-renderer@2.2.0/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, joinRelativeURL } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/ufo@1.6.3/node_modules/ufo/dist/index.mjs';
 import destr, { destr as destr$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/destr@2.0.5/node_modules/destr/dist/index.mjs';
@@ -24,7 +25,6 @@ import { createStorage, prefixStorage } from 'file://C:/Users/admin/Desktop/nuxt
 import unstorage_47drivers_47fs from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/unstorage@1.17.4_db0@0.3.4__0ba8e1e42d7904aded0dac519710669d/node_modules/unstorage/drivers/fs.mjs';
 import { digest, hash as hash$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/ohash@2.0.11/node_modules/ohash/dist/index.mjs';
 import { toRouteMatcher, createRouter } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/radix3@1.1.2/node_modules/radix3/dist/index.mjs';
-import { readFile } from 'node:fs/promises';
 import consola, { consola as consola$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/index.mjs';
 import { ErrorParser } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/youch-core@0.3.3/node_modules/youch-core/build/index.js';
 import { Youch } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/youch@4.1.0-beta.13/node_modules/youch/build/index.js';
@@ -1773,16 +1773,16 @@ _93Dmfyl3mVJsxqA_0MvmlrmNkdKPFubPvKNmMi44mkU
 const assets = {
   "/index.mjs": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"17b56-m1rAEYagQeKuqhIEC0Hi3D3CD4M\"",
-    "mtime": "2026-01-20T03:21:03.897Z",
-    "size": 97110,
+    "etag": "\"17fb2-yKOLPsuJ/SneZgvQ7pKz1dZhqX4\"",
+    "mtime": "2026-01-20T05:35:59.191Z",
+    "size": 98226,
     "path": "index.mjs"
   },
   "/index.mjs.map": {
     "type": "application/json",
-    "etag": "\"552c7-cVumEnSyB+NfaSH7ZSx0VCa+gA0\"",
-    "mtime": "2026-01-20T03:21:03.897Z",
-    "size": 348871,
+    "etag": "\"5594f-Lb0PAbVoClmvEceY+W1pGisVJEg\"",
+    "mtime": "2026-01-20T05:35:59.191Z",
+    "size": 350543,
     "path": "index.mjs.map"
   }
 };
@@ -2332,11 +2332,13 @@ const _woxXNo = defineCachedEventHandler(async (event) => {
 });
 
 const _lazy_VC8XV2 = () => Promise.resolve().then(function () { return _id_$1; });
+const _lazy_ihvkrF = () => Promise.resolve().then(function () { return articles$1; });
 const _lazy_jN5tLD = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '', handler: _DSquQr, lazy: false, middleware: true, method: undefined },
   { route: '/api/article/:id', handler: _lazy_VC8XV2, lazy: true, middleware: false, method: undefined },
+  { route: '/api/articles', handler: _lazy_ihvkrF, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_jN5tLD, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/api/_nuxt_icon/:collection', handler: _woxXNo, lazy: false, middleware: false, method: undefined },
@@ -2603,15 +2605,21 @@ const styles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const _id_ = eventHandler$1(async (event) => {
-  const params = event.context.params || {};
-  const id = params == null ? void 0 : params.id;
+  var _a;
+  const params = Object.assign({}, event.context.params);
+  const id = ((_a = params.id) == null ? void 0 : _a.trim()) || "";
   if (!id) {
     return { code: 400, message: "\u7F3A\u5C11\u6587\u7AE0ID" };
   }
   try {
     const fs = await import('node:fs/promises');
     const path = await import('node:path');
-    const filePath = path.join(process.cwd(), "public/content", `${id}.md`);
+    const rootDir = process.cwd();
+    const contentDir = path.resolve(rootDir, "public", "content");
+    const filePath = path.resolve(contentDir, `${id}.md`);
+    console.log("Nuxt4 \u9879\u76EE\u6839\u76EE\u5F55\uFF1A", rootDir);
+    console.log("\u76EE\u6807\u6587\u4EF6\u8DEF\u5F84\uFF1A", filePath);
+    console.log("content \u76EE\u5F55\u4E0B\u7684\u6587\u4EF6\uFF1A", await fs.readdir(contentDir));
     try {
       await fs.access(filePath);
     } catch {
@@ -2620,7 +2628,7 @@ const _id_ = eventHandler$1(async (event) => {
     const mdContent = await fs.readFile(filePath, "utf-8");
     return {
       code: 200,
-      data: { content: mdContent },
+      data: { content: mdContent, id },
       message: "\u83B7\u53D6\u6587\u7AE0\u6210\u529F"
     };
   } catch (err) {
@@ -2632,6 +2640,45 @@ const _id_ = eventHandler$1(async (event) => {
 const _id_$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: _id_
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const articles = eventHandler$1(async () => {
+  try {
+    const contentDir = path.resolve(process.cwd(), "public", "content");
+    const files = await fs.readdir(contentDir);
+    const articleIds = files.filter((file) => file.endsWith(".md")).map((file) => file.replace(".md", ""));
+    const articles = [];
+    for (const id of articleIds) {
+      const filePath = path.resolve(contentDir, `${id}.md`);
+      const content = await fs.readFile(filePath, "utf-8");
+      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+      const frontmatter = frontmatterMatch ? Object.fromEntries(
+        frontmatterMatch[1].split("\n").filter((line) => line).map((line) => line.split(": ").map((part) => part.trim()))
+      ) : { title: id, date: "\u672A\u53D1\u5E03", tags: [], description: "\u6682\u65E0\u7B80\u4ECB" };
+      articles.push({
+        id,
+        frontmatter,
+        path: `/${id}`
+        // 前端跳转路径，对应 pages/[id].vue
+      });
+    }
+    return {
+      code: 200,
+      data: articles,
+      message: "\u83B7\u53D6\u6587\u7AE0\u5217\u8868\u6210\u529F"
+    };
+  } catch (err) {
+    console.error("\u83B7\u53D6\u6587\u7AE0\u5217\u8868\u5931\u8D25\uFF1A", err);
+    return {
+      code: 500,
+      message: `\u83B7\u53D6\u5217\u8868\u5931\u8D25\uFF1A${err.message}`
+    };
+  }
+});
+
+const articles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: articles
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {
