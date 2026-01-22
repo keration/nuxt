@@ -1772,7 +1772,22 @@ _OjGx467j_yVFfD32ZxB5ityRlAybIo1nxh4Tsers5k,
 _93Dmfyl3mVJsxqA_0MvmlrmNkdKPFubPvKNmMi44mkU
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1a994-4+fFfWHeUR+g/NBTASGb8bm1rXI\"",
+    "mtime": "2026-01-22T01:57:35.894Z",
+    "size": 108948,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"5e774-wWu9l7dUAPugDbVYHptKNThavHE\"",
+    "mtime": "2026-01-22T01:57:35.894Z",
+    "size": 386932,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -2358,7 +2373,7 @@ const useMarkdown = async (markdown) => {
 
 const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
 const getAllArticlesMeta = async () => {
-  const articlesDir = path.join(PROJECT_ROOT, "public", "content");
+  const articlesDir = path.join(PROJECT_ROOT, "content", "articles");
   try {
     await fs.access(articlesDir);
   } catch {
@@ -2795,7 +2810,7 @@ const _id_ = eventHandler$1(async (event) => {
     const fs = await import('node:fs/promises');
     const path = await import('node:path');
     const rootDir = process.cwd();
-    const contentDir = path.resolve(rootDir, "public", "content");
+    const contentDir = path.resolve(rootDir, "content", "articles");
     const filePath = path.resolve(contentDir, `${id}.md`);
     console.log("Nuxt4 \u9879\u76EE\u6839\u76EE\u5F55\uFF1A", rootDir);
     console.log("\u76EE\u6807\u6587\u4EF6\u8DEF\u5F84\uFF1A", filePath);

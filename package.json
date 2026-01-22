@@ -13,6 +13,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.28.0",
   "dependencies": {
+    "@nuxt/content": "^3.11.0",
+    "better-sqlite3": "^12.6.2",
     "h3": "2.0.1-rc.8",
     "nuxt": "4.2.2"
   },

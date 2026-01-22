@@ -17,7 +17,7 @@ export default eventHandler(async (event: H3Event) => {
 
     // Nuxt4 路径拼接：用 path.resolve 确保绝对路径稳定
     const rootDir = process.cwd();
-    const contentDir = path.resolve(rootDir, "public", "content");
+    const contentDir = path.resolve(rootDir, "content", "articles");
     const filePath = path.resolve(contentDir, `${id}.md`);
 
     // 【排查关键】打印路径和目录文件

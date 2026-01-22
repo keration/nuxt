@@ -20,7 +20,7 @@ export interface ArticleMeta {
 const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
 
 export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
-  const articlesDir = path.join(PROJECT_ROOT, "public", "content");
+  const articlesDir = path.join(PROJECT_ROOT, "content", "articles");
 
   // 检查目录是否存在
   try {
