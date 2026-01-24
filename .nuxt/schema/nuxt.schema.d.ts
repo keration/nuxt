@@ -134,7 +134,7 @@ export interface NuxtCustomSchema {
     * 
     * @studioIcon material-symbols:cloud
    */
-   provider?: "server" | "iconify" | "none" | undefined,
+   provider?: "server" | "iconify" | undefined,
 
    /**
     * Iconify API Endpoint URL

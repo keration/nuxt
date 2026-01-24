@@ -154,10 +154,8 @@ export default {
     },
     "disabled": {
       "true": {
-        "item": "opacity-75",
-        "base": "cursor-not-allowed",
-        "label": "cursor-not-allowed",
-        "description": "cursor-not-allowed"
+        "base": "cursor-not-allowed opacity-75",
+        "label": "cursor-not-allowed opacity-75"
       }
     },
     "required": {
@@ -338,7 +336,7 @@ export default {
       ],
       "disabled": true,
       "class": {
-        "item": "cursor-not-allowed"
+        "item": "cursor-not-allowed opacity-75"
       }
     }
   ],

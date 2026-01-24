@@ -22,7 +22,7 @@ const size = [
 ] as const
 
 export default {
-  "base": "inline-flex items-center justify-center px-1 rounded-sm font-medium font-sans uppercase",
+  "base": "inline-flex items-center justify-center px-1 rounded-sm font-medium font-sans",
   "variants": {
     "color": {
       "primary": "",

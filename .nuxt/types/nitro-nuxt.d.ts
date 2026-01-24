@@ -1,7 +1,7 @@
 
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference types="C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_e72f7e60f03be106008d8a3766706cc6/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_070b0fac6bd54ce9eae3661f9dcb8d6f/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference path="nitro-middleware.d.ts" />
 
 import type { RuntimeConfig } from 'nuxt/schema'

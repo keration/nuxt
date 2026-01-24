@@ -39,7 +39,7 @@ export default {
     "trailingIcon": "shrink-0 text-dimmed"
   },
   "variants": {
-    "fieldGroup": {
+    "buttonGroup": {
       "horizontal": {
         "root": "group has-focus-visible:z-[1]",
         "base": "group-not-only:group-first:rounded-e-none group-not-only:group-last:rounded-s-none group-not-last:group-not-first:rounded-none"

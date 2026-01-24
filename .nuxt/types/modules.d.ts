@@ -74,7 +74,7 @@ declare module 'nuxt/schema' {
     ["colorMode"]: typeof import("@nuxtjs/color-mode").default extends NuxtModule<infer O, unknown, boolean> ? O : Record<string, any>
     /**
      * Configuration for `@nuxt/ui`
-     * @see https://ui.nuxt.com/docs/getting-started/installation/nuxt
+     * @see https://ui3.nuxt.com/getting-started/installation/nuxt
      */
     ["ui"]: typeof import("@nuxt/ui").default extends NuxtModule<infer O, unknown, boolean> ? O : Record<string, any>
     /**
@@ -101,7 +101,7 @@ declare module 'nuxt/schema' {
     ["colorMode"]?: typeof import("@nuxtjs/color-mode").default extends NuxtModule<infer O, unknown, boolean> ? Partial<O> : Record<string, any>
     /**
      * Configuration for `@nuxt/ui`
-     * @see https://ui.nuxt.com/docs/getting-started/installation/nuxt
+     * @see https://ui3.nuxt.com/getting-started/installation/nuxt
      */
     ["ui"]?: typeof import("@nuxt/ui").default extends NuxtModule<infer O, unknown, boolean> ? Partial<O> : Record<string, any>
     /**

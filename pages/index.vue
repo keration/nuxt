@@ -161,16 +161,19 @@ const toggleDarkMode = () => {
   localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
 };
 
-// 加载文章
+/**
+ * 加载文章列表
+ * @returns {Promise<void>} 无返回值
+ */
 const refreshArticles = async () => {
   loading.value = true;
   error.value = null;
   try {
-    const { data } = await useFetch("/api/articles");
-    if (!data.value || data.value.code !== 200) {
-      throw new Error(data.value?.message || "获取文章失败");
+    const response = await $fetch("/api/articles");
+    if (!response || response.code !== 200) {
+      throw new Error(response?.message || "获取文章失败");
     }
-    articles.value = data.value.data || [];
+    articles.value = response.data || [];
   } catch (err) {
     error.value = err;
   } finally {

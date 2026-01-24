@@ -43,13 +43,13 @@ export default {
       "max-h-60 w-(--reka-select-trigger-width) bg-default shadow-lg rounded-md ring ring-default overflow-hidden data-[state=open]:animate-[scale-in_100ms_ease-out] data-[state=closed]:animate-[scale-out_100ms_ease-in] origin-(--reka-select-content-transform-origin) pointer-events-auto flex flex-col",
       "origin-(--reka-combobox-content-transform-origin) w-(--reka-combobox-trigger-width)"
     ],
-    "viewport": "relative scroll-py-1 overflow-y-auto flex-1",
+    "viewport": "relative divide-y divide-default scroll-py-1 overflow-y-auto flex-1",
     "group": "p-1 isolate",
     "empty": "text-center text-muted",
     "label": "font-semibold text-highlighted",
     "separator": "-mx-1 my-1 h-px bg-border",
     "item": [
-      "group relative w-full flex items-start select-none outline-none before:absolute before:z-[-1] before:inset-px before:rounded-md data-disabled:cursor-not-allowed data-disabled:opacity-75 text-default data-highlighted:not-data-disabled:text-highlighted data-highlighted:not-data-disabled:before:bg-elevated/50",
+      "group relative w-full flex items-center select-none outline-none before:absolute before:z-[-1] before:inset-px before:rounded-md data-disabled:cursor-not-allowed data-disabled:opacity-75 text-default data-highlighted:not-data-disabled:text-highlighted data-highlighted:not-data-disabled:before:bg-elevated/50",
       "transition-colors before:transition-colors"
     ],
     "itemLeadingIcon": [
@@ -62,14 +62,12 @@ export default {
     "itemLeadingChipSize": "",
     "itemTrailing": "ms-auto inline-flex gap-1.5 items-center",
     "itemTrailingIcon": "shrink-0",
-    "itemWrapper": "flex-1 flex flex-col min-w-0",
     "itemLabel": "truncate",
-    "itemDescription": "truncate text-muted",
     "input": "border-b border-default",
     "focusScope": "flex flex-col min-h-0"
   },
   "variants": {
-    "fieldGroup": {
+    "buttonGroup": {
       "horizontal": "not-only:first:rounded-e-none not-only:last:rounded-s-none not-last:not-first:rounded-none focus-visible:z-[1]",
       "vertical": "not-only:first:rounded-b-none not-only:last:rounded-t-none not-last:not-first:rounded-none focus-visible:z-[1]"
     },
@@ -185,14 +183,6 @@ export default {
     },
     "type": {
       "file": "file:me-1.5 file:font-medium file:text-muted file:outline-none"
-    },
-    "virtualize": {
-      "true": {
-        "viewport": "p-1 isolate"
-      },
-      "false": {
-        "viewport": "divide-y divide-default"
-      }
     }
   },
   "compoundVariants": [

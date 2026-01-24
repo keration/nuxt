@@ -40,7 +40,7 @@ export default {
     "decrement": "absolute flex items-center"
   },
   "variants": {
-    "fieldGroup": {
+    "buttonGroup": {
       "horizontal": {
         "root": "group has-focus-visible:z-[1]",
         "base": "group-not-only:group-first:rounded-e-none group-not-only:group-last:rounded-s-none group-not-last:group-not-first:rounded-none"
@@ -92,12 +92,6 @@ export default {
     },
     "highlight": {
       "true": ""
-    },
-    "increment": {
-      "false": ""
-    },
-    "decrement": {
-      "false": ""
     }
   },
   "compoundVariants": [
@@ -194,56 +188,51 @@ export default {
     },
     {
       "orientation": "horizontal" as typeof orientation[number],
-      "decrement": false,
-      "class": "text-start"
-    },
-    {
-      "decrement": true,
       "size": "xs" as typeof size[number],
-      "class": "ps-7"
+      "class": "px-7"
     },
     {
-      "decrement": true,
+      "orientation": "horizontal" as typeof orientation[number],
       "size": "sm" as typeof size[number],
-      "class": "ps-8"
+      "class": "px-8"
     },
     {
-      "decrement": true,
+      "orientation": "horizontal" as typeof orientation[number],
       "size": "md" as typeof size[number],
-      "class": "ps-9"
+      "class": "px-9"
     },
     {
-      "decrement": true,
+      "orientation": "horizontal" as typeof orientation[number],
       "size": "lg" as typeof size[number],
-      "class": "ps-10"
+      "class": "px-10"
     },
     {
-      "decrement": true,
+      "orientation": "horizontal" as typeof orientation[number],
       "size": "xl" as typeof size[number],
-      "class": "ps-11"
+      "class": "px-11"
     },
     {
-      "increment": true,
+      "orientation": "vertical" as typeof orientation[number],
       "size": "xs" as typeof size[number],
       "class": "pe-7"
     },
     {
-      "increment": true,
+      "orientation": "vertical" as typeof orientation[number],
       "size": "sm" as typeof size[number],
       "class": "pe-8"
     },
     {
-      "increment": true,
+      "orientation": "vertical" as typeof orientation[number],
       "size": "md" as typeof size[number],
       "class": "pe-9"
     },
     {
-      "increment": true,
+      "orientation": "vertical" as typeof orientation[number],
       "size": "lg" as typeof size[number],
       "class": "pe-10"
     },
     {
-      "increment": true,
+      "orientation": "vertical" as typeof orientation[number],
       "size": "xl" as typeof size[number],
       "class": "pe-11"
     }

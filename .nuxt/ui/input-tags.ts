@@ -50,7 +50,7 @@ export default {
     "input": "flex-1 border-0 bg-transparent placeholder:text-dimmed focus:outline-none disabled:cursor-not-allowed disabled:opacity-75"
   },
   "variants": {
-    "fieldGroup": {
+    "buttonGroup": {
       "horizontal": {
         "root": "group has-focus-visible:z-[1]",
         "base": "group-not-only:group-first:rounded-e-none group-not-only:group-last:rounded-s-none group-not-last:group-not-first:rounded-none"

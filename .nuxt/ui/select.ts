@@ -46,7 +46,7 @@ export default {
     "label": "font-semibold text-highlighted",
     "separator": "-mx-1 my-1 h-px bg-border",
     "item": [
-      "group relative w-full flex items-start select-none outline-none before:absolute before:z-[-1] before:inset-px before:rounded-md data-disabled:cursor-not-allowed data-disabled:opacity-75 text-default data-highlighted:not-data-disabled:text-highlighted data-highlighted:not-data-disabled:before:bg-elevated/50",
+      "group relative w-full flex items-center select-none outline-none before:absolute before:z-[-1] before:inset-px before:rounded-md data-disabled:cursor-not-allowed data-disabled:opacity-75 text-default data-highlighted:not-data-disabled:text-highlighted data-highlighted:not-data-disabled:before:bg-elevated/50",
       "transition-colors before:transition-colors"
     ],
     "itemLeadingIcon": [
@@ -59,12 +59,10 @@ export default {
     "itemLeadingChipSize": "",
     "itemTrailing": "ms-auto inline-flex gap-1.5 items-center",
     "itemTrailingIcon": "shrink-0",
-    "itemWrapper": "flex-1 flex flex-col min-w-0",
-    "itemLabel": "truncate",
-    "itemDescription": "truncate text-muted"
+    "itemLabel": "truncate"
   },
   "variants": {
-    "fieldGroup": {
+    "buttonGroup": {
       "horizontal": "not-only:first:rounded-e-none not-only:last:rounded-s-none not-last:not-first:rounded-none focus-visible:z-[1]",
       "vertical": "not-only:first:rounded-b-none not-only:last:rounded-t-none not-last:not-first:rounded-none focus-visible:z-[1]"
     },

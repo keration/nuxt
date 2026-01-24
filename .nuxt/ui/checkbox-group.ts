@@ -85,9 +85,6 @@ export default {
       "true": {
         "legend": "after:content-['*'] after:ms-0.5 after:text-error"
       }
-    },
-    "disabled": {
-      "true": {}
     }
   },
   "compoundVariants": [
@@ -195,7 +192,7 @@ export default {
       "variant": "table" as typeof variant[number],
       "disabled": true,
       "class": {
-        "item": "cursor-not-allowed"
+        "item": "cursor-not-allowed opacity-75"
       }
     }
   ],

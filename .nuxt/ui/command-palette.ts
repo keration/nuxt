@@ -6,11 +6,11 @@ export default {
     "back": "p-0",
     "content": "relative overflow-hidden flex flex-col",
     "footer": "p-1",
-    "viewport": "relative scroll-py-1 overflow-y-auto flex-1 focus:outline-none",
+    "viewport": "relative divide-y divide-default scroll-py-1 overflow-y-auto flex-1 focus:outline-none",
     "group": "p-1 isolate",
     "empty": "py-6 text-center text-sm text-muted",
     "label": "p-1.5 text-xs font-semibold text-highlighted",
-    "item": "group relative w-full flex items-start gap-1.5 p-1.5 text-sm select-none outline-none before:absolute before:z-[-1] before:inset-px before:rounded-md data-disabled:cursor-not-allowed data-disabled:opacity-75",
+    "item": "group relative w-full flex items-center gap-1.5 p-1.5 text-sm select-none outline-none before:absolute before:z-[-1] before:inset-px before:rounded-md data-disabled:cursor-not-allowed data-disabled:opacity-75",
     "itemLeadingIcon": "shrink-0 size-5",
     "itemLeadingAvatar": "shrink-0",
     "itemLeadingAvatarSize": "2xs",
@@ -21,22 +21,12 @@ export default {
     "itemTrailingHighlightedIcon": "shrink-0 size-5 text-dimmed hidden group-data-highlighted:inline-flex",
     "itemTrailingKbds": "hidden lg:inline-flex items-center shrink-0 gap-0.5",
     "itemTrailingKbdsSize": "md",
-    "itemWrapper": "flex-1 flex flex-col text-start min-w-0",
     "itemLabel": "truncate space-x-1 text-dimmed",
-    "itemDescription": "truncate text-muted",
     "itemLabelBase": "text-highlighted [&>mark]:text-inverted [&>mark]:bg-primary",
     "itemLabelPrefix": "text-default",
     "itemLabelSuffix": "text-dimmed [&>mark]:text-inverted [&>mark]:bg-primary"
   },
   "variants": {
-    "virtualize": {
-      "true": {
-        "viewport": "p-1 isolate"
-      },
-      "false": {
-        "viewport": "divide-y divide-default"
-      }
-    },
     "active": {
       "true": {
         "item": "text-highlighted before:bg-elevated",
