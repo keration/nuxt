@@ -1,4 +1,8 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import http from 'node:http';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import fs from 'fs/promises';
+import path from 'path';
+import { marked, Renderer } from 'marked';
+import hljs from 'highlight.js';
+import http from 'node:http';
 import https from 'node:https';
 import { EventEmitter } from 'node:events';
 import { Buffer as Buffer$1 } from 'node:buffer';
@@ -115,7 +119,7 @@ function decodeQueryValue(text) {
   return decode(text.replace(PLUS_RE, " "));
 }
 
-function parseQuery(parametersString = "") {
+function parseQuery$1(parametersString = "") {
   const object = /* @__PURE__ */ Object.create(null);
   if (parametersString[0] === "?") {
     parametersString = parametersString.slice(1);
@@ -222,12 +226,12 @@ function withoutBase(input, base) {
 }
 function withQuery(input, query) {
   const parsed = parseURL(input);
-  const mergedQuery = { ...parseQuery(parsed.search), ...query };
+  const mergedQuery = { ...parseQuery$1(parsed.search), ...query };
   parsed.search = stringifyQuery(mergedQuery);
   return stringifyParsedURL(parsed);
 }
-function getQuery$1(input) {
-  return parseQuery(parseURL(input).search);
+function getQuery$2(input) {
+  return parseQuery$1(parseURL(input).search);
 }
 function isEmptyURL(url) {
   return !url || url === "/";
@@ -675,7 +679,7 @@ class H3Error extends Error {
     return obj;
   }
 }
-function createError$1(input) {
+function createError$2(input) {
   if (typeof input === "string") {
     return new H3Error(input);
   }
@@ -733,7 +737,7 @@ function sendError(event, error, debug) {
   if (event.handled) {
     return;
   }
-  const h3Error = isError(error) ? error : createError$1(error);
+  const h3Error = isError(error) ? error : createError$2(error);
   const responseBody = {
     statusCode: h3Error.statusCode,
     statusMessage: h3Error.statusMessage,
@@ -755,8 +759,8 @@ function isError(input) {
   return input?.constructor?.__h3_error__ === true;
 }
 
-function getQuery(event) {
-  return getQuery$1(event.path || "");
+function getQuery$1(event) {
+  return getQuery$2(event.path || "");
 }
 function isMethod(event, expected, allowHead) {
   if (typeof expected === "string") {
@@ -770,7 +774,7 @@ function isMethod(event, expected, allowHead) {
 }
 function assertMethod(event, expected, allowHead) {
   if (!isMethod(event, expected)) {
-    throw createError$1({
+    throw createError$2({
       statusCode: 405,
       statusMessage: "HTTP method is not allowed."
     });
@@ -1255,7 +1259,7 @@ async function sendProxy(event, target, opts = {}) {
       ...opts.fetchOptions
     });
   } catch (error) {
-    throw createError$1({
+    throw createError$2({
       status: 502,
       statusMessage: "Bad Gateway",
       cause: error
@@ -1646,7 +1650,7 @@ function createAppEventHandler(stack, options) {
       }
     }
     if (!event.handled) {
-      throw createError$1({
+      throw createError$2({
         statusCode: 404,
         statusMessage: `Cannot find any path matching ${event.path || "/"}.`
       });
@@ -1723,7 +1727,7 @@ function handleHandlerResponse(event, val, jsonSpace) {
       });
     }
     if (val instanceof Error) {
-      throw createError$1(val);
+      throw createError$2(val);
     }
     if (typeof val.end === "function") {
       return true;
@@ -1739,7 +1743,7 @@ function handleHandlerResponse(event, val, jsonSpace) {
   if (valType === "bigint") {
     return send(event, val.toString(), MIMES.json);
   }
-  throw createError$1({
+  throw createError$2({
     statusCode: 500,
     statusMessage: `[h3] Cannot send ${valType} as response.`
   });
@@ -1808,7 +1812,7 @@ function createRouter(opts = {}) {
     const matched = _router.lookup(path);
     if (!matched || !matched.handlers) {
       return {
-        error: createError$1({
+        error: createError$2({
           statusCode: 404,
           name: "Not Found",
           statusMessage: `Cannot find any route matching ${path || "/"}.`
@@ -1836,7 +1840,7 @@ function createRouter(opts = {}) {
     }
     if (!handler) {
       return {
-        error: createError$1({
+        error: createError$2({
           statusCode: 405,
           name: "Method Not Allowed",
           statusMessage: `Method ${method} is not allowed on this route.`
@@ -1895,7 +1899,7 @@ function toNodeListener(app) {
     try {
       await app.handler(event);
     } catch (_error) {
-      const error = createError$1(_error);
+      const error = createError$2(_error);
       if (!isError(_error)) {
         error.unhandled = true;
       }
@@ -3119,21 +3123,21 @@ const assets$1 = {
 function defineDriver(factory) {
   return factory;
 }
-function createError(driver, message, opts) {
+function createError$1(driver, message, opts) {
   const err = new Error(`[unstorage] [${driver}] ${message}`, opts);
   if (Error.captureStackTrace) {
-    Error.captureStackTrace(err, createError);
+    Error.captureStackTrace(err, createError$1);
   }
   return err;
 }
 function createRequiredError(driver, name) {
   if (Array.isArray(name)) {
-    return createError(
+    return createError$1(
       driver,
       `Missing some of the required options ${name.map((n) => "`" + n + "`").join(", ")}`
     );
   }
-  return createError(driver, `Missing required option \`${name}\`.`);
+  return createError$1(driver, `Missing required option \`${name}\`.`);
 }
 
 function ignoreNotfound(err) {
@@ -3212,7 +3216,7 @@ const unstorage_47drivers_47fs_45lite = defineDriver((opts = {}) => {
   opts.base = resolve$1(opts.base);
   const r = (key) => {
     if (PATH_TRAVERSE_RE.test(key)) {
-      throw createError(
+      throw createError$1(
         DRIVER_NAME,
         `Invalid key: ${JSON.stringify(key)}. It should not contain .. segments`
       );
@@ -4287,7 +4291,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "dcfe5d8e-410d-45ea-a2eb-92ab1fce90d0",
+    "buildId": "be964212-79ac-4fef-96fa-8502f8cbb674",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -4388,7 +4392,7 @@ function createRouteRulesHandler(ctx) {
         }
         target = joinURL(target.slice(0, -3), targetPath);
       } else if (event.path.includes("?")) {
-        const query = getQuery$1(event.path);
+        const query = getQuery$2(event.path);
         target = withQuery(target, query);
       }
       return sendRedirect(event, target, routeRules.redirect.statusCode);
@@ -4403,7 +4407,7 @@ function createRouteRulesHandler(ctx) {
         }
         target = joinURL(target.slice(0, -3), targetPath);
       } else if (event.path.includes("?")) {
-        const query = getQuery$1(event.path);
+        const query = getQuery$2(event.path);
         target = withQuery(target, query);
       }
       return proxyRequest(event, target, {
@@ -4625,138 +4629,180 @@ const plugins = [
 ];
 
 const assets = {
-  "/content/hello-nuxt-blog.md": {
-    "type": "text/markdown; charset=utf-8",
-    "etag": "\"977-WJwER00apoLsPdaIApAauCFOue8\"",
-    "mtime": "2026-01-19T02:24:42.903Z",
-    "size": 2423,
-    "path": "../public/content/hello-nuxt-blog.md"
-  },
-  "/content/vue3实战.md": {
-    "type": "text/markdown; charset=utf-8",
-    "etag": "\"977-WJwER00apoLsPdaIApAauCFOue8\"",
-    "mtime": "2026-01-19T02:24:42.903Z",
-    "size": 2423,
-    "path": "../public/content/vue3实战.md"
-  },
-  "/_nuxt/-ZRJ9wsF.js": {
+  "/_nuxt/-3dAfoJh.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1e16-1xxXdUkCB2hiP9G4GKIYlThqw2Q\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
-    "size": 7702,
-    "path": "../public/_nuxt/-ZRJ9wsF.js"
+    "etag": "\"13f2-U7A8oZiJ0EQK9qAaGd9MEFr1004\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 5106,
+    "path": "../public/_nuxt/-3dAfoJh.js"
   },
-  "/_nuxt/A-QxSWxN.js": {
+  "/_nuxt/B1pr7hrK.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"786-XqDBx8bBIX60rydBP/MRu3gip3c\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
-    "size": 1926,
-    "path": "../public/_nuxt/A-QxSWxN.js"
+    "etag": "\"4fa-xlHZ1UbB4waLilhIsrY0mggMLIE\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 1274,
+    "path": "../public/_nuxt/B1pr7hrK.js"
   },
-  "/_nuxt/B1aJNtaA.js": {
+  "/_nuxt/B4DBBLV7.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"ee9-IkvOST0355zBCMLTgOu6oc8MfNE\"",
-    "mtime": "2026-01-20T02:06:11.176Z",
-    "size": 3817,
-    "path": "../public/_nuxt/B1aJNtaA.js"
+    "etag": "\"ee4-MU3ZjtdXHnC7T9LA2OXhYIVqF3g\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 3812,
+    "path": "../public/_nuxt/B4DBBLV7.js"
   },
-  "/_nuxt/BEFUSesG.js": {
+  "/_nuxt/BRGnDvwO.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"3774-nwYQSx6zeMjtxRxDCGE69/HDZqQ\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
-    "size": 14196,
-    "path": "../public/_nuxt/BEFUSesG.js"
+    "etag": "\"3778-jEKHq6EryzwQvwEk29aCymPreb0\"",
+    "mtime": "2026-01-24T03:52:43.376Z",
+    "size": 14200,
+    "path": "../public/_nuxt/BRGnDvwO.js"
   },
-  "/_nuxt/Bwwx_yg5.js": {
+  "/_nuxt/BziPWOLB.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"dab-iuSXuwoh+zl1iQQySbZ0pQDD+rQ\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
+    "etag": "\"66a-BfMAZ7Jy50M90P8RfLJHrd7bxcc\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 1642,
+    "path": "../public/_nuxt/BziPWOLB.js"
+  },
+  "/_nuxt/CvfQK_Be.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"dab-Fgx0wnjXPkMQWzEMxmIgh52TEDk\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
     "size": 3499,
-    "path": "../public/_nuxt/Bwwx_yg5.js"
+    "path": "../public/_nuxt/CvfQK_Be.js"
+  },
+  "/_nuxt/CXRSiFv1.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1e54-zkz/UP7meDtgkxUn+1sn414xITs\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 7764,
+    "path": "../public/_nuxt/CXRSiFv1.js"
+  },
+  "/_nuxt/CGgRb6Y2.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"32121-4IGwz+l/DEUgtE5QdbmYySMBt0Y\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 205089,
+    "path": "../public/_nuxt/CGgRb6Y2.js"
+  },
+  "/_nuxt/D9t3-2Zs.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"6c6-ma26pl735ysjNW/AztSl1iKmo4k\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 1734,
+    "path": "../public/_nuxt/D9t3-2Zs.js"
+  },
+  "/_nuxt/DdAgcwuw.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"686-+aymMWwwuv2LKPxwwCrgNbipmUA\"",
+    "mtime": "2026-01-24T03:52:43.376Z",
+    "size": 1670,
+    "path": "../public/_nuxt/DdAgcwuw.js"
   },
   "/_nuxt/DlAUqK2U.js": {
     "type": "text/javascript; charset=utf-8",
     "etag": "\"5b-eFCz/UrraTh721pgAl0VxBNR1es\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
+    "mtime": "2026-01-24T03:52:43.376Z",
     "size": 91,
     "path": "../public/_nuxt/DlAUqK2U.js"
   },
-  "/_nuxt/CyBey24l.js": {
+  "/_nuxt/D_TGpc8q.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"13ef-NOT5za+PfLn7XcLo1uGTGYPgSO0\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
-    "size": 5103,
-    "path": "../public/_nuxt/CyBey24l.js"
+    "etag": "\"1e16-2BrSDsodncrucEmqOnnU2XeG+F8\"",
+    "mtime": "2026-01-24T03:52:43.376Z",
+    "size": 7702,
+    "path": "../public/_nuxt/D_TGpc8q.js"
   },
-  "/_nuxt/DSMqInYk.js": {
+  "/_nuxt/DQfHUofF.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"69e-sFct8UukXd9jUQDhfY/mBoevQrM\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
-    "size": 1694,
-    "path": "../public/_nuxt/DSMqInYk.js"
+    "etag": "\"449-afy5hxbDea63yvXEp9fzz/GfweM\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 1097,
+    "path": "../public/_nuxt/DQfHUofF.js"
   },
-  "/_nuxt/entry.1C7d3TRy.css": {
+  "/_nuxt/entry.Cbkp7c5P.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"234-4+dJTbLhEUF6bQEC++siU1W1auY\"",
-    "mtime": "2026-01-20T02:06:11.175Z",
-    "size": 564,
-    "path": "../public/_nuxt/entry.1C7d3TRy.css"
+    "etag": "\"c60b-XZxLN8VTZSvGUM5gqBcGwpLXKhw\"",
+    "mtime": "2026-01-24T03:52:43.372Z",
+    "size": 50699,
+    "path": "../public/_nuxt/entry.Cbkp7c5P.css"
   },
-  "/_nuxt/error-404.B5vfCtXs.css": {
+  "/_nuxt/error-404.CAUqXwF3.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"97e-3hev3g6e9TVo9/J99XAyN9orJdM\"",
-    "mtime": "2026-01-20T02:06:11.177Z",
+    "etag": "\"97e-3ciHIkowPjpbXqmAB9Ho4kTWG6I\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
     "size": 2430,
-    "path": "../public/_nuxt/error-404.B5vfCtXs.css"
+    "path": "../public/_nuxt/error-404.CAUqXwF3.css"
   },
-  "/_nuxt/error-500.DQXLiTDH.css": {
+  "/_nuxt/error-500.DOOc0Xk1.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"773-7XPNpxX7GiRTRdNNiUHNEKqiwFI\"",
-    "mtime": "2026-01-20T02:06:11.176Z",
+    "etag": "\"773-ca9rGbQuTgWPBM60GqISKupG+Gg\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
     "size": 1907,
-    "path": "../public/_nuxt/error-500.DQXLiTDH.css"
+    "path": "../public/_nuxt/error-500.DOOc0Xk1.css"
   },
-  "/_nuxt/hello-nuxt-blog.Dw45FvYs.css": {
-    "type": "text/css; charset=utf-8",
-    "etag": "\"2a1-fQjVADgz2pcDhGSYf+IOSPZfAv0\"",
-    "mtime": "2026-01-20T02:06:11.177Z",
-    "size": 673,
-    "path": "../public/_nuxt/hello-nuxt-blog.Dw45FvYs.css"
+  "/_nuxt/gl0zOX76.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"66a-jAyxy9uzJp2jc5dHSJbMRJ4/5Go\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 1642,
+    "path": "../public/_nuxt/gl0zOX76.js"
   },
-  "/_nuxt/useMarkdown.BwHnHuli.css": {
+  "/_nuxt/FHBvIwaL.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"31e2-biYOT979AI5l8bmVLt79el/bQpw\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 12770,
+    "path": "../public/_nuxt/FHBvIwaL.js"
+  },
+  "/_nuxt/hello-nuxt-blog.DFt8QXkL.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"359-OupEZUT8lccid/a/RIUA2K137+k\"",
-    "mtime": "2026-01-20T02:06:11.177Z",
+    "etag": "\"273-U8B1tvqNHa0TzsaHZc2KgMT69OU\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 627,
+    "path": "../public/_nuxt/hello-nuxt-blog.DFt8QXkL.css"
+  },
+  "/_nuxt/index.8CKjCIzq.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"b1-l62lAwcMxBl8FAzzS2AnEaRL9KI\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 177,
+    "path": "../public/_nuxt/index.8CKjCIzq.css"
+  },
+  "/_nuxt/useMarkdown.COA1w9e3.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"359-xFGK6rB6Ustke/w+f1KehLgBcP4\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
     "size": 857,
-    "path": "../public/_nuxt/useMarkdown.BwHnHuli.css"
+    "path": "../public/_nuxt/useMarkdown.COA1w9e3.css"
   },
-  "/_nuxt/builds/meta/dcfe5d8e-410d-45ea-a2eb-92ab1fce90d0.json": {
-    "type": "application/json",
-    "etag": "\"8b-HdIWI/CEvWCECOjwTmvFhyeLJwo\"",
-    "mtime": "2026-01-20T02:06:11.272Z",
-    "size": 139,
-    "path": "../public/_nuxt/builds/meta/dcfe5d8e-410d-45ea-a2eb-92ab1fce90d0.json"
+  "/_nuxt/_id_.BaL2Gh_S.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"169-ULZzVV/qHceOXkLya7oG6Mhbou8\"",
+    "mtime": "2026-01-24T03:52:43.375Z",
+    "size": 361,
+    "path": "../public/_nuxt/_id_.BaL2Gh_S.css"
   },
   "/_nuxt/builds/latest.json": {
     "type": "application/json",
-    "etag": "\"47-f5hFD83c0ribMnl4RO0X845E9Zg\"",
-    "mtime": "2026-01-20T02:06:11.272Z",
+    "etag": "\"47-5PrYIIN1ZaZZlZ22sr2UHmeyVyk\"",
+    "mtime": "2026-01-24T03:52:43.492Z",
     "size": 71,
     "path": "../public/_nuxt/builds/latest.json"
   },
-  "/_nuxt/Dv9qHvZa.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"31cef-m5Z1vHHoufKBIs6ALgMje/3MJ+0\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
-    "size": 204015,
-    "path": "../public/_nuxt/Dv9qHvZa.js"
+  "/_nuxt/builds/meta/be964212-79ac-4fef-96fa-8502f8cbb674.json": {
+    "type": "application/json",
+    "etag": "\"8b-cf8ENo4K8qxfXuw4qLoN/N6G//Y\"",
+    "mtime": "2026-01-24T03:52:43.492Z",
+    "size": 139,
+    "path": "../public/_nuxt/builds/meta/be964212-79ac-4fef-96fa-8502f8cbb674.json"
   },
-  "/_nuxt/BInjgRxj.js": {
+  "/_nuxt/8YOxgAgS.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"f6978-9OMidVDcVZNB9CiWCT5EtfJWEBc\"",
-    "mtime": "2026-01-20T02:06:11.178Z",
-    "size": 1010040,
-    "path": "../public/_nuxt/BInjgRxj.js"
+    "etag": "\"f6deb-pvx11w9MeOYtIKaATFbnL+qQOtk\"",
+    "mtime": "2026-01-24T03:52:43.376Z",
+    "size": 1011179,
+    "path": "../public/_nuxt/8YOxgAgS.js"
   }
 };
 
@@ -4926,7 +4972,7 @@ const _DSquQr = eventHandler$1((event) => {
   if (!asset) {
     if (isPublicAssetURL(id)) {
       removeResponseHeader(event, "Cache-Control");
-      throw createError$1({ statusCode: 404 });
+      throw createError$2({ statusCode: 404 });
     }
     return;
   }
@@ -5279,6 +5325,75 @@ function isUnhandledResponse(val) {
 	return val === void 0 || val === kNotFound;
 }
 
+
+const plusRegex = /\+/g;
+function parseQuery(input) {
+	const params = new NullProtoObj();
+	if (!input || input === "?") return params;
+	const inputLength = input.length;
+	let key = "";
+	let value = "";
+	let startingIndex = -1;
+	let equalityIndex = -1;
+	let shouldDecodeKey = false;
+	let shouldDecodeValue = false;
+	let keyHasPlus = false;
+	let valueHasPlus = false;
+	let hasBothKeyValuePair = false;
+	let c = 0;
+	for (let i = 0; i < inputLength + 1; i++) {
+		c = i === inputLength ? 38 : input.charCodeAt(i);
+		switch (c) {
+			case 38:
+				hasBothKeyValuePair = equalityIndex > startingIndex;
+				if (!hasBothKeyValuePair) equalityIndex = i;
+				key = input.slice(startingIndex + 1, equalityIndex);
+				if (hasBothKeyValuePair || key.length > 0) {
+					if (keyHasPlus) key = key.replace(plusRegex, " ");
+					if (shouldDecodeKey) try {
+						key = decodeURIComponent(key);
+					} catch {}
+					if (hasBothKeyValuePair) {
+						value = input.slice(equalityIndex + 1, i);
+						if (valueHasPlus) value = value.replace(plusRegex, " ");
+						if (shouldDecodeValue) try {
+							value = decodeURIComponent(value);
+						} catch {}
+					}
+					const currentValue = params[key];
+					if (currentValue === void 0) params[key] = value;
+					else if (Array.isArray(currentValue)) currentValue.push(value);
+					else params[key] = [currentValue, value];
+				}
+				value = "";
+				startingIndex = i;
+				equalityIndex = i;
+				shouldDecodeKey = false;
+				shouldDecodeValue = false;
+				keyHasPlus = false;
+				valueHasPlus = false;
+				break;
+			case 61:
+				if (equalityIndex <= startingIndex) equalityIndex = i;
+				else shouldDecodeValue = true;
+				break;
+			case 43:
+				if (equalityIndex > startingIndex) valueHasPlus = true;
+				else keyHasPlus = true;
+				break;
+			case 37:
+				if (equalityIndex > startingIndex) shouldDecodeValue = true;
+				else shouldDecodeKey = true;
+				break;
+		}
+	}
+	return params;
+}
+
+function getQuery(event) {
+	return parseQuery((event.url || new URL(event.req.url)).search.slice(1));
+}
+
 function getRequestHost(event, opts = {}) {
 	if (opts.xForwardedHost) {
 		const xForwardedHost = (event.req.headers.get("x-forwarded-host") || "").split(",").shift()?.trim();
@@ -5333,6 +5448,9 @@ function handlerWithFetch(handler) {
 }
 
 const NoHandler = () => kNotFound;
+function createError(arg1, arg2) {
+	return new HTTPError(arg1, arg2);
+}
 const defineEventHandler = defineHandler;
 const eventHandler = defineHandler;
 
@@ -5389,14 +5507,169 @@ function publicAssetsURL(...path) {
   return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
 }
 
+const markedOptions = {
+  gfm: true,
+  // 仅保留17.x支持的配置
+  breaks: true,
+  // 换行符转<br>
+  async: false
+  // 禁用异步解析
+  // 移除headerIds（17.x已移除该配置）
+};
+marked.setOptions(markedOptions);
+const createCustomRenderer = () => {
+  const renderer = new Renderer();
+  renderer.code = (rawCodeObj) => {
+    var _a, _b, _c;
+    const rawCode = ((_a = rawCodeObj.text) != null ? _a : "").trim();
+    const targetLang = ((_b = rawCodeObj.lang) != null ? _b : "javascript").toLowerCase().trim();
+    const unescapedCode = rawCode.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+    let highlightedCode = unescapedCode;
+    try {
+      const supportedLang = hljs.getLanguage(targetLang);
+      if (supportedLang) {
+        const highlightResult = hljs.highlight(unescapedCode, {
+          language: targetLang,
+          ignoreIllegals: true
+        });
+        highlightedCode = (_c = highlightResult.value) != null ? _c : unescapedCode;
+      }
+    } catch (err) {
+      console.warn(`\u26A0\uFE0F [${targetLang}] \u4EE3\u7801\u9AD8\u4EAE\u5931\u8D25\uFF1A`, err);
+    }
+    return `
+      <pre class="hljs language-${targetLang}" style="
+        padding: 1.5rem;
+        border-radius: 8px;
+        background: #282c34 !important;
+        overflow-x: auto;
+        font-family: Consolas, Monaco, 'Courier New', monospace;
+        color: #abb2bf;
+        margin: 1rem 0;
+      ">
+        <code class="language-${targetLang}">${highlightedCode}</code>
+      </pre>
+    `.trim();
+  };
+  return renderer;
+};
+marked.use({ renderer: createCustomRenderer() });
+const parseFrontmatter = (markdown) => {
+  if (!markdown || typeof markdown !== "string") return {};
+  const frontmatter = {};
+  const frontmatterMatch = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!(frontmatterMatch == null ? void 0 : frontmatterMatch[1])) return frontmatter;
+  frontmatterMatch[1].split(/\r?\n/).filter((line) => line.trim() && !line.trim().startsWith("#")).forEach((line) => {
+    const colonIndex = line.indexOf(":");
+    if (colonIndex === -1) return;
+    const key = line.slice(0, colonIndex).trim();
+    let valueStr = line.slice(colonIndex + 1).trim();
+    let value = valueStr;
+    if (typeof valueStr === "string" && valueStr.startsWith("[") && valueStr.endsWith("]")) {
+      try {
+        const parsedArr = JSON.parse(valueStr.replace(/'/g, '"'));
+        value = Array.isArray(parsedArr) ? parsedArr : valueStr;
+      } catch (err) {
+        console.warn(`\u26A0\uFE0F Frontmatter\u6570\u7EC4\u89E3\u6790\u5931\u8D25 [${key}]\uFF1A`, err);
+        value = valueStr.slice(1, -1).split(",").map((item) => item.trim().replace(/['"]/g, ""));
+      }
+    } else if (valueStr === "true" || valueStr === "false") {
+      value = JSON.parse(valueStr);
+    } else if (typeof valueStr === "string" && !isNaN(Number(valueStr))) {
+      value = Number(valueStr);
+    } else if (typeof valueStr === "string" && (valueStr.startsWith('"') && valueStr.endsWith('"') || valueStr.startsWith("'") && valueStr.endsWith("'"))) {
+      value = valueStr.slice(1, -1);
+    }
+    frontmatter[key] = value;
+  });
+  return frontmatter;
+};
+const useMarkdown = async (markdown) => {
+  const rawMarkdown = (markdown != null ? markdown : "").trim();
+  try {
+    const frontmatter = parseFrontmatter(rawMarkdown);
+    const content = rawMarkdown.replace(/^---\r?\n([\s\S]*?)\r?\n---/, "").trim();
+    const html = marked.parse(content);
+    return {
+      frontmatter,
+      html,
+      raw: rawMarkdown
+    };
+  } catch (err) {
+    console.error("\u274C Markdown\u89E3\u6790\u5931\u8D25\uFF1A", err);
+    return {
+      frontmatter: {},
+      html: `<div class="text-red-500">\u89E3\u6790\u5931\u8D25\uFF1A${err.message}</div>`,
+      raw: rawMarkdown
+    };
+  }
+};
+
+const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
+const getAllArticlesMeta = async () => {
+  const articlesDir = path.join(PROJECT_ROOT, "content", "articles");
+  try {
+    await fs.access(articlesDir);
+  } catch {
+    console.error("\u274C \u6587\u7AE0\u76EE\u5F55\u4E0D\u5B58\u5728\uFF1A", articlesDir);
+    return [];
+  }
+  const files = await fs.readdir(articlesDir);
+  const markdownFiles = files.filter((file) => file.endsWith(".md"));
+  if (markdownFiles.length === 0) {
+    console.warn("\u26A0\uFE0F content\u76EE\u5F55\u4E0B\u65E0.md\u6587\u4EF6");
+    return [];
+  }
+  const articles = [];
+  for (const file of markdownFiles) {
+    try {
+      const id = file.replace(".md", "");
+      const filePath = path.join(articlesDir, file);
+      const content = await fs.readFile(filePath, "utf-8");
+      const { frontmatter } = await useMarkdown(content);
+      articles.push({
+        id,
+        frontmatter: {
+          title: frontmatter.title || id,
+          date: frontmatter.date || "\u672A\u53D1\u5E03",
+          updated: frontmatter.updated,
+          category: frontmatter.category || "\u672A\u5206\u7C7B",
+          tags: frontmatter.tags || [],
+          description: frontmatter.description || "\u6682\u65E0\u7B80\u4ECB"
+        },
+        path: `/${id}`
+      });
+    } catch (err) {
+      console.warn(`\u26A0\uFE0F \u89E3\u6790\u6587\u7AE0 ${file} \u5931\u8D25\uFF1A`, err.message);
+      const id = file.replace(".md", "");
+      articles.push({
+        id,
+        frontmatter: {
+          title: id,
+          date: "\u672A\u53D1\u5E03",
+          category: "\u672A\u5206\u7C7B",
+          tags: [],
+          description: "\u89E3\u6790\u5931\u8D25\uFF08\u683C\u5F0F\u9519\u8BEF\uFF09"
+        },
+        path: `/${id}`
+      });
+    }
+  }
+  return articles.sort((a, b) => {
+    const dateA = a.frontmatter.date === "\u672A\u53D1\u5E03" ? /* @__PURE__ */ new Date(0) : new Date(a.frontmatter.date);
+    const dateB = b.frontmatter.date === "\u672A\u53D1\u5E03" ? /* @__PURE__ */ new Date(0) : new Date(b.frontmatter.date);
+    return dateB.getTime() - dateA.getTime();
+  });
+};
+
 const collections = {
 };
 
 const DEFAULT_ENDPOINT = "https://api.iconify.design";
-const _woxXNo = defineCachedEventHandler(async (event) => {
+const _wHxboE = defineCachedEventHandler(async (event) => {
   const url = getRequestURL(event);
   if (!url)
-    return createError$1({ status: 400, message: "Invalid icon request" });
+    return createError({ status: 400, message: "Invalid icon request" });
   const options = useAppConfig().icon;
   const collectionName = event.context.params?.collection?.replace(/\.json$/, "");
   const collection = collectionName ? await collections[collectionName]?.() : null;
@@ -5416,7 +5689,7 @@ const _woxXNo = defineCachedEventHandler(async (event) => {
     const apiUrl = new URL("./" + basename(url.pathname) + url.search, apiEndPoint);
     consola.debug(`[Icon] fetching ${(icons || []).map((i) => "`" + collectionName + ":" + i + "`").join(",")} from iconify api`);
     if (apiUrl.host !== new URL(apiEndPoint).host) {
-      return createError$1({ status: 400, message: "Invalid icon request" });
+      return createError({ status: 400, message: "Invalid icon request" });
     }
     try {
       const data = await $fetch(apiUrl.href);
@@ -5424,12 +5697,12 @@ const _woxXNo = defineCachedEventHandler(async (event) => {
     } catch (e) {
       consola.error(e);
       if (e.status === 404)
-        return createError$1({ status: 404 });
+        return createError({ status: 404 });
       else
-        return createError$1({ status: 500, message: "Failed to fetch fallback icon" });
+        return createError({ status: 500, message: "Failed to fetch fallback icon" });
     }
   }
-  return createError$1({ status: 404 });
+  return createError({ status: 404 });
 }, {
   group: "nuxt",
   name: "icon",
@@ -5443,16 +5716,26 @@ const _woxXNo = defineCachedEventHandler(async (event) => {
   // 1 week
 });
 
+const _lazy_3QEHK6 = () => import('../routes/api/archives.mjs');
 const _lazy_VC8XV2 = () => import('../routes/api/article/_id_.mjs');
-const _lazy_jN5tLD = () => import('../routes/renderer.mjs');
+const _lazy_qPqm8Z = () => import('../routes/api/article/filter.mjs');
+const _lazy_ihvkrF = () => import('../routes/api/articles.mjs');
+const _lazy_39yEXt = () => import('../routes/api/categories.mjs');
+const _lazy_cGTLZZ = () => import('../routes/api/tags.mjs');
+const _lazy_BVt6AD = () => import('../routes/renderer.mjs');
 
 const handlers = [
   { route: '', handler: _DSquQr, lazy: false, middleware: true, method: undefined },
+  { route: '/api/archives', handler: _lazy_3QEHK6, lazy: true, middleware: false, method: undefined },
   { route: '/api/article/:id', handler: _lazy_VC8XV2, lazy: true, middleware: false, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_jN5tLD, lazy: true, middleware: false, method: undefined },
+  { route: '/api/article/filter', handler: _lazy_qPqm8Z, lazy: true, middleware: false, method: undefined },
+  { route: '/api/articles', handler: _lazy_ihvkrF, lazy: true, middleware: false, method: undefined },
+  { route: '/api/categories', handler: _lazy_39yEXt, lazy: true, middleware: false, method: undefined },
+  { route: '/api/tags', handler: _lazy_cGTLZZ, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_BVt6AD, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '/api/_nuxt_icon/:collection', handler: _woxXNo, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_jN5tLD, lazy: true, middleware: false, method: undefined }
+  { route: '/api/_nuxt_icon/:collection', handler: _wHxboE, lazy: false, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_BVt6AD, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
@@ -5842,5 +6125,5 @@ function setupGracefulShutdown(listener, nitroApp) {
   });
 }
 
-export { trapUnhandledNodeErrors as a, useNitroApp as b, buildAssetsURL as c, destr as d, eventHandler as e, getResponseStatus as f, getResponseStatusText as g, defineRenderHandler as h, getQuery as i, createError$1 as j, getRouteRules as k, publicAssetsURL as p, setupGracefulShutdown as s, toNodeListener as t, useRuntimeConfig as u };
+export { trapUnhandledNodeErrors as a, useNitroApp as b, getQuery as c, destr as d, eventHandler as e, buildAssetsURL as f, getAllArticlesMeta as g, getResponseStatusText as h, getResponseStatus as i, defineRenderHandler as j, getQuery$1 as k, createError$2 as l, getRouteRules as m, publicAssetsURL as p, setupGracefulShutdown as s, toNodeListener as t, useRuntimeConfig as u };
 //# sourceMappingURL=nitro.mjs.map
