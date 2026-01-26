@@ -77,7 +77,6 @@ const createCustomRenderer = (): Renderer => {
 // 绑定渲染器
 marked.use({ renderer: createCustomRenderer() });
 
-// ❹ 修复：添加类型守卫，避免string | string[]调用split（解决2339报错）
 export const parseFrontmatter = (markdown: string): Record<string, string | number | boolean | string[] | any> => {
   if (!markdown || typeof markdown !== "string") return {};
 
