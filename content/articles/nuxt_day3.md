@@ -13,4 +13,9 @@ cover: "https://picsum.photos/id/180/1200/600" # 文章封面图（占位图）
   > 逆大天，还要下py和一个vs编译库（~~我***~~）问题最多的一集
   ```javascript
   ```
+  > 2. 解决办法：
+    > 1. 安装 better-sqlite3 依赖时，指定 --runtime=node18 选项，强制使用 Node.js 18 运行时编译模块。
+    > 2. 确保系统中已安装 Python 3.8 或以上版本，以及 Visual Studio 2019 或以上版本，用于编译原生模块。
+    > 3. 安装完成后，重新启动 Nuxt 项目，即可成功加载 better-sqlite3 模块。
+    > 4.我选择不使用@nuxt/content<狗头保命>，原生（js渲染）启动！
   

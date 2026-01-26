@@ -218,7 +218,7 @@
 <script setup lang="ts">
 import { useMarkdown } from '~/composables/useMarkdown';
 import type { MarkdownParsedResult } from '~/composables/useMarkdown';
-import type { ApiResponse } from '~/types/api';
+// import type { ApiResponse } from '~/types/api';
 
 // 类型定义
 interface TocItem {
@@ -235,6 +235,19 @@ interface ArticleFrontmatter {
   category?: string;
   tags?: string[];
   description?: string;
+}
+
+// API响应类型定义
+interface ApiResponse<T = any> {
+  code: number;
+  data?: T;
+  message: string;
+}
+
+// 单篇文章API响应数据类型
+interface ArticleApiData {
+  content: string;
+  id: string;
 }
 
 // 初始化路由
@@ -261,20 +274,12 @@ const isDarkMode = computed(() => {
   return document.documentElement.classList.contains('dark');
 });
 
-/**
- * 切换暗黑模式
- * @returns {void} 无返回值
- */
 const toggleDarkMode = () => {
   const html = document.documentElement;
   html.classList.toggle('dark');
   localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
 };
 
-/**
- * 移动端目录按钮点击逻辑
- * @returns {void} 无返回值
- */
 const handleMobileTocClick = () => {
   if (tocItems.value.length === 0) {
     alert("本文暂无章节目录");
@@ -283,10 +288,6 @@ const handleMobileTocClick = () => {
   showMobileToc.value = !showMobileToc.value;
 };
 
-/**
- * 重新加载文章
- * @returns {Promise<void>} 无返回值
- */
 const refreshArticle = async () => {
   loading.value = true;
   error.value = null;
@@ -294,37 +295,25 @@ const refreshArticle = async () => {
   loading.value = false;
 };
 
-/**
- * 统一获取文章内容
- * @returns {Promise<void>} 无返回值
- * @throws {Error} 当文章未找到或内容为空时抛出错误
- */
 const fetchArticle = async () => {
   try {
     loading.value = true;
-    // 核心：使用$fetch从API获取文章内容
-    // 修复：将复数路径/articles/改为单数/article/，匹配实际API端点
-    const response = await $fetch(`/api/article/${articleId}`);
+    const response = await $fetch<ApiResponse<ArticleApiData>>(`/api/article/${articleId}`);
 
-    // 检查API返回状态
     if (response?.code !== 200 || !response?.data) {
       throw new Error(response?.message || `未找到${articleId}的MD文件`);
     }
 
     const mdData = response.data;
-    // 修复：使用content属性而不是_raw属性，匹配API返回结构
     if (!mdData.content || typeof mdData.content !== 'string') {
       throw new Error(`未找到${articleId}的MD文件，或文件内容为空`);
     }
 
-    // 1. 赋值原始MD内容（所有文章都能拿到）
     articleRawContent.value = mdData.content;
 
-    // 2. 解析MD为HTML
     const parsedResult = await useMarkdown(articleRawContent.value) as MarkdownParsedResult;
     articleHtml.value = parsedResult.html || "<p>暂无文章内容</p>";
 
-    // 3. 解析frontmatter（从原始MD中解析，因为API只返回了content）
     const frontmatter = parseFrontmatter(articleRawContent.value);
     articleFrontmatter.value = {
       title: frontmatter.title || articleId,
@@ -335,7 +324,6 @@ const fetchArticle = async () => {
       description: frontmatter.description || ''
     } as ArticleFrontmatter;
 
-    // 4. 生成目录
     await nextTick();
     generateToc();
 
@@ -348,10 +336,6 @@ const fetchArticle = async () => {
   }
 };
 
-/**
- * 提取文章目录
- * @returns {void} 无返回值
- */
 const generateToc = () => {
   if (!articleContentRef.value) return;
 
@@ -378,11 +362,6 @@ const generateToc = () => {
   handleScroll();
 };
 
-/**
- * 滚动到指定锚点
- * @param {string} anchorId - 锚点ID
- * @returns {void} 无返回值
- */
 const scrollToAnchor = (anchorId: string) => {
   const anchor = document.getElementById(anchorId);
   if (anchor) {
@@ -391,10 +370,6 @@ const scrollToAnchor = (anchorId: string) => {
   }
 };
 
-/**
- * 监听滚动事件
- * @returns {void} 无返回值
- */
 const handleScroll = () => {
   scrollTop.value = window.scrollY;
   showBackToTop.value = scrollTop.value > 100; // 降低触发阈值
@@ -420,18 +395,10 @@ const handleScroll = () => {
   }
 };
 
-/**
- * 返回顶部
- * @returns {void} 无返回值
- */
 const backToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-/**
- * 字数统计（容错处理）
- * @returns {number} 字数统计结果
- */
 const wordCount = computed(() => {
   if (!articleRawContent.value) return 0;
   const pureText = articleRawContent.value
@@ -445,10 +412,6 @@ const wordCount = computed(() => {
   return pureText.length || 0;
 });
 
-/**
- * 阅读时长（兜底）
- * @returns {number} 阅读时长（分钟）
- */
 const readingTime = computed(() => {
   const count = wordCount.value;
   return count > 0 ? Math.ceil(count / 300) : 1;
