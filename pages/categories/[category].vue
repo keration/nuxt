@@ -6,12 +6,10 @@
 
     <!-- 文章列表 -->
     <div v-if="articles.length > 0" class="space-y-6">
-      <div
-        v-for="article in articles"
-        :key="article.id"
-        class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100 dark:border-gray-700"
-      >
-        <router-link :to="`/${article.id}`" class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+      <div v-for="article in articles" :key="article.id"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100 dark:border-gray-700">
+        <router-link :to="`/${article.id}`"
+          class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline">
           {{ article.frontmatter.title }}
         </router-link>
         <p class="text-gray-600 dark:text-gray-400 mt-2">{{ article.frontmatter.description }}</p>
@@ -37,9 +35,9 @@ const loading = ref(true);
 const fetchArticlesByCategory = async () => {
   const category = route.params.category as string;
   try {
-    const { data } = await useFetch(`/api/article/filter?category=${encodeURIComponent(category)}`);
+    const { data } = await useFetch<{ code: number; message: string; data: any[] }>(`/api/article/filter?category=${encodeURIComponent(category)}`);
     if (data.value?.code === 200) {
-      articles.value = data.value.data;
+      articles.value = data.value.data || [];
     }
   } catch (err) {
     console.error("筛选文章失败：", err);

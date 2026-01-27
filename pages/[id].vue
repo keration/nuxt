@@ -10,6 +10,9 @@
             <li><a href="/"
                 class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
             </li>
+            <li><a href="/search"
+                class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">搜索</a>
+            </li>
             <li><a href="/tags"
                 class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">标签</a>
             </li>
@@ -149,6 +152,12 @@
           <!-- 文章正文（带锚点的HTML） -->
           <div ref="articleContentRef" class="mx-20 p-6 md:p-8 prose prose-blue prose-lg dark:prose-invert max-w-none"
             v-html="articleHtml"></div>
+
+          <!-- 评论区域 -->
+          <div class="mx-20 p-6 md:p-8 border-t border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">评论</h3>
+            <div id="giscus-container" class="giscus"></div>
+          </div>
         </div>
       </div>
     </main>
@@ -170,6 +179,7 @@
 
 <script setup lang="ts">
 import { useMarkdown } from '~/composables/useMarkdown';
+import { useGiscus } from '~/composables/useGiscus';
 import type { MarkdownParsedResult } from '~/composables/useMarkdown';
 // import type { ApiResponse } from '~/types/api';
 
@@ -227,10 +237,14 @@ const scrollTop = ref<number>(0);
 //   return document.documentElement.classList.contains('dark');
 // });
 
+const { updateGiscusTheme, observeThemeChange } = useGiscus();
+
 const toggleDarkMode = () => {
   const html = document.documentElement;
   html.classList.toggle('dark');
   localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+  // 更新Giscus主题
+  setTimeout(updateGiscusTheme, 100);
 };
 
 const handleMobileTocClick = () => {
@@ -479,6 +493,15 @@ onMounted(async () => {
   handleScroll();
 
   loading.value = false;
+
+  // 启动Giscus主题观察器
+  const themeObserver = observeThemeChange();
+
+  // 清理函数
+  onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll);
+    themeObserver.disconnect();
+  });
 
   // 添加章节目录测试按钮到页面
   const tocTestButton = document.createElement('button');

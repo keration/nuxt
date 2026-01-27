@@ -125,6 +125,7 @@ declare global {
   const useFetch: typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/fetch').useFetch
   const useFileUpload: typeof import('../../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload').useFileUpload
   const useFormField: typeof import('../../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/useFormField').useFormField
+  const useGiscus: typeof import('../../composables/useGiscus').useGiscus
   const useHead: typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/head').useHead
   const useHeadSafe: typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/head').useHeadSafe
   const useHydration: typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/hydrate').useHydration
@@ -342,6 +343,7 @@ declare module 'vue' {
     readonly useFetch: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/fetch')['useFetch']>
     readonly useFileUpload: UnwrapRef<typeof import('../../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload')['useFileUpload']>
     readonly useFormField: UnwrapRef<typeof import('../../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/useFormField')['useFormField']>
+    readonly useGiscus: UnwrapRef<typeof import('../../composables/useGiscus')['useGiscus']>
     readonly useHead: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/head')['useHead']>
     readonly useHeadSafe: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/head')['useHeadSafe']>
     readonly useHydration: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/composables/hydrate')['useHydration']>

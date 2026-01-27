@@ -5,11 +5,8 @@
     </h1>
 
     <div v-if="articles.length > 0" class="space-y-6">
-      <div
-        v-for="article in articles"
-        :key="article.id"
-        class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100 dark:border-gray-700"
-      >
+      <div v-for="article in articles" :key="article.id"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100 dark:border-gray-700">
         <!-- ❶ 改为 article.frontmatter.title -->
         <router-link :to="article.path" class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline">
           {{ article.frontmatter.title }}

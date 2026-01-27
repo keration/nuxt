@@ -18,6 +18,9 @@ declare module "nitropack/types" {
     '/api/categories': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/categories').default>>>>
     }
+    '/api/search': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/search').default>>>>
+    }
     '/api/tags': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/tags').default>>>>
     }

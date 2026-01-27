@@ -2,7 +2,7 @@
 import { eventHandler } from "h3";
 import { getAllArticlesMeta } from "~/server/utils/articles";
 import type { ArchiveItem } from "~/types/api"; // 复用全局类型
-import type { ArticleMeta } from "~/server/utils/articles"; // 类型 → import type
+// import type { ArticleMeta } from "~/server/utils/articles"; // 类型 → import type
 
 export default eventHandler(async () => {
   const articles = await getAllArticlesMeta();

@@ -5,7 +5,8 @@ import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
 import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createError, getQuery as getQuery$1, readBody, getResponseStatus, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getResponseStatusText } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@1.15.5/node_modules/h3/dist/index.mjs';
 import { escapeHtml } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@vue+shared@3.5.27/node_modules/@vue/shared/dist/shared.cjs.js';
-import { getQuery as getQuery$2, getRequestURL as getRequestURL$1, createError as createError$1, eventHandler as eventHandler$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3/dist/_entries/node.mjs';
+import { getQuery as getQuery$2, getRequestURL as getRequestURL$1, createError as createError$1, eventHandler as eventHandler$1, defineEventHandler as defineEventHandler$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3/dist/_entries/node.mjs';
+import { serverQueryContent } from '#content';
 import fs, { readFile } from 'node:fs/promises';
 import { marked, Renderer } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/marked@17.0.1/node_modules/marked/lib/marked.esm.js';
 import hljs from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/highlight.js@11.11.1/node_modules/highlight.js/es/index.js';
@@ -1600,7 +1601,7 @@ const _CCXT9VKr81b5NCjwLf_6E1erAqQT_lwopgki7e0DVc = (function(nitro) {
 
 const rootDir = "C:/Users/admin/Desktop/nuxt";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[{"src":"https://giscus.app/client.js","async":true,"data-repo":"your-github-username/your-repo-name","data-repo-id":"your-repo-id","data-category":"Comments","data-category-id":"your-category-id","data-mapping":"pathname","data-strict":"0","data-reactions-enabled":"1","data-emit-metadata":"0","data-input-position":"bottom","data-theme":"preferred_color_scheme","data-lang":"zh-CN","crossorigin":"anonymous"}],"noscript":[]};
 
 const appRootTag = "div";
 
@@ -1704,22 +1705,7 @@ _fXgOEQAXC1dNXhCq8qKOPcPg4Kmq9fRFjewoZb3V9Wo,
 _93Dmfyl3mVJsxqA_0MvmlrmNkdKPFubPvKNmMi44mkU
 ];
 
-const assets = {
-  "/index.mjs": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"1a0f0-XGRexEwMN7a3nptROtis3WtOxI4\"",
-    "mtime": "2026-01-26T06:27:47.960Z",
-    "size": 106736,
-    "path": "index.mjs"
-  },
-  "/index.mjs.map": {
-    "type": "application/json",
-    "etag": "\"5e785-SCtp5rYk5ZGWD/63QGo46hVE5f0\"",
-    "mtime": "2026-01-26T06:27:47.960Z",
-    "size": 386949,
-    "path": "index.mjs.map"
-  }
-};
+const assets = {};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -2425,6 +2411,7 @@ const _lazy_VC8XV2 = () => Promise.resolve().then(function () { return _id_$1; }
 const _lazy_qPqm8Z = () => Promise.resolve().then(function () { return filter$1; });
 const _lazy_ihvkrF = () => Promise.resolve().then(function () { return articles$1; });
 const _lazy_39yEXt = () => Promise.resolve().then(function () { return categories$1; });
+const _lazy_oHpTiI = () => Promise.resolve().then(function () { return search$1; });
 const _lazy_cGTLZZ = () => Promise.resolve().then(function () { return tags$1; });
 const _lazy_BVt6AD = () => Promise.resolve().then(function () { return renderer$1; });
 
@@ -2435,6 +2422,7 @@ const handlers = [
   { route: '/api/article/filter', handler: _lazy_qPqm8Z, lazy: true, middleware: false, method: undefined },
   { route: '/api/articles', handler: _lazy_ihvkrF, lazy: true, middleware: false, method: undefined },
   { route: '/api/categories', handler: _lazy_39yEXt, lazy: true, middleware: false, method: undefined },
+  { route: '/api/search', handler: _lazy_oHpTiI, lazy: true, middleware: false, method: undefined },
   { route: '/api/tags', handler: _lazy_cGTLZZ, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_BVt6AD, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
@@ -2801,12 +2789,27 @@ const filter$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: filter
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const articles = eventHandler$1(async () => {
+const articles = eventHandler$1(async (event) => {
   try {
-    const articles = await getAllArticlesMeta();
+    const query = getQuery$2(event);
+    const page = parseInt(query.page) || 1;
+    const limit = parseInt(query.limit) || 10;
+    const allArticles = await getAllArticlesMeta();
+    const total = allArticles.length;
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const articles = allArticles.slice(startIndex, endIndex);
     return {
       code: 200,
       data: articles,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        hasNext: endIndex < total,
+        hasPrev: page > 1
+      },
       message: "\u83B7\u53D6\u6587\u7AE0\u5217\u8868\u6210\u529F"
     };
   } catch (err) {
@@ -2842,6 +2845,47 @@ const categories = eventHandler$1(async () => {
 const categories$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: categories
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const search = defineEventHandler$1(async (event) => {
+  var _a;
+  const query = getQuery$2(event);
+  const searchTerm = (_a = query.q) == null ? void 0 : _a.trim();
+  if (!searchTerm) {
+    return {
+      code: 400,
+      message: "\u641C\u7D22\u5173\u952E\u8BCD\u4E0D\u80FD\u4E3A\u7A7A",
+      data: []
+    };
+  }
+  try {
+    const articles = await serverQueryContent(event).where({
+      _type: "markdown",
+      $or: [
+        { title: { $regex: searchTerm, $options: "i" } },
+        { description: { $regex: searchTerm, $options: "i" } },
+        { tags: { $in: [new RegExp(searchTerm, "i")] } },
+        { body: { $regex: searchTerm, $options: "i" } }
+      ]
+    }).sort({ date: -1 }).find();
+    return {
+      code: 200,
+      message: "\u641C\u7D22\u6210\u529F",
+      data: articles
+    };
+  } catch (error) {
+    console.error("\u641C\u7D22\u9519\u8BEF:", error);
+    return {
+      code: 500,
+      message: "\u641C\u7D22\u5931\u8D25",
+      data: []
+    };
+  }
+});
+
+const search$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: search
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const tags = eventHandler$1(async () => {

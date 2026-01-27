@@ -6,12 +6,10 @@
 
     <!-- 文章列表 -->
     <div v-if="articles.length > 0" class="space-y-6">
-      <div
-        v-for="article in articles"
-        :key="article.id"
-        class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100 dark:border-gray-700"
-      >
-        <router-link :to="`/${article.id}`" class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+      <div v-for="article in articles" :key="article.id"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100 dark:border-gray-700">
+        <router-link :to="`/${article.id}`"
+          class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline">
           {{ article.frontmatter.title }}
         </router-link>
         <p class="text-gray-600 dark:text-gray-400 mt-2">{{ article.description }}</p>
@@ -34,13 +32,13 @@ const articles = ref<any[]>([]);
 const loading = ref(true);
 
 // 按年月筛选文章
-const fetchArticlesByArchive = async () => {
+const fetchArticlesByArchive = async (): Promise<void> => {
   const year = route.params.year as string;
   const month = (route.params.month as string).padStart(2, '0'); // 补0（如1→01）
   try {
-    const { data } = await useFetch(`/api/articles/filter?year=${year}&month=${month}`);
+    const { data } = await useFetch<{ code: number; message: string; data: any[] }>(`/api/articles/filter?year=${year}&month=${month}`);
     if (data.value?.code === 200) {
-      articles.value = data.value.data;
+      articles.value = data.value.data || [];
     }
   } catch (err) {
     console.error("筛选归档文章失败：", err);

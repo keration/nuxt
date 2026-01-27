@@ -30,6 +30,7 @@ export { requestIdleCallback, cancelIdleCallback } from '#app/compat/idle-callba
 export { setInterval } from '#app/compat/interval';
 export { definePageMeta } from '../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/pages/runtime/composables';
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
+export { useGiscus } from '../composables/useGiscus';
 export { parseFrontmatter, useMarkdown, MarkdownParsedResult } from '../composables/useMarkdown';
 export { defineLocale, extendLocale } from '../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/defineLocale';
 export { extractShortcuts, defineShortcuts } from '../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts';

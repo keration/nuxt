@@ -10,6 +10,9 @@
             <li><a href="/"
                 class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
             </li>
+            <li><a href="/search"
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">搜索</a>
+            </li>
             <li><a href="/tags"
                 class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">标签</a>
             </li>
@@ -113,6 +116,44 @@
           <p class="text-gray-500 dark:text-gray-400 text-sm">暂无文章，快来创作你的第一篇博客吧！</p>
         </div>
       </div>
+
+      <!-- 分页组件 -->
+      <div v-if="pagination.totalPages > 1" class="mt-8 flex justify-center">
+        <nav class="flex items-center gap-2">
+          <!-- 上一页 -->
+          <button
+            @click="goToPage(pagination.page - 1)"
+            :disabled="!pagination.hasPrev"
+            class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            上一页
+          </button>
+
+          <!-- 页码 -->
+          <template v-for="pageNum in visiblePages" :key="pageNum">
+            <button
+              @click="goToPage(pageNum)"
+              :class="[
+                'px-3 py-2 text-sm font-medium border rounded-md transition-colors',
+                pageNum === pagination.page
+                  ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-blue-500'
+                  : 'text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+              ]"
+            >
+              {{ pageNum }}
+            </button>
+          </template>
+
+          <!-- 下一页 -->
+          <button
+            @click="goToPage(pagination.page + 1)"
+            :disabled="!pagination.hasNext"
+            class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            下一页
+          </button>
+        </nav>
+      </div>
     </main>
 
     <!-- 页脚（紧凑布局） -->
@@ -128,6 +169,14 @@
 const loading = ref(true);
 const error = ref(null);
 const articles = ref([]);
+const pagination = ref({
+  page: 1,
+  limit: 10,
+  total: 0,
+  totalPages: 0,
+  hasNext: false,
+  hasPrev: false
+});
 
 // 暗黑模式状态
 // const isDarkMode = computed(() => {
@@ -141,15 +190,16 @@ const toggleDarkMode = () => {
   localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
 };
 
-const refreshArticles = async (): Promise<void> => {
+const refreshArticles = async (page = 1): Promise<void> => {
   loading.value = true;
   error.value = null;
   try {
-    const response = await $fetch<{ code: number; message: string; data: [] }>("/api/articles");
+    const response = await $fetch<{ code: number; message: string; data: []; pagination: any }>(`/api/articles?page=${page}&limit=${pagination.value.limit}`);
     if (!response || response.code !== 200) {
       throw new Error(response?.message || "获取文章失败");
     }
     articles.value = response.data || [];
+    pagination.value = response.pagination || pagination.value;
   } catch (err: any) {
     error.value = err.message || "获取文章失败";
   } finally {
@@ -157,13 +207,38 @@ const refreshArticles = async (): Promise<void> => {
   }
 };
 
-// 初始化
-onMounted(() => {
-  // 恢复暗黑模式状态
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
+// 分页函数
+const goToPage = async (page: number) => {
+  if (page < 1 || page > pagination.value.totalPages) return;
+  await refreshArticles(page);
+};
+
+// 计算可见页码
+const visiblePages = computed(() => {
+  const current = pagination.value.page;
+  const total = pagination.value.totalPages;
+  const pages = [];
+
+  if (total <= 7) {
+    // 总页数小于等于7，显示所有页码
+    for (let i = 1; i <= total; i++) {
+      pages.push(i);
+    }
+  } else {
+    // 总页数大于7
+    if (current <= 4) {
+      // 当前页在前部
+      pages.push(1, 2, 3, 4, 5, '...', total);
+    } else if (current >= total - 3) {
+      // 当前页在后部
+      pages.push(1, '...', total - 4, total - 3, total - 2, total - 1, total);
+    } else {
+      // 当前页在中部
+      pages.push(1, '...', current - 1, current, current + 1, '...', total);
+    }
   }
-  refreshArticles();
+
+  return pages.filter(page => typeof page === 'number');
 });
 </script>
 
