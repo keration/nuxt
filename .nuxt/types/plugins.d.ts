@@ -19,6 +19,7 @@ type NuxtAppInjections =
   InjectionType<typeof import("../../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/pages/runtime/plugins/check-if-page-unused.js")> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxt+devtools@3.1.1_vite@7_291c1dbcaace7739b0c7d50852b93503/node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.server.js")> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxt+devtools@3.1.1_vite@7_291c1dbcaace7739b0c7d50852b93503/node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.client.js")> &
+  InjectionType<typeof import("../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/plugins/ws.js")> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/plugins/colors.js")> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.5.1/node_modules/@nuxtjs/color-mode/dist/runtime/plugin.server.js")> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.5.1/node_modules/@nuxtjs/color-mode/dist/runtime/plugin.client.js")> &

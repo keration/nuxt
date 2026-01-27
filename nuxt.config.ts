@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui"],
+  modules: ["@nuxt/ui", "@nuxt/content"],
 
   compatibilityDate: "2026-01-19",
   devtools: { enabled: true },
@@ -8,7 +8,6 @@ export default defineNuxtConfig({
   // 完整配置 Nuxt UI，启用暗黑模式
   ui: {
     darkMode: "class",
-    fonts: false,
   },
 
   css: ["~/assets/css/tailwind.css"],
@@ -20,9 +19,9 @@ export default defineNuxtConfig({
     },
   },
 
-  // 禁用 @nuxt/fonts 模块，消除 Google 资源警告
+  // 禁用一些不需要的功能
   features: {
-    fonts: false,
+    // fonts: false, // Nuxt 4中已移除此配置
   },
 
   // Giscus评论配置

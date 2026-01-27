@@ -382,14 +382,16 @@ const testTocFunctionality = () => {
     console.log("\n测试3：点击跳转功能");
     if (tocItems.value.length > 1) {
       const secondItem = tocItems.value[1];
-      console.log(`点击目录项: ${secondItem.text}`);
-      scrollToAnchor(secondItem.id);
+      if (secondItem) {
+        console.log(`点击目录项: ${secondItem.text}`);
+        scrollToAnchor(secondItem.id);
 
-      setTimeout(() => {
-        const activeItem = tocItems.value.find(item => item.isActive);
-        console.log(`点击后激活项: ${activeItem?.text || '无'}`);
-        console.log(`当前滚动位置: ${window.scrollY}px`);
-      }, 500);
+        setTimeout(() => {
+          const activeItem = tocItems.value.find(item => item.isActive);
+          console.log(`点击后激活项: ${activeItem?.text || '无'}`);
+          console.log(`当前滚动位置: ${window.scrollY}px`);
+        }, 500);
+      }
     }
 
     // 测试4：验证移动端目录

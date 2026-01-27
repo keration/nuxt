@@ -33,6 +33,27 @@ declare module "nitropack/types" {
     '/api/_nuxt_icon/:collection': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+icon@1.15.0_magicast@_05bbcbf53763f23e26a7d7eb1ac5f5f5/node_modules/@nuxt/icon/dist/runtime/server/api').default>>>>
     }
+    '/api/_content/query/:qid/**:params': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/server/api/query').default>>>>
+    }
+    '/api/_content/query/:qid': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/server/api/query').default>>>>
+    }
+    '/api/_content/query': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/server/api/query').default>>>>
+    }
+    '/api/_content/cache.json': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/server/api/cache').default>>>>
+    }
+    '/api/_content/navigation/:qid/**:params': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/server/api/navigation').default>>>>
+    }
+    '/api/_content/navigation/:qid': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/server/api/navigation').default>>>>
+    }
+    '/api/_content/navigation': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/server/api/navigation').default>>>>
+    }
   }
 }
 export {}

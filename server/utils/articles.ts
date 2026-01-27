@@ -1,7 +1,7 @@
 // server/utils/articles.ts
 import fs from "fs/promises";
 import path from "path";
-import { useMarkdown } from "~/composables/useMarkdown";
+import { marked } from "marked";
 
 export interface ArticleMeta {
   id: string;
@@ -14,10 +14,85 @@ export interface ArticleMeta {
     description?: string;
   };
   path: string;
+  body?: string;
 }
 
 // 项目根路径（替换为你的实际路径）
 const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
+
+// 服务器端frontmatter解析函数
+const parseFrontmatter = (markdown: string): Record<string, string | number | boolean | string[] | any> => {
+  if (!markdown || typeof markdown !== "string") return {};
+
+  const frontmatter: Record<string, string | number | boolean | string[] | any> = {};
+  const frontmatterMatch = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+
+  if (!frontmatterMatch?.[1]) return frontmatter;
+
+  // 逐行解析
+  frontmatterMatch[1]
+    .split(/\r?\n/)
+    .filter((line) => line.trim() && !line.trim().startsWith("#"))
+    .forEach((line) => {
+      const colonIndex = line.indexOf(":");
+      if (colonIndex === -1) return;
+
+      const key = line.slice(0, colonIndex).trim();
+      let valueStr = line.slice(colonIndex + 1).trim();
+      let value: string | number | boolean | string[] = valueStr;
+
+      // 解析数组
+      if (typeof valueStr === "string" && valueStr.startsWith("[") && valueStr.endsWith("]")) {
+        try {
+          const parsedArr = JSON.parse(valueStr.replace(/'/g, '"'));
+          value = Array.isArray(parsedArr) ? parsedArr : valueStr;
+        } catch (err) {
+          value = valueStr
+            .slice(1, -1)
+            .split(",")
+            .map((item: string) => item.trim().replace(/['"]/g, ""));
+        }
+      }
+      // 解析布尔值
+      else if (valueStr === "true" || valueStr === "false") {
+        value = JSON.parse(valueStr);
+      }
+      // 解析数字
+      else if (typeof valueStr === "string" && !isNaN(Number(valueStr))) {
+        value = Number(valueStr);
+      }
+      // 解析字符串（移除引号）
+      else if (
+        typeof valueStr === "string" &&
+        ((valueStr.startsWith('"') && valueStr.endsWith('"')) || (valueStr.startsWith("'") && valueStr.endsWith("'")))
+      ) {
+        value = valueStr.slice(1, -1);
+      }
+
+      frontmatter[key] = value;
+    });
+
+  return frontmatter;
+};
+
+// 服务器端markdown解析函数
+const parseMarkdown = async (content: string): Promise<{ frontmatter: any; body: string }> => {
+  try {
+    const frontmatter = parseFrontmatter(content);
+    const body = content.replace(/^---\r?\n([\s\S]*?)\r?\n---/, "").trim();
+
+    return {
+      frontmatter,
+      body,
+    };
+  } catch (err) {
+    console.error("❌ Markdown解析失败：", err);
+    return {
+      frontmatter: {},
+      body: content,
+    };
+  }
+};
 
 export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
   const articlesDir = path.join(PROJECT_ROOT, "content", "articles");
@@ -45,8 +120,8 @@ export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
       const filePath = path.join(articlesDir, file);
       const content = await fs.readFile(filePath, "utf-8");
 
-      // 调用修复后的useMarkdown
-      const { frontmatter } = await useMarkdown(content);
+      // 使用服务器端markdown解析
+      const { frontmatter, body } = await parseMarkdown(content);
 
       articles.push({
         id,
@@ -59,6 +134,7 @@ export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
           description: frontmatter.description || "暂无简介",
         },
         path: `/${id}`,
+        body,
       });
     } catch (err: any) {
       console.warn(`⚠️ 解析文章 ${file} 失败：`, err.message);
@@ -74,6 +150,7 @@ export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
           description: "解析失败（格式错误）",
         },
         path: `/${id}`,
+        body: "",
       });
     }
   }

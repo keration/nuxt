@@ -1,4 +1,4 @@
-import { serverQueryContent } from "#content";
+import { getAllArticlesMeta } from "~/server/utils/articles";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
@@ -13,24 +13,30 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // 使用 content query 进行搜索
-    const articles = await serverQueryContent(event)
-      .where({
-        _type: "markdown",
-        $or: [
-          { title: { $regex: searchTerm, $options: "i" } },
-          { description: { $regex: searchTerm, $options: "i" } },
-          { tags: { $in: [new RegExp(searchTerm, "i")] } },
-          { body: { $regex: searchTerm, $options: "i" } },
-        ],
-      })
-      .sort({ date: -1 })
-      .find();
+    // 获取所有文章
+    const allArticles = await getAllArticlesMeta();
+
+    // 客户端搜索逻辑
+    const searchResults = allArticles.filter((article) => {
+      const title = article.frontmatter?.title?.toLowerCase() || "";
+      const description = article.frontmatter?.description?.toLowerCase() || "";
+      const tags = article.frontmatter?.tags?.join(" ").toLowerCase() || "";
+      const content = article.body?.toLowerCase() || "";
+
+      const searchLower = searchTerm.toLowerCase();
+
+      return (
+        title.includes(searchLower) ||
+        description.includes(searchLower) ||
+        tags.includes(searchLower) ||
+        content.includes(searchLower)
+      );
+    });
 
     return {
       code: 200,
       message: "搜索成功",
-      data: articles,
+      data: searchResults,
     };
   } catch (error) {
     console.error("搜索错误:", error);

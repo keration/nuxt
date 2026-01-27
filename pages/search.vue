@@ -125,7 +125,7 @@
 <script setup lang="ts">
 // 搜索相关
 const searchQuery = ref('')
-const searchResults = ref([])
+const searchResults = ref<any[]>([])
 const loading = ref(false)
 
 // 防抖搜索
@@ -146,7 +146,7 @@ const performSearch = async () => {
 
   loading.value = true
   try {
-    const response = await $fetch('/api/search', {
+    const response = await $fetch<{ code: number; message: string; data: any[] }>('/api/search', {
       method: 'GET',
       query: { q: searchQuery.value.trim() }
     })
