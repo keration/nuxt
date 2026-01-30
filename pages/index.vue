@@ -121,35 +121,26 @@
       <div v-if="pagination.totalPages > 1" class="mt-8 flex justify-center">
         <nav class="flex items-center gap-2">
           <!-- 上一页 -->
-          <button
-            @click="goToPage(pagination.page - 1)"
-            :disabled="!pagination.hasPrev"
-            class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
+          <button @click="goToPage(pagination.page - 1)" :disabled="!pagination.hasPrev"
+            class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
             上一页
           </button>
 
           <!-- 页码 -->
           <template v-for="pageNum in visiblePages" :key="pageNum">
-            <button
-              @click="goToPage(pageNum)"
-              :class="[
-                'px-3 py-2 text-sm font-medium border rounded-md transition-colors',
-                pageNum === pagination.page
-                  ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-blue-500'
-                  : 'text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
-              ]"
-            >
+            <button @click="goToPage(pageNum)" :class="[
+              'px-3 py-2 text-sm font-medium border rounded-md transition-colors',
+              pageNum === pagination.page
+                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-blue-500'
+                : 'text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+            ]">
               {{ pageNum }}
             </button>
           </template>
 
           <!-- 下一页 -->
-          <button
-            @click="goToPage(pagination.page + 1)"
-            :disabled="!pagination.hasNext"
-            class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
+          <button @click="goToPage(pagination.page + 1)" :disabled="!pagination.hasNext"
+            class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
             下一页
           </button>
         </nav>
@@ -166,6 +157,7 @@
 </template>
 
 <script setup lang="ts">
+
 const loading = ref(true);
 const error = ref(null);
 const articles = ref([]);
@@ -176,6 +168,11 @@ const pagination = ref({
   totalPages: 0,
   hasNext: false,
   hasPrev: false
+});
+
+// 组件挂载时加载文章
+onMounted(() => {
+  refreshArticles();
 });
 
 // 暗黑模式状态

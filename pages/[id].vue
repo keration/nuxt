@@ -31,60 +31,28 @@
       </div>
     </header>
 
-    <!-- 主内容区：目录侧边栏 + 文章详情 -->
-    <main class="container mx-auto px-4 py-8 max-w-5xl flex flex-col lg:flex-row gap-8">
-      <!-- 1. 目录悬浮侧边栏（兜底：无目录时显示提示） -->
-      <div class="lg:w-64 shrink-0">
-        <!-- 桌面端目录 -->
-        <div
-          class="sticky top-24 bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 border border-gray-100 dark:border-gray-700 hidden lg:block">
-          <h3
-            class="text-lg font-semibold text-gray-800 dark:text-white mb-3 border-b border-gray-200 dark:border-gray-700 pb-2">
-            文章目录</h3>
-          <div v-if="tocItems.length > 0" class="space-y-2 text-sm">
-            <li v-for="item in tocItems" :key="item.id" :class="[
-              'pl-' + (item.level - 1) * 4,
-              item.isActive ? 'text-blue-600 dark:text-blue-400 font-medium' : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400',
-              'cursor-pointer transition-colors py-1'
-            ]" @click="scrollToAnchor(item.id)">
-              {{ item.text }}
-            </li>
-          </div>
-          <div v-else class="text-sm text-gray-500 dark:text-gray-400 py-2">
-            暂无章节目录
-          </div>
-        </div>
-
-        <!-- 移动端目录按钮（始终显示，无目录时点击提示） -->
-        <button
-          class="lg:hidden fixed bottom-6 right-6 z-30 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center"
-          @click="handleMobileTocClick">
-        </button>
-
-        <!-- 移动端目录抽屉 -->
-        <div v-if="showMobileToc" class="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-end"
-          @click.self="showMobileToc = false">
-          <div class="bg-white dark:bg-gray-800 w-full max-h-[80vh] rounded-t-xl p-6 overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="text-lg font-semibold text-gray-800 dark:text-white">文章目录</h3>
-              <button @click="showMobileToc = false">
-              </button>
-            </div>
-            <div v-if="tocItems.length > 0" class="space-y-2 text-sm">
-              <li v-for="item in tocItems" :key="item.id" :class="[
-                'pl-' + (item.level - 1) * 4,
-                item.isActive ? 'text-blue-600 dark:text-blue-400 font-medium' : 'text-gray-600 dark:text-gray-400',
-                'cursor-pointer py-1'
-              ]" @click="() => { scrollToAnchor(item.id); showMobileToc = false }">
-                {{ item.text }}
-              </li>
-            </div>
-            <div v-else class="text-sm text-gray-500 dark:text-gray-400 py-2">
-              暂无章节目录
-            </div>
-          </div>
-        </div>
+    <!-- 右上角固定章节目录 -->
+    <div
+      class="fixed top-24 right-4 z-30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-4 border border-gray-100 dark:border-gray-700 w-64 max-w-[80vw] overflow-y-auto max-h-[70vh]">
+      <h3
+        class="text-lg font-semibold text-gray-800 dark:text-white mb-3 border-b border-gray-200 dark:border-gray-700 pb-2">
+        文章目录</h3>
+      <div v-if="tocItems.length > 0" class="space-y-2 text-sm">
+        <li v-for="item in tocItems" :key="item.id" :class="[
+          'pl-' + (item.level - 1) * 4,
+          item.isActive ? 'text-blue-600 dark:text-blue-400 font-medium' : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400',
+          'cursor-pointer transition-colors py-1'
+        ]" @click="scrollToAnchor(item.id)">
+          {{ item.text }}
+        </li>
       </div>
+      <div v-else class="text-sm text-gray-500 dark:text-gray-400 py-2">
+        暂无章节目录
+      </div>
+    </div>
+
+    <!-- 主内容区：文章详情 -->
+    <main class="container mx-auto px-4 py-8 max-w-3xl">
 
       <!-- 2. 文章详情主体 -->
       <div class="flex-1 max-w-3xl">
@@ -227,7 +195,6 @@ const articleRawContent = ref<string>("");
 
 // TOC相关
 const tocItems = ref<TocItem[]>([]);
-const showMobileToc = ref<boolean>(false);
 // 返回顶部相关
 const showBackToTop = ref<boolean>(false);
 const scrollTop = ref<number>(0);
@@ -247,13 +214,7 @@ const toggleDarkMode = () => {
   setTimeout(updateGiscusTheme, 100);
 };
 
-const handleMobileTocClick = () => {
-  if (tocItems.value.length === 0) {
-    alert("本文暂无章节目录");
-    return;
-  }
-  showMobileToc.value = !showMobileToc.value;
-};
+
 
 const refreshArticle = async () => {
   loading.value = true;
@@ -394,17 +355,11 @@ const testTocFunctionality = () => {
       }
     }
 
-    // 测试4：验证移动端目录
-    console.log("\n测试4：移动端目录功能");
-    handleMobileTocClick();
-    console.log(`移动端目录显示状态: ${showMobileToc.value}`);
-
-    // 关闭移动端目录
-    setTimeout(() => {
-      handleMobileTocClick();
-      console.log(`移动端目录关闭状态: ${showMobileToc.value}`);
-      console.log("\n=== 章节目录功能测试完成 ===");
-    }, 500);
+    // 测试4：验证目录显示状态
+    console.log("\n测试4：目录显示状态");
+    console.log(`目录项数量: ${tocItems.value.length}`);
+    console.log(`目录是否显示: ${tocItems.value.length > 0 ? '是' : '否'}`);
+    console.log("\n=== 章节目录功能测试完成 ===");
   }, scrollPositions.length * 500 + 500);
 };
 
@@ -496,6 +451,9 @@ onMounted(async () => {
 
   loading.value = false;
 
+  // 动态加载Giscus脚本
+  await loadGiscus();
+
   // 启动Giscus主题观察器
   const themeObserver = observeThemeChange();
 
@@ -534,6 +492,56 @@ onMounted(async () => {
     setTimeout(testTocFunctionality, 1000);
   }
 });
+
+// 动态加载Giscus脚本
+const loadGiscus = async () => {
+  try {
+    // 检查Giscus容器是否存在
+    const container = document.getElementById('giscus-container');
+    if (!container) {
+      console.error('Giscus容器不存在');
+      return;
+    }
+
+    // 检查Giscus脚本是否已经加载
+    if (document.querySelector('script[src="https://giscus.app/client.js"]')) {
+      console.log('Giscus脚本已加载');
+      return;
+    }
+
+    // 创建Giscus脚本元素
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.setAttribute('data-repo', 'keration/nuxt');
+    script.setAttribute('data-repo-id', 'R_kgDOQ9L4dA');
+    script.setAttribute('data-category', 'Announcements');
+    script.setAttribute('data-category-id', 'DIC_kwDOQ9L4dM4C1oCS');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    script.setAttribute('data-lang', 'zh-CN');
+    script.setAttribute('data-container-id', 'giscus-container');
+    script.crossOrigin = 'anonymous';
+
+    // 添加加载完成回调
+    script.onload = () => {
+      console.log('Giscus脚本加载完成');
+    };
+
+    script.onerror = () => {
+      console.error('Giscus脚本加载失败');
+    };
+
+    // 添加到body
+    document.body.appendChild(script);
+  } catch (error) {
+    console.error('加载Giscus失败:', error);
+  }
+};
 
 // 清理监听
 onUnmounted(() => {

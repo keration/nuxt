@@ -1,5 +1,5 @@
 // server/api/articles.ts
-import { eventHandler } from "h3";
+import { eventHandler, getQuery } from "h3";
 import { getAllArticlesMeta } from "~/server/utils/articles";
 
 export default eventHandler(async (event) => {

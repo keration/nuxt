@@ -3,12 +3,9 @@ import { Server } from 'node:http';
 import path, { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, getResponseStatus, createError, removeResponseHeader, getQuery as getQuery$2, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getResponseStatusText } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@1.15.5/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, getQuery as getQuery$1, getCookie, getResponseStatus, createError, removeResponseHeader, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getResponseStatusText } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@1.15.5/node_modules/h3/dist/index.mjs';
 import { escapeHtml } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@vue+shared@3.5.27/node_modules/@vue/shared/dist/shared.cjs.js';
-import { getQuery as getQuery$1, getCookie, getRequestURL as getRequestURL$1, createError as createError$1, defineEventHandler as defineEventHandler$1, eventHandler as eventHandler$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/h3@2.0.1-rc.8/node_modules/h3/dist/_entries/node.mjs';
 import fs, { readFile } from 'node:fs/promises';
-import { marked, Renderer } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/marked@17.0.1/node_modules/marked/lib/marked.esm.js';
-import hljs from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/highlight.js@11.11.1/node_modules/highlight.js/es/index.js';
 import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/vue-bundle-renderer@2.2.0/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { parseURL, withoutBase, joinURL, getQuery, withQuery, withLeadingSlash, withoutTrailingSlash, isRelative, joinRelativeURL, withTrailingSlash, decodePath } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/ufo@1.6.3/node_modules/ufo/dist/index.mjs';
 import destr, { destr as destr$1 } from 'file://C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/destr@2.0.5/node_modules/destr/dist/index.mjs';
@@ -892,6 +889,14 @@ const _inlineRuntimeConfig = {
     "routeRules": {
       "/__nuxt_error": {
         "cache": false
+      },
+      "/_fonts/**": {
+        "headers": {
+          "cache-control": "public, max-age=31536000, immutable"
+        },
+        "cache": {
+          "maxAge": 31536000
+        }
       },
       "/_nuxt/builds/meta/**": {
         "headers": {
@@ -3347,7 +3352,7 @@ const createMarkdownParser = async (inlineOptions = {}) => {
     };
   };
 };
-const parseMarkdown = async (md, inlineOptions = {}) => {
+const parseMarkdown$1 = async (md, inlineOptions = {}) => {
   const parser = await createMarkdownParser(inlineOptions);
   return parser(md);
 };
@@ -3437,7 +3442,7 @@ const markdown = defineTransformer({
       // Pass only when it's an function. String values are handled by `@nuxtjs/mdc`
       highlighter: typeof options.highlight?.highlighter === "function" ? options.highlight.highlighter : void 0
     } : void 0;
-    const parsed = await parseMarkdown(content, {
+    const parsed = await parseMarkdown$1(content, {
       ...config,
       highlight: highlightOptions,
       remark: {
@@ -3934,53 +3939,7 @@ function publicAssetsURL(...path) {
   return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
 }
 
-const markedOptions = {
-  gfm: true,
-  // 仅保留17.x支持的配置
-  breaks: true,
-  // 换行符转<br>
-  async: false
-  // 禁用异步解析
-  // 移除headerIds（17.x已移除该配置）
-};
-marked.setOptions(markedOptions);
-const createCustomRenderer = () => {
-  const renderer = new Renderer();
-  renderer.code = (rawCodeObj) => {
-    var _a, _b, _c;
-    const rawCode = ((_a = rawCodeObj.text) != null ? _a : "").trim();
-    const targetLang = ((_b = rawCodeObj.lang) != null ? _b : "javascript").toLowerCase().trim();
-    const unescapedCode = rawCode.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
-    let highlightedCode = unescapedCode;
-    try {
-      const supportedLang = hljs.getLanguage(targetLang);
-      if (supportedLang) {
-        const highlightResult = hljs.highlight(unescapedCode, {
-          language: targetLang,
-          ignoreIllegals: true
-        });
-        highlightedCode = (_c = highlightResult.value) != null ? _c : unescapedCode;
-      }
-    } catch (err) {
-      console.warn(`\u26A0\uFE0F [${targetLang}] \u4EE3\u7801\u9AD8\u4EAE\u5931\u8D25\uFF1A`, err);
-    }
-    return `
-      <pre class="hljs language-${targetLang}" style="
-        padding: 1.5rem;
-        border-radius: 8px;
-        background: #282c34 !important;
-        overflow-x: auto;
-        font-family: Consolas, Monaco, 'Courier New', monospace;
-        color: #abb2bf;
-        margin: 1rem 0;
-      ">
-        <code class="language-${targetLang}">${highlightedCode}</code>
-      </pre>
-    `.trim();
-  };
-  return renderer;
-};
-marked.use({ renderer: createCustomRenderer() });
+const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
 const parseFrontmatter = (markdown) => {
   if (!markdown || typeof markdown !== "string") return {};
   const frontmatter = {};
@@ -3997,7 +3956,6 @@ const parseFrontmatter = (markdown) => {
         const parsedArr = JSON.parse(valueStr.replace(/'/g, '"'));
         value = Array.isArray(parsedArr) ? parsedArr : valueStr;
       } catch (err) {
-        console.warn(`\u26A0\uFE0F Frontmatter\u6570\u7EC4\u89E3\u6790\u5931\u8D25 [${key}]\uFF1A`, err);
         value = valueStr.slice(1, -1).split(",").map((item) => item.trim().replace(/['"]/g, ""));
       }
     } else if (valueStr === "true" || valueStr === "false") {
@@ -4011,28 +3969,22 @@ const parseFrontmatter = (markdown) => {
   });
   return frontmatter;
 };
-const useMarkdown = async (markdown) => {
-  const rawMarkdown = (markdown != null ? markdown : "").trim();
+const parseMarkdown = async (content) => {
   try {
-    const frontmatter = parseFrontmatter(rawMarkdown);
-    const content = rawMarkdown.replace(/^---\r?\n([\s\S]*?)\r?\n---/, "").trim();
-    const html = marked.parse(content);
+    const frontmatter = parseFrontmatter(content);
+    const body = content.replace(/^---\r?\n([\s\S]*?)\r?\n---/, "").trim();
     return {
       frontmatter,
-      html,
-      raw: rawMarkdown
+      body
     };
   } catch (err) {
     console.error("\u274C Markdown\u89E3\u6790\u5931\u8D25\uFF1A", err);
     return {
       frontmatter: {},
-      html: `<div class="text-red-500">\u89E3\u6790\u5931\u8D25\uFF1A${err.message}</div>`,
-      raw: rawMarkdown
+      body: content
     };
   }
 };
-
-const PROJECT_ROOT = "c:/Users/admin/Desktop/nuxt";
 const getAllArticlesMeta = async () => {
   const articlesDir = path.join(PROJECT_ROOT, "content", "articles");
   try {
@@ -4053,7 +4005,7 @@ const getAllArticlesMeta = async () => {
       const id = file.replace(".md", "");
       const filePath = path.join(articlesDir, file);
       const content = await fs.readFile(filePath, "utf-8");
-      const { frontmatter } = await useMarkdown(content);
+      const { frontmatter, body } = await parseMarkdown(content);
       articles.push({
         id,
         frontmatter: {
@@ -4064,7 +4016,8 @@ const getAllArticlesMeta = async () => {
           tags: frontmatter.tags || [],
           description: frontmatter.description || "\u6682\u65E0\u7B80\u4ECB"
         },
-        path: `/${id}`
+        path: `/${id}`,
+        body
       });
     } catch (err) {
       console.warn(`\u26A0\uFE0F \u89E3\u6790\u6587\u7AE0 ${file} \u5931\u8D25\uFF1A`, err.message);
@@ -4078,7 +4031,8 @@ const getAllArticlesMeta = async () => {
           tags: [],
           description: "\u89E3\u6790\u5931\u8D25\uFF08\u683C\u5F0F\u9519\u8BEF\uFF09"
         },
-        path: `/${id}`
+        path: `/${id}`,
+        body: ""
       });
     }
   }
@@ -4353,7 +4307,7 @@ const _4rgZhtyavkMScEJvrCd0TYePRa_DxBE1_jJAhQQ_Qlk = defineNitroPlugin(async (ni
 
 const rootDir = "C:/Users/admin/Desktop/nuxt";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[{"src":"https://giscus.app/client.js","async":true,"data-repo":"your-github-username/your-repo-name","data-repo-id":"your-repo-id","data-category":"Comments","data-category-id":"your-category-id","data-mapping":"pathname","data-strict":"0","data-reactions-enabled":"1","data-emit-metadata":"0","data-input-position":"bottom","data-theme":"preferred_color_scheme","data-lang":"zh-CN","crossorigin":"anonymous"}],"noscript":[]};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
 
 const appRootTag = "div";
 
@@ -4465,7 +4419,7 @@ function readAsset (id) {
   return promises.readFile(resolve$1(serverDir, assets[id].path))
 }
 
-const publicAssetBases = {"/_nuxt/builds/meta/":{"maxAge":31536000},"/_nuxt/builds/":{"maxAge":1}};
+const publicAssetBases = {"/_nuxt/builds/meta/":{"maxAge":31536000},"/_nuxt/builds/":{"maxAge":1},"/_fonts/":{"maxAge":31536000}};
 
 function isPublicAssetURL(id = '') {
   if (assets[id]) {
@@ -4843,7 +4797,7 @@ async function getIslandContext(event) {
   const componentParts = url.substring("/__nuxt_island".length + 1).replace(ISLAND_SUFFIX_RE, "").split("_");
   const hashId = componentParts.length > 1 ? componentParts.pop() : void 0;
   const componentName = componentParts.join("_");
-  const context = event.method === "GET" ? getQuery$2(event) : await readBody(event);
+  const context = event.method === "GET" ? getQuery$1(event) : await readBody(event);
   const ctx = {
     url: "/",
     ...context,
@@ -4859,9 +4813,9 @@ async function getIslandContext(event) {
 const warnOnceSet = /* @__PURE__ */ new Set();
 const DEFAULT_ENDPOINT = "https://api.iconify.design";
 const __w6VpF = defineCachedEventHandler(async (event) => {
-  const url = getRequestURL$1(event);
+  const url = getRequestURL(event);
   if (!url)
-    return createError$1({ status: 400, message: "Invalid icon request" });
+    return createError({ status: 400, message: "Invalid icon request" });
   const options = useAppConfig().icon;
   const collectionName = event.context.params?.collection?.replace(/\.json$/, "");
   const collection = collectionName ? await collections[collectionName]?.() : null;
@@ -4889,7 +4843,7 @@ const __w6VpF = defineCachedEventHandler(async (event) => {
     const apiUrl = new URL("./" + basename(url.pathname) + url.search, apiEndPoint);
     consola$1.debug(`[Icon] fetching ${(icons || []).map((i) => "`" + collectionName + ":" + i + "`").join(",")} from iconify api`);
     if (apiUrl.host !== new URL(apiEndPoint).host) {
-      return createError$1({ status: 400, message: "Invalid icon request" });
+      return createError({ status: 400, message: "Invalid icon request" });
     }
     try {
       const data = await $fetch(apiUrl.href);
@@ -4897,12 +4851,12 @@ const __w6VpF = defineCachedEventHandler(async (event) => {
     } catch (e) {
       consola$1.error(e);
       if (e.status === 404)
-        return createError$1({ status: 404 });
+        return createError({ status: 404 });
       else
-        return createError$1({ status: 500, message: "Failed to fetch fallback icon" });
+        return createError({ status: 500, message: "Failed to fetch fallback icon" });
     }
   }
-  return createError$1({ status: 404 });
+  return createError({ status: 404 });
 }, {
   group: "nuxt",
   name: "icon",
@@ -4932,7 +4886,7 @@ const parseJSONQueryParams = (body) => {
   try {
     return jsonParse(body);
   } catch (e) {
-    throw createError$1({ statusCode: 400, message: "Invalid _params query" });
+    throw createError({ statusCode: 400, message: "Invalid _params query" });
   }
 };
 const decodeQueryParams = (encoded) => {
@@ -4997,7 +4951,7 @@ const getContentQuery = (event) => {
   return query;
 };
 
-const _AMle1Z = defineEventHandler$1(async (event) => {
+const _AMle1Z = defineEventHandler(async (event) => {
   const query = getContentQuery(event);
   const { advanceQuery } = useRuntimeConfig().public.content.experimental;
   if (query.first) {
@@ -5009,7 +4963,7 @@ const _AMle1Z = defineEventHandler$1(async (event) => {
     const _result = advanceQuery ? content?.result : content;
     const missing = !_result && !content?.dirConfig?.navigation?.redirect && !content?._dir?.navigation?.redirect;
     if (missing) {
-      throw createError$1({
+      throw createError({
         statusMessage: "Document not found!",
         statusCode: 404,
         data: {
@@ -5026,7 +4980,7 @@ const _AMle1Z = defineEventHandler$1(async (event) => {
   return serverQueryContent(event, query).find();
 });
 
-const _dqrHDS = defineEventHandler$1(async (event) => {
+const _dqrHDS = defineEventHandler(async (event) => {
   const { content } = useRuntimeConfig();
   const now = Date.now();
   const contents = await serverQueryContent(event).find();
@@ -5136,7 +5090,7 @@ function isObject(obj) {
   return Object.prototype.toString.call(obj) === "[object Object]";
 }
 
-const _RcY6DF = defineEventHandler$1(async (event) => {
+const _RcY6DF = defineEventHandler(async (event) => {
   const query = getContentQuery(event);
   if (!isPreview(event) && Object.keys(query).length === 0) {
     const cache = await cacheStorage().getItem("content-navigation.json");
@@ -5201,6 +5155,7 @@ const handlers = [
   { route: '/api/_content/navigation/:qid/**:params', handler: _RcY6DF, lazy: false, middleware: false, method: "get" },
   { route: '/api/_content/navigation/:qid', handler: _RcY6DF, lazy: false, middleware: false, method: "get" },
   { route: '/api/_content/navigation', handler: _RcY6DF, lazy: false, middleware: false, method: "get" },
+  { route: '/_fonts/**', handler: _lazy_BVt6AD, lazy: true, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_BVt6AD, lazy: true, middleware: false, method: undefined }
 ];
 
@@ -5385,7 +5340,7 @@ nitroApp.router.use(
   defineEventHandler(async (event) => {
     const name = getRouterParam(event, "name");
     const payload = {
-      ...getQuery$2(event),
+      ...getQuery$1(event),
       ...await readBody(event).then((r) => r?.payload).catch(() => ({}))
     };
     return await runTask(name, { payload });
@@ -5492,7 +5447,7 @@ const styles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: styles
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const archives = eventHandler$1(async () => {
+const archives = eventHandler(async () => {
   const articles = await getAllArticlesMeta();
   const archiveMap = {};
   articles.forEach((article) => {
@@ -5522,7 +5477,7 @@ const archives$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty
   default: archives
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const _id_ = eventHandler$1(async (event) => {
+const _id_ = eventHandler(async (event) => {
   var _a;
   const params = Object.assign({}, event.context.params);
   const id = ((_a = params.id) == null ? void 0 : _a.trim()) || "";
@@ -5560,7 +5515,7 @@ const _id_$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: _id_
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const filter = eventHandler$1(async (event) => {
+const filter = eventHandler(async (event) => {
   const query = getQuery$1(event);
   const tag = query.tag;
   const category = query.category;
@@ -5592,7 +5547,7 @@ const filter$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: filter
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const articles = eventHandler$1(async (event) => {
+const articles = eventHandler(async (event) => {
   try {
     const query = getQuery$1(event);
     const page = parseInt(query.page) || 1;
@@ -5629,7 +5584,7 @@ const articles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty
   default: articles
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const categories = eventHandler$1(async () => {
+const categories = eventHandler(async () => {
   const articles = await getAllArticlesMeta();
   const categoryMap = {};
   articles.forEach((article) => {
@@ -5650,7 +5605,7 @@ const categories$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProper
   default: categories
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const search = defineEventHandler$1(async (event) => {
+const search = defineEventHandler(async (event) => {
   var _a;
   const query = getQuery$1(event);
   const searchTerm = (_a = query.q) == null ? void 0 : _a.trim();
@@ -5692,7 +5647,7 @@ const search$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: search
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const tags = eventHandler$1(async () => {
+const tags = eventHandler(async () => {
   const articles = await getAllArticlesMeta();
   const tagMap = {};
   articles.forEach((article) => {
@@ -5766,7 +5721,7 @@ const APP_TELEPORT_CLOSE_TAG = HAS_APP_TELEPORTS ? `</${appTeleportTag}>` : "";
 const PAYLOAD_URL_RE = /^[^?]*\/_payload.json(?:\?.*)?$/ ;
 const renderer = defineRenderHandler(async (event) => {
   const nitroApp = useNitroApp();
-  const ssrError = event.path.startsWith("/__nuxt_error") ? getQuery$2(event) : null;
+  const ssrError = event.path.startsWith("/__nuxt_error") ? getQuery$1(event) : null;
   if (ssrError && !("__unenv__" in event.node.req)) {
     throw createError({
       statusCode: 404,
