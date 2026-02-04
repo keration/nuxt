@@ -2,30 +2,33 @@
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- 顶部导航 -->
     <header
-      class="sticky top-0 z-20 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 shadow-sm">
+      class="sticky top-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300">
       <div class="container mx-auto px-4 py-3 max-w-5xl flex justify-between items-center">
-        <a href="/" class="text-xl font-bold text-blue-600 dark:text-blue-400">Nuxt 技术博客</a>
-        <nav class="flex items-center gap-6">
-          <ul class="flex gap-6">
+        <a href="/"
+          class="text-xl font-bold text-blue-600 dark:text-blue-400 transition-all duration-300 hover:scale-105">Nuxt
+          技术博客</a>
+        <nav class="flex items-center gap-4">
+          <ul class="hidden md:flex gap-6">
             <li><a href="/"
-                class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">首页</a>
             </li>
             <li><a href="/search"
-                class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">搜索</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">搜索</a>
             </li>
             <li><a href="/tags"
-                class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">标签</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">标签</a>
             </li>
             <li><a href="/categories"
-                class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">分类</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">分类</a>
             </li>
             <li><a href="/archives"
-                class="ml-10 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">归档</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">归档</a>
             </li>
           </ul>
           <!-- 暗黑模式切换按钮 -->
           <button @click="toggleDarkMode"
-            class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="切换暗黑模式">
+            class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 hover:scale-110"
+            aria-label="切换暗黑模式">
           </button>
         </nav>
       </div>
@@ -33,28 +36,60 @@
 
     <!-- 右上角固定章节目录 -->
     <div
-      class="fixed top-24 right-4 z-30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-4 border border-gray-100 dark:border-gray-700 w-64 max-w-[80vw] overflow-y-auto max-h-[70vh]">
+      class="fixed top-24 right-4 z-30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-xl shadow-md p-4 border border-gray-100 dark:border-gray-700 w-64 max-w-[80vw] overflow-y-auto max-h-[70vh] transition-all duration-300 hover:shadow-lg hidden lg:block">
       <h3
-        class="text-lg font-semibold text-gray-800 dark:text-white mb-3 border-b border-gray-200 dark:border-gray-700 pb-2">
-        文章目录</h3>
-      <div v-if="tocItems.length > 0" class="space-y-2 text-sm">
+        class="text-lg font-semibold text-gray-800 dark:text-white mb-3 border-b border-gray-200 dark:border-gray-700 pb-2 flex items-center gap-2">
+        文章目录
+      </h3>
+      <div v-if="tocItems.length > 0" class="space-y-1 text-sm">
         <li v-for="item in tocItems" :key="item.id" :class="[
           'pl-' + (item.level - 1) * 4,
-          item.isActive ? 'text-blue-600 dark:text-blue-400 font-medium' : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400',
-          'cursor-pointer transition-colors py-1'
+          item.isActive ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50/50 dark:bg-blue-900/20 rounded-md' : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50',
+          'cursor-pointer transition-all duration-200 py-1.5 px-2'
         ]" @click="scrollToAnchor(item.id)">
           {{ item.text }}
         </li>
       </div>
-      <div v-else class="text-sm text-gray-500 dark:text-gray-400 py-2">
+      <div v-else class="text-sm text-gray-500 dark:text-gray-400 py-2 flex items-center gap-2">
         暂无章节目录
+      </div>
+    </div>
+
+    <!-- 移动端章节目录按钮 -->
+    <button v-if="tocItems.length > 0"
+      class="fixed bottom-20 right-4 z-30 bg-white dark:bg-gray-800 rounded-full shadow-lg p-3 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl lg:hidden"
+      @click="showMobileToc = !showMobileToc" aria-label="显示章节目录">
+    </button>
+
+    <!-- 移动端章节目录弹窗 -->
+    <div v-if="showMobileToc && tocItems.length > 0"
+      class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-end justify-center lg:hidden"
+      @click.self="showMobileToc = false">
+      <div
+        class="bg-white dark:bg-gray-800 rounded-t-xl shadow-xl w-full max-h-[70vh] overflow-y-auto transition-transform duration-300 transform translate-y-0">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-2">
+            文章目录
+          </h3>
+          <button @click="showMobileToc = false"
+            class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          </button>
+        </div>
+        <div class="p-4 space-y-1 text-sm">
+          <li v-for="item in tocItems" :key="item.id" :class="[
+            'pl-' + (item.level - 1) * 4,
+            item.isActive ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50/50 dark:bg-blue-900/20 rounded-md' : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50',
+            'cursor-pointer transition-all duration-200 py-1.5 px-2'
+          ]" @click="() => { scrollToAnchor(item.id); showMobileToc = false; }">
+            {{ item.text }}
+          </li>
+        </div>
       </div>
     </div>
 
     <!-- 主内容区：文章详情 -->
     <main class="container mx-auto px-4 py-8 max-w-3xl">
-
-      <!-- 2. 文章详情主体 -->
+      <!-- 文章详情主体 -->
       <div class="flex-1 max-w-3xl">
         <!-- 加载中 -->
         <div v-if="loading" class="text-center py-20">
@@ -70,7 +105,8 @@
             class=" bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400 rounded-full w-16 h-16 flex items-center justify-center mb-4">
           </div>
           <p class="text-red-500 dark:text-red-400 text-xl font-medium">{{ error.message }}</p>
-          <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          <button
+            class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-md"
             @click="refreshArticle">
             重新加载
           </button>
@@ -78,68 +114,119 @@
 
         <!-- 文章内容 -->
         <div v-else
-          class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-lg">
           <!-- 文章元信息（兜底所有字段） -->
           <div class="p-6 md:p-8 border-b border-gray-200 dark:border-gray-700">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">{{ articleFrontmatter?.title
+            <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-6 leading-tight">{{
+              articleFrontmatter?.title
               || '未命名文章' }}</h1>
-            <div class="flex flex-wrap gap-3 md:gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
-              <span class="flex items-center gap-1">
-                发布时间：{{ articleFrontmatter?.date || '未知' }}
+            <div class="flex flex-wrap gap-3 md:gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+              <span class="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full">
+                {{ articleFrontmatter?.date || '未知' }}
               </span>
-              <span v-if="articleFrontmatter?.updated" class="flex items-center gap-1">
-                更新时间：{{ articleFrontmatter?.updated || '未知' }}
+              <span v-if="articleFrontmatter?.updated"
+                class="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full">
+
+                {{ articleFrontmatter?.updated || '未知' }}
               </span>
-              <span class="flex items-center gap-1">
-                阅读时长：{{ readingTime }} 分钟
+              <span class="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full">
+                {{ readingTime }} 分钟
               </span>
-              <span class="flex items-center gap-1">
-                字数统计：{{ wordCount }} 字
+              <span class="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full">
+
+                {{ wordCount }} 字
               </span>
               <!-- 分类展示 + 跳转（兜底） -->
-              <span class="flex items-center gap-1">
+              <span class="flex items-center gap-1.5">
                 <NuxtLink :to="`/categories/${articleFrontmatter?.category || '未分类'}`"
-                  class="text-blue-600 dark:text-blue-400 hover:underline transition-colors">
+                  class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800/50 transition-all duration-200">
                   {{ articleFrontmatter?.category || '未分类' }}
                 </NuxtLink>
               </span>
             </div>
 
             <!-- 标签展示 + 跳转（兜底） -->
-            <div class="flex flex-wrap gap-2 mt-2">
-              <span class="text-sm text-gray-500 dark:text-gray-400">标签：</span>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                标签：
+              </span>
               <NuxtLink v-for="tag of articleFrontmatter?.tags || []" :key="tag" :to="`/tags/${tag}`"
-                class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2.5 py-1 rounded-full text-xs hover:bg-blue-100 dark:hover:bg-blue-800/50 transition-colors">
+                class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-xs hover:bg-blue-100 dark:hover:bg-blue-800/50 transition-all duration-200">
                 {{ tag }}
               </NuxtLink>
               <span v-if="!articleFrontmatter?.tags || articleFrontmatter.tags.length === 0"
-                class="text-xs text-gray-400 dark:text-gray-500">无标签</span>
+                class="text-xs text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-full">无标签</span>
             </div>
           </div>
 
           <!-- 文章正文（带锚点的HTML） -->
-          <div ref="articleContentRef" class="mx-20 p-6 md:p-8 prose prose-blue prose-lg dark:prose-invert max-w-none"
-            v-html="articleHtml"></div>
+          <div ref="articleContentRef"
+            class="p-6 md:p-8 prose prose-blue prose-lg dark:prose-invert max-w-none transition-all duration-300">
+            <div v-html="articleHtml"></div>
+          </div>
+
+          <!-- 分享功能 -->
+          <div class="p-6 md:p-8 border-t border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+              分享
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <button @click="shareToWechat"
+                class="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 hover:shadow-md">
+                <i class="iconfont icon-wechat"></i>
+                微信
+              </button>
+              <button @click="shareToWeibo"
+                class="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 hover:shadow-md">
+                <i class="iconfont icon-weibo"></i>
+                微博
+              </button>
+              <button @click="shareToZhihu"
+                class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-md">
+                <i class="iconfont icon-zhihu"></i>
+                知乎
+              </button>
+              <button @click="shareToJuejin"
+                class="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all duration-200 hover:shadow-md">
+                <i class="iconfont icon-juejin"></i>
+                掘金
+              </button>
+            </div>
+          </div>
 
           <!-- 评论区域 -->
-          <div class="mx-20 p-6 md:p-8 border-t border-gray-200 dark:border-gray-700">
-            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">评论</h3>
-            <div id="giscus-container" class="giscus"></div>
+          <div class="p-6 md:p-8 border-t border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
+              评论
+            </h3>
+            <div id="giscus-container" class="giscus rounded-lg overflow-hidden shadow-sm"></div>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- 3. 返回顶部按钮（调整位置 + 确保显示） -->
+    <!-- 返回顶部按钮 -->
     <button v-if="showBackToTop"
-      class="fixed bottom-6 right-20 lg:right-6 z-30 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
+      class="fixed bottom-6 right-6 z-30 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:shadow-xl"
       @click="backToTop" aria-label="返回顶部">
     </button>
 
     <!-- 页脚 -->
-    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-16">
+    <footer
+      class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-16 transition-all duration-300">
       <div class="container mx-auto px-4 py-8 max-w-5xl text-center text-gray-500 dark:text-gray-400">
-        <p>© {{ new Date().getFullYear() }} 我的 Nuxt4 技术博客 | 基于 Nuxt4 构建</p>
+        <p class="transition-all duration-300 hover:text-gray-700 dark:hover:text-gray-300">© {{ new
+          Date().getFullYear() }} 我的 Nuxt4 技术博客 | 基于 Nuxt4 构建</p>
+        <div class="mt-4 flex justify-center gap-4">
+          <a href="/"
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">首页</a>
+          <a href="/archives"
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">归档</a>
+          <a href="/categories"
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">分类</a>
+          <a href="/tags"
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">标签</a>
+        </div>
       </div>
     </footer>
   </div>
@@ -195,14 +282,20 @@ const articleRawContent = ref<string>("");
 
 // TOC相关
 const tocItems = ref<TocItem[]>([]);
+const showMobileToc = ref<boolean>(false);
 // 返回顶部相关
 const showBackToTop = ref<boolean>(false);
 const scrollTop = ref<number>(0);
 
 // 暗黑模式状态
-// const isDarkMode = computed(() => {
-//   return document.documentElement.classList.contains('dark');
-// });
+const isDarkMode = ref(false);
+
+// 检查暗黑模式状态
+const checkDarkMode = () => {
+  if (process.client) {
+    isDarkMode.value = document.documentElement.classList.contains('dark');
+  }
+};
 
 const { updateGiscusTheme, observeThemeChange } = useGiscus();
 
@@ -210,8 +303,45 @@ const toggleDarkMode = () => {
   const html = document.documentElement;
   html.classList.toggle('dark');
   localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+  // 更新暗黑模式状态
+  isDarkMode.value = html.classList.contains('dark');
   // 更新Giscus主题
   setTimeout(updateGiscusTheme, 100);
+};
+
+// 分享功能
+const shareToWechat = () => {
+  const url = window.location.href;
+  const title = articleFrontmatter.value.title || '文章';
+  // 微信分享需要生成二维码，这里简单提示用户复制链接
+  if (process.client) {
+    navigator.clipboard.writeText(url).then(() => {
+      alert('链接已复制到剪贴板，请在微信中粘贴分享');
+    });
+  }
+};
+
+const shareToWeibo = () => {
+  const url = window.location.href;
+  const title = articleFrontmatter.value.title || '文章';
+  const content = articleFrontmatter.value.description || '';
+  const weiboUrl = `https://service.weibo.com/share/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title + ' ' + content)}`;
+  window.open(weiboUrl, '_blank', 'width=600,height=400');
+};
+
+const shareToZhihu = () => {
+  const url = window.location.href;
+  const title = articleFrontmatter.value.title || '文章';
+  const zhihuUrl = `https://www.zhihu.com/share?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+  window.open(zhihuUrl, '_blank', 'width=600,height=400');
+};
+
+const shareToJuejin = () => {
+  const url = window.location.href;
+  const title = articleFrontmatter.value.title || '文章';
+  const content = articleFrontmatter.value.description || '';
+  const juejinUrl = `https://juejin.cn/editor/drafts/new?link=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&content=${encodeURIComponent(content)}`;
+  window.open(juejinUrl, '_blank', 'width=800,height=600');
 };
 
 
@@ -252,6 +382,26 @@ const fetchArticle = async () => {
       description: frontmatter.description || ''
     } as ArticleFrontmatter;
 
+    // 动态配置元标签
+    useHead({
+      title: articleFrontmatter.value.title || '文章',
+      meta: [
+        { name: 'description', content: articleFrontmatter.value.description || '文章详情' },
+        { name: 'keywords', content: (articleFrontmatter.value.tags || []).join(', ') },
+        // Open Graph 元标签
+        { property: 'og:title', content: articleFrontmatter.value.title || '文章' },
+        { property: 'og:description', content: articleFrontmatter.value.description || '文章详情' },
+        { property: 'og:url', content: window.location.href },
+        // Twitter Cards 元标签
+        { name: 'twitter:title', content: articleFrontmatter.value.title || '文章' },
+        { name: 'twitter:description', content: articleFrontmatter.value.description || '文章详情' }
+      ],
+      link: [
+        // canonical 标签
+        { rel: 'canonical', href: window.location.href }
+      ]
+    });
+
     // 修复：先设置loading为false，让DOM渲染
     loading.value = false;
     // 等待DOM渲染完成，确保articleContentRef已挂载
@@ -270,15 +420,11 @@ const fetchArticle = async () => {
 
 const generateToc = () => {
   if (!articleContentRef.value) {
-    console.error("generateToc: articleContentRef is null, cannot generate TOC");
     return;
   }
 
   tocItems.value = [];
   const headings = articleContentRef.value.querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-  // 测试1：验证获取到的标题数量
-  console.log(`generateToc: 找到 ${headings.length} 个标题`);
 
   headings.forEach((element: Element, index: number) => {
     const heading = element as HTMLElement;
@@ -294,74 +440,13 @@ const generateToc = () => {
       level,
       isActive: false
     });
-
-    // 测试2：记录每个标题的信息
-    console.log(`generateToc: 标题 ${index + 1}: ${text} (H${level}), ID: ${uniqueId}`);
   });
-
-  // 测试3：验证生成的目录项数量
-  console.log(`generateToc: 生成了 ${tocItems.value.length} 个目录项`);
 
   // 手动触发一次滚动监听（确保激活项正确）
   handleScroll();
-
-  // 测试4：验证初始激活项
-  const initialActiveItem = tocItems.value.find(item => item.isActive);
-  console.log(`generateToc: 初始激活项: ${initialActiveItem?.text || '无'}`);
 };
 
-// 测试章节目录功能的综合测试函数
-const testTocFunctionality = () => {
-  console.log("\n=== 开始章节目录功能测试 ===");
 
-  // 测试1：验证目录生成
-  console.log("\n测试1：目录生成");
-  console.log(`目录项数量: ${tocItems.value.length}`);
-  console.log(`目录项详情: ${JSON.stringify(tocItems.value, null, 2)}`);
-
-  if (tocItems.value.length === 0) {
-    console.error("测试失败：未生成任何目录项");
-    return;
-  }
-
-  // 测试2：验证滚动激活功能
-  console.log("\n测试2：滚动激活功能");
-
-  // 模拟滚动到不同位置
-  const scrollPositions = [0, 300, 800, 1500];
-  scrollPositions.forEach((position, index) => {
-    setTimeout(() => {
-      window.scrollTo({ top: position, behavior: 'instant' });
-      handleScroll();
-      const activeItem = tocItems.value.find(item => item.isActive);
-      console.log(`滚动到 ${position}px，激活项: ${activeItem?.text || '无'}`);
-    }, index * 500);
-  });
-
-  // 测试3：验证点击跳转功能
-  setTimeout(() => {
-    console.log("\n测试3：点击跳转功能");
-    if (tocItems.value.length > 1) {
-      const secondItem = tocItems.value[1];
-      if (secondItem) {
-        console.log(`点击目录项: ${secondItem.text}`);
-        scrollToAnchor(secondItem.id);
-
-        setTimeout(() => {
-          const activeItem = tocItems.value.find(item => item.isActive);
-          console.log(`点击后激活项: ${activeItem?.text || '无'}`);
-          console.log(`当前滚动位置: ${window.scrollY}px`);
-        }, 500);
-      }
-    }
-
-    // 测试4：验证目录显示状态
-    console.log("\n测试4：目录显示状态");
-    console.log(`目录项数量: ${tocItems.value.length}`);
-    console.log(`目录是否显示: ${tocItems.value.length > 0 ? '是' : '否'}`);
-    console.log("\n=== 章节目录功能测试完成 ===");
-  }, scrollPositions.length * 500 + 500);
-};
 
 const scrollToAnchor = (anchorId: string) => {
   const anchor = document.getElementById(anchorId);
@@ -437,69 +522,50 @@ const readingTime = computed(() => {
 // 初始化（修复事件监听 + 暗黑模式）
 onMounted(async () => {
   // 初始化暗黑模式
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
+  if (process.client) {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+    // 检查并设置暗黑模式状态
+    checkDarkMode();
   }
 
   // 加载文章
   await fetchArticle();
 
   // 绑定滚动事件
-  window.addEventListener("scroll", handleScroll);
-  // 手动触发一次滚动监听（确保返回顶部按钮状态正确）
-  handleScroll();
+  if (process.client) {
+    window.addEventListener("scroll", handleScroll);
+    // 手动触发一次滚动监听（确保返回顶部按钮状态正确）
+    handleScroll();
+  }
 
   loading.value = false;
 
   // 动态加载Giscus脚本
-  await loadGiscus();
+  if (process.client) {
+    await loadGiscus();
+  }
+});
 
-  // 启动Giscus主题观察器
-  const themeObserver = observeThemeChange();
-
-  // 清理函数
-  onUnmounted(() => {
+// 清理监听
+onUnmounted(() => {
+  if (process.client) {
     window.removeEventListener("scroll", handleScroll);
-    themeObserver.disconnect();
-  });
-
-  // 添加章节目录测试按钮到页面
-  const tocTestButton = document.createElement('button');
-  tocTestButton.textContent = '运行章节目录测试';
-  tocTestButton.style.position = 'fixed';
-  tocTestButton.style.top = '100px';
-  tocTestButton.style.right = '20px';
-  tocTestButton.style.padding = '10px 20px';
-  tocTestButton.style.backgroundColor = '#3b82f6';
-  tocTestButton.style.color = 'white';
-  tocTestButton.style.border = 'none';
-  tocTestButton.style.borderRadius = '5px';
-  tocTestButton.style.cursor = 'pointer';
-  tocTestButton.style.zIndex = '1000';
-
-  // 添加测试按钮点击事件
-  tocTestButton.addEventListener('click', testTocFunctionality);
-
-  document.body.appendChild(tocTestButton);
-
-  console.log('=== 章节目录测试按钮已添加到页面右上角 ===');
-  console.log('点击"运行章节目录测试"按钮可测试目录功能');
-
-  // 自动测试：当URL包含test=toc参数时，自动运行测试
-  if (window.location.search.includes('test=toc')) {
-    console.log('检测到test=toc参数，自动运行章节目录测试');
-    // 等待1秒，确保页面完全加载
-    setTimeout(testTocFunctionality, 1000);
   }
 });
 
 // 动态加载Giscus脚本
 const loadGiscus = async () => {
+  if (!process.client) {
+    return;
+  }
+
   try {
     // 检查Giscus容器是否存在
     const container = document.getElementById('giscus-container');
     if (!container) {
-      console.error('Giscus容器不存在');
+      console.warn('Giscus容器不存在');
       return;
     }
 
@@ -522,7 +588,7 @@ const loadGiscus = async () => {
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'bottom');
-    script.setAttribute('data-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    script.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
     script.setAttribute('data-lang', 'zh-CN');
     script.setAttribute('data-container-id', 'giscus-container');
     script.crossOrigin = 'anonymous';
@@ -543,10 +609,7 @@ const loadGiscus = async () => {
   }
 };
 
-// 清理监听
-onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
+
 </script>
 
 <style scoped>

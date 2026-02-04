@@ -21,9 +21,9 @@ export default eventHandler(async (event: H3Event) => {
     const filePath = path.resolve(contentDir, `${id}.md`);
 
     // 【排查关键】打印路径和目录文件
-    console.log("Nuxt4 项目根目录：", rootDir);
-    console.log("目标文件路径：", filePath);
-    console.log("content 目录下的文件：", await fs.readdir(contentDir));
+    // console.log("Nuxt4 项目根目录：", rootDir);
+    // console.log("目标文件路径：", filePath);
+    // console.log("content 目录下的文件：", await fs.readdir(contentDir));
 
     // 检查文件是否存在
     try {

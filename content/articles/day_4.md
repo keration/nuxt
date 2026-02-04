@@ -6,11 +6,12 @@ description: "第4天，沉淀"
 cover: "https://picsum.photos/id/180/1200/600" # 文章封面图（占位图）
 ---
 
-# Day 1
+# Day 4
 
 1. ***实现文章目录功能***
   > 1. Windows 环境下，@nuxt/content 依赖的 better-sqlite3 原生模块编译失败，找不到对应的 .node 绑定文件，导致 Nuxt 项目无法启动。
   > 逆大天，还要下py和一个vs编译库（~~我***~~）问题最多的一集
   ```javascript
   ```
+  >> 快速解决：不使用 @nuxt/content 模块，直接使用js渲染。
   

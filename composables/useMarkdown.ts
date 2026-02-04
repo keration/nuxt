@@ -1,8 +1,6 @@
-// ❶ 修复：移除不存在的Code导入，仅保留marked/RawRenderer（适配17.x类型导出）
 import { marked, Renderer, type MarkedOptions } from "marked";
 import hljs from "highlight.js";
 import type { HighlightResult, Language } from "highlight.js";
-// 确保样式导入路径正确
 import "highlight.js/styles/atom-one-dark.min.css";
 
 // 导出核心类型（兼容所有值类型）
@@ -98,7 +96,6 @@ export const parseFrontmatter = (markdown: string): Record<string, string | numb
       let valueStr = line.slice(colonIndex + 1).trim();
       let value: string | number | boolean | string[] = valueStr;
 
-      // 解析数组（核心：先判断是string才调用split，解决2339报错）
       if (typeof valueStr === "string" && valueStr.startsWith("[") && valueStr.endsWith("]")) {
         try {
           const parsedArr = JSON.parse(valueStr.replace(/'/g, '"'));
@@ -149,7 +146,7 @@ export const useMarkdown = async (markdown: string): Promise<MarkdownParsedResul
       raw: rawMarkdown,
     };
   } catch (err) {
-    console.error("❌ Markdown解析失败：", err);
+    console.error("Markdown解析失败：", err);
     return {
       frontmatter: {},
       html: `<div class="text-red-500">解析失败：${(err as Error).message}</div>`,

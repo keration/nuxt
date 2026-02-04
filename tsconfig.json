@@ -4,9 +4,12 @@
     "strict": true, // 仅保留严格模式（核心）
     "esModuleInterop": true, // 兼容CommonJS模块（如markdown-it）
     "allowSyntheticDefaultImports": true, // 解决第三方模块默认导入问题
+    "allowArbitraryExtensions": true, // 允许任意文件扩展名
+    "moduleResolution": "Bundler", // 使用Bundler模块解析策略
     "paths": {
       "~/*": ["./*"],
-      "@/*": ["./*"] // 保留路径别名（Nuxt默认也有，但显式写更清晰）
+      "@/*": ["./*"], // 保留路径别名（Nuxt默认也有，但显式写更清晰）
+      "h3": ["./node_modules/.pnpm/h3@1.15.5/node_modules/h3"]
     }
   },
   "include": ["**/*.ts", "**/*.vue", ".nuxt/**/*"],

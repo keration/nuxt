@@ -44,6 +44,11 @@ export { localeContextInjectionKey, useLocale } from '../node_modules/.pnpm/@nux
 export { useOverlay } from '../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/useOverlay';
 export { portalTargetInjectionKey, usePortal } from '../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/usePortal';
 export { useToast } from '../node_modules/.pnpm/@nuxt+ui@3.3.7_@babel+parse_aaa3f23196b2cd8482a1bffc2bb1c0e0/node_modules/@nuxt/ui/dist/runtime/composables/useToast';
+export { getNitroOrigin } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/app/composables/getNitroOrigin';
+export { updateSiteConfig } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/app/composables/updateSiteConfig';
+export { useNitroOrigin } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/app/composables/useNitroOrigin';
+export { useSiteConfig } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/app/composables/useSiteConfig';
+export { createSitePathResolver, withSiteTrailingSlash, withSiteUrl } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/app/composables/utils';
 export { useColorMode } from '../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.5.1/node_modules/@nuxtjs/color-mode/dist/runtime/composables';
 export { queryContent } from '../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/legacy/composables/query';
 export { useContentHelpers } from '../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/composables/helpers';
@@ -54,4 +59,5 @@ export { useUnwrap } from '../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d
 export { fetchContentNavigation } from '../node_modules/.pnpm/@nuxt+content@2.13.2_db0@0._f8d310d4337a017561af2a779f30b9de/node_modules/@nuxt/content/dist/runtime/legacy/composables/navigation';
 export { flatUnwrap as unwrapSlot } from '../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/utils/node';
 export { parseMarkdown } from '../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/parser';
+export { useImage } from '../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_042eac260acd4a06dc20561d81d76a68/node_modules/@nuxt/image/dist/runtime/composables';
 export { useNuxtDevTools } from '../node_modules/.pnpm/@nuxt+devtools@3.1.1_vite@7_291c1dbcaace7739b0c7d50852b93503/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';

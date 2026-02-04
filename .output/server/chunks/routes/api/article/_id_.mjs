@@ -5,11 +5,12 @@ import 'node:http';
 import 'node:https';
 import 'node:events';
 import 'node:buffer';
+import 'vue';
+import 'consola';
 import 'node:fs';
 import 'node:url';
 import '@iconify/utils';
 import 'node:crypto';
-import 'consola';
 import 'unified';
 import 'mdast-util-to-string';
 import 'micromark';
@@ -32,6 +33,7 @@ import 'detab';
 import 'hast-util-to-string';
 import 'github-slugger';
 import 'node:path';
+import 'fast-xml-parser';
 import 'ipx';
 
 const _id_ = eventHandler(async (event) => {
@@ -47,9 +49,6 @@ const _id_ = eventHandler(async (event) => {
     const rootDir = process.cwd();
     const contentDir = path.resolve(rootDir, "content", "articles");
     const filePath = path.resolve(contentDir, `${id}.md`);
-    console.log("Nuxt4 \u9879\u76EE\u6839\u76EE\u5F55\uFF1A", rootDir);
-    console.log("\u76EE\u6807\u6587\u4EF6\u8DEF\u5F84\uFF1A", filePath);
-    console.log("content \u76EE\u5F55\u4E0B\u7684\u6587\u4EF6\uFF1A", await fs.readdir(contentDir));
     try {
       await fs.access(filePath);
     } catch {

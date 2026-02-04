@@ -55,6 +55,9 @@
       "vite/client": [
         "../node_modules/.pnpm/vite@7.3.1_@types+node@25.0_f36d68952782184226d93d0abf3b7560/node_modules/vite/client"
       ],
+      "nuxt-site-config": [
+        "../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config"
+      ],
       "~": [
         ".."
       ],
@@ -111,6 +114,18 @@
       ],
       "#mdc-imports": [
         "./mdc-imports"
+      ],
+      "#sitemap": [
+        "../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime"
+      ],
+      "#sitemap/*": [
+        "../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime/*"
+      ],
+      "#site-config": [
+        "../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime"
+      ],
+      "#site-config/*": [
+        "../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/*"
       ],
       "#vue-router": [
         "../node_modules/.pnpm/vue-router@4.6.4_vue@3.5.27_typescript@5.9.3_/node_modules/vue-router"

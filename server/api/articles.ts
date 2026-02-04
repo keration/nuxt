@@ -1,8 +1,9 @@
 // server/api/articles.ts
 import { eventHandler, getQuery } from "h3";
+import type { H3Event } from "h3";
 import { getAllArticlesMeta } from "~/server/utils/articles";
 
-export default eventHandler(async (event) => {
+export default eventHandler(async (event: H3Event) => {
   try {
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;

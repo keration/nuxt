@@ -1,9 +1,10 @@
 // server/api/articles/filter.ts
 import { eventHandler, getQuery } from "h3";
+import type { H3Event } from "h3";
 import { getAllArticlesMeta } from "~/server/utils/articles";
 // import type { ArticleMeta } from "~/server/utils/articles"; // 类型 → import type
 
-export default eventHandler(async (event) => {
+export default eventHandler(async (event: H3Event) => {
   const query = getQuery(event);
   const tag = query.tag as string;
   const category = query.category as string;

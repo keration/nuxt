@@ -6,6 +6,9 @@
       href="https://at.alicdn.com/t/c/font_4362472_9019h76749.css"
     />
 
+    <!-- Umami 站点统计 -->
+    <script async src="https://umami.chenjianhui.site/script.js" data-website-id="your-website-id"></script>
+
     <!-- 🌙/☀️ 暗黑模式切换按钮（现代化重构） -->
     <button
       class="fixed top-6 right-6 z-50 transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/50"

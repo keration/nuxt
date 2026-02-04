@@ -109,6 +109,7 @@ export const ProseTh: typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_mag
 export const ProseThead: typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseThead.vue").default
 export const ProseTr: typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseTr.vue").default
 export const ProseUl: typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseUl.vue").default
+export const UnoIcon: typeof import("../node_modules/.pnpm/@unocss+nuxt@66.6.0_magicas_474992de32b24b0e4e56d1b63114a314/node_modules/@unocss/nuxt/runtime/UnoIcon.vue").default
 export const NuxtWelcome: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/welcome.vue").default
 export const NuxtLayout: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-layout").default
 export const NuxtErrorBoundary: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default
@@ -119,8 +120,8 @@ export const NuxtLink: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+w
 export const NuxtLoadingIndicator: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-loading-indicator").default
 export const NuxtTime: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-time.vue").default
 export const NuxtRouteAnnouncer: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-route-announcer").default
-export const NuxtImg: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-stubs").NuxtImg
-export const NuxtPicture: typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-stubs").NuxtPicture
+export const NuxtImg: typeof import("../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_042eac260acd4a06dc20561d81d76a68/node_modules/@nuxt/image/dist/runtime/components/NuxtImg.vue").default
+export const NuxtPicture: typeof import("../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_042eac260acd4a06dc20561d81d76a68/node_modules/@nuxt/image/dist/runtime/components/NuxtPicture.vue").default
 export const Icon: typeof import("../node_modules/.pnpm/@nuxt+icon@1.15.0_magicast@_05bbcbf53763f23e26a7d7eb1ac5f5f5/node_modules/@nuxt/icon/dist/runtime/components/index").default
 export const ColorScheme: typeof import("../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.5.1/node_modules/@nuxtjs/color-mode/dist/runtime/component.vue3.vue").default
 export const MDC: typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/MDC.vue").default
@@ -232,6 +233,7 @@ export const LazyProseTh: LazyComponent<typeof import("../node_modules/.pnpm/@nu
 export const LazyProseThead: LazyComponent<typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseThead.vue").default>
 export const LazyProseTr: LazyComponent<typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseTr.vue").default>
 export const LazyProseUl: LazyComponent<typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseUl.vue").default>
+export const LazyUnoIcon: LazyComponent<typeof import("../node_modules/.pnpm/@unocss+nuxt@66.6.0_magicas_474992de32b24b0e4e56d1b63114a314/node_modules/@unocss/nuxt/runtime/UnoIcon.vue").default>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/welcome.vue").default>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-layout").default>
 export const LazyNuxtErrorBoundary: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default>
@@ -242,8 +244,8 @@ export const LazyNuxtLink: LazyComponent<typeof import("../node_modules/.pnpm/nu
 export const LazyNuxtLoadingIndicator: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-loading-indicator").default>
 export const LazyNuxtTime: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-time.vue").default>
 export const LazyNuxtRouteAnnouncer: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-route-announcer").default>
-export const LazyNuxtImg: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-stubs").NuxtImg>
-export const LazyNuxtPicture: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_ff0666e395b7570212cd0fd542c5dcc4/node_modules/nuxt/dist/app/components/nuxt-stubs").NuxtPicture>
+export const LazyNuxtImg: LazyComponent<typeof import("../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_042eac260acd4a06dc20561d81d76a68/node_modules/@nuxt/image/dist/runtime/components/NuxtImg.vue").default>
+export const LazyNuxtPicture: LazyComponent<typeof import("../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_042eac260acd4a06dc20561d81d76a68/node_modules/@nuxt/image/dist/runtime/components/NuxtPicture.vue").default>
 export const LazyIcon: LazyComponent<typeof import("../node_modules/.pnpm/@nuxt+icon@1.15.0_magicast@_05bbcbf53763f23e26a7d7eb1ac5f5f5/node_modules/@nuxt/icon/dist/runtime/components/index").default>
 export const LazyColorScheme: LazyComponent<typeof import("../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.5.1/node_modules/@nuxtjs/color-mode/dist/runtime/component.vue3.vue").default>
 export const LazyMDC: LazyComponent<typeof import("../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/components/MDC.vue").default>

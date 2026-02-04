@@ -9,11 +9,11 @@ import 'node:http';
 import 'node:https';
 import 'node:events';
 import 'node:buffer';
+import 'consola';
 import 'node:fs';
 import 'node:url';
 import '@iconify/utils';
 import 'node:crypto';
-import 'consola';
 import 'unified';
 import 'mdast-util-to-string';
 import 'micromark';
@@ -36,6 +36,7 @@ import 'detab';
 import 'hast-util-to-string';
 import 'github-slugger';
 import 'node:path';
+import 'fast-xml-parser';
 import 'ipx';
 
 const VueResolver = (_, value) => {
@@ -65,7 +66,7 @@ function createHead(options = {}) {
   return head;
 }
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"description","content":"我的 Nuxt4 技术博客，记录技术成长和学习心得"},{"name":"keywords","content":"Nuxt, Vue, 技术博客, 前端开发"},{"property":"og:site_name","content":"我的 Nuxt4 技术博客"},{"property":"og:type","content":"website"},{"name":"twitter:card","content":"summary_large_image"},{"name":"twitter:site","content":"@your-twitter"}],"link":[],"style":[],"script":[],"noscript":[],"charset":"utf-8","viewport":"width=device-width, initial-scale=1"};
 
 const appRootTag = "div";
 

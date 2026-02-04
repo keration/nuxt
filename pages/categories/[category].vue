@@ -35,9 +35,9 @@ const loading = ref(true);
 const fetchArticlesByCategory = async () => {
   const category = route.params.category as string;
   try {
-    const { data } = await useFetch<{ code: number; message: string; data: any[] }>(`/api/article/filter?category=${encodeURIComponent(category)}`);
-    if (data.value?.code === 200) {
-      articles.value = data.value.data || [];
+    const response = await $fetch<{ code: number; message: string; data: any[] }>(`/api/article/filter?category=${encodeURIComponent(category)}`);
+    if (response?.code === 200) {
+      articles.value = response.data || [];
     }
   } catch (err) {
     console.error("筛选文章失败：", err);
