@@ -1,13 +1,13 @@
 declare global {
-  const __buildAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_070b0fac6bd54ce9eae3661f9dcb8d6f/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').buildAssetsURL
-  const __publicAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_070b0fac6bd54ce9eae3661f9dcb8d6f/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').publicAssetsURL
+  const __buildAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').buildAssetsURL
+  const __publicAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').publicAssetsURL
   const appendCorsHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendCorsHeaders
   const appendCorsPreflightHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendCorsPreflightHeaders
   const appendHeader: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendHeader
   const appendHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendHeaders
   const appendResponseHeader: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendResponseHeader
   const appendResponseHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendResponseHeaders
-  const asSitemapUrl: typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/asSitemapUrl').asSitemapUrl
+  const asSitemapUrl: typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/asSitemapUrl').asSitemapUrl
   const assertMethod: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').assertMethod
   const cachedEventHandler: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/cache').cachedEventHandler
   const cachedFunction: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/cache').cachedFunction
@@ -20,12 +20,15 @@ declare global {
   const createEvent: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').createEvent
   const createEventStream: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').createEventStream
   const createRouter: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').createRouter
-  const createSitePathResolver: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/utils').createSitePathResolver
+  const createSitePathResolver: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/utils').createSitePathResolver
   const defaultContentType: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defaultContentType
-  const defineAppConfig: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_070b0fac6bd54ce9eae3661f9dcb8d6f/node_modules/@nuxt/nitro-server/dist/runtime/utils/config').defineAppConfig
+  const defineAppConfig: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/config').defineAppConfig
   const defineCachedEventHandler: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/cache').defineCachedEventHandler
   const defineCachedFunction: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/cache').defineCachedFunction
   const defineEventHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defineEventHandler
+  const defineI18nConfig: typeof import('../../node_modules/.pnpm/@nuxtjs+i18n@10.2.3_@vue+co_da280962f4007d895659db3b82b3fdbf/node_modules/@nuxtjs/i18n/dist/runtime/composables/shared').defineI18nConfig
+  const defineI18nLocale: typeof import('../../node_modules/.pnpm/@nuxtjs+i18n@10.2.3_@vue+co_da280962f4007d895659db3b82b3fdbf/node_modules/@nuxtjs/i18n/dist/runtime/composables/shared').defineI18nLocale
+  const defineI18nLocaleDetector: typeof import('../../node_modules/.pnpm/@nuxtjs+i18n@10.2.3_@vue+co_da280962f4007d895659db3b82b3fdbf/node_modules/@nuxtjs/i18n/dist/runtime/composables/server').defineI18nLocaleDetector
   const defineLazyEventHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defineLazyEventHandler
   const defineNitroErrorHandler: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/error/utils').defineNitroErrorHandler
   const defineNitroPlugin: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/plugin').defineNitroPlugin
@@ -35,7 +38,7 @@ declare global {
   const defineRequestMiddleware: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defineRequestMiddleware
   const defineResponseMiddleware: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defineResponseMiddleware
   const defineRouteMeta: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/meta').defineRouteMeta
-  const defineSitemapEventHandler: typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/defineSitemapEventHandler').defineSitemapEventHandler
+  const defineSitemapEventHandler: typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/defineSitemapEventHandler').defineSitemapEventHandler
   const defineTask: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/task').defineTask
   const defineWebSocket: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defineWebSocket
   const defineWebSocketHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defineWebSocketHandler
@@ -48,13 +51,20 @@ declare global {
   const fromWebHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').fromWebHandler
   const getAllArticlesMeta: typeof import('../../server/utils/articles').getAllArticlesMeta
   const getCookie: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getCookie
+  const getCookieLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').getCookieLocale
   const getHeader: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getHeader
+  const getHeaderLanguage: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').getHeaderLanguage
+  const getHeaderLanguages: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').getHeaderLanguages
+  const getHeaderLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').getHeaderLocale
+  const getHeaderLocales: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').getHeaderLocales
   const getHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getHeaders
   const getMethod: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getMethod
-  const getNitroOrigin: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/getNitroOrigin').getNitroOrigin
-  const getPathRobotConfig: typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime/server/robots-polyfill/getPathRobotConfig').getPathRobotConfig
+  const getNitroOrigin: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/getNitroOrigin').getNitroOrigin
+  const getPathLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').getPathLocale
+  const getPathRobotConfig: typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/robots-polyfill/getPathRobotConfig').getPathRobotConfig
   const getProxyRequestHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getProxyRequestHeaders
   const getQuery: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getQuery
+  const getQueryLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').getQueryLocale
   const getRequestFingerprint: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getRequestFingerprint
   const getRequestHeader: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getRequestHeader
   const getRequestHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getRequestHeaders
@@ -72,8 +82,8 @@ declare global {
   const getRouterParam: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getRouterParam
   const getRouterParams: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getRouterParams
   const getSession: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getSession
-  const getSiteConfig: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteConfig').getSiteConfig
-  const getSiteIndexable: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteIndexable').getSiteIndexable
+  const getSiteConfig: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteConfig').getSiteConfig
+  const getSiteIndexable: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteIndexable').getSiteIndexable
   const getValidatedQuery: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getValidatedQuery
   const getValidatedRouterParams: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').getValidatedRouterParams
   const handleCacheHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').handleCacheHeaders
@@ -89,7 +99,7 @@ declare global {
   const lazyEventHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').lazyEventHandler
   const nitroPlugin: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/plugin').nitroPlugin
   const parseCookies: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').parseCookies
-  const parseMarkdown: typeof import('../../node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/parser').parseMarkdown
+  const parseMarkdown: typeof import('../../node_modules/.pnpm/@nuxtjs+mdc@0.9.5_magicast@0.5.2/node_modules/@nuxtjs/mdc/dist/runtime/parser').parseMarkdown
   const promisifyNodeListener: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').promisifyNodeListener
   const proxyRequest: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').proxyRequest
   const readBody: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').readBody
@@ -112,6 +122,7 @@ declare global {
   const sendWebResponse: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').sendWebResponse
   const serveStatic: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').serveStatic
   const setCookie: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').setCookie
+  const setCookieLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').setCookieLocale
   const setHeader: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').setHeader
   const setHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').setHeaders
   const setResponseHeader: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').setResponseHeader
@@ -123,21 +134,27 @@ declare global {
   const toPlainHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').toPlainHandler
   const toWebHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').toWebHandler
   const toWebRequest: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').toWebRequest
+  const tryCookieLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').tryCookieLocale
+  const tryHeaderLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').tryHeaderLocale
+  const tryHeaderLocales: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').tryHeaderLocales
+  const tryPathLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').tryPathLocale
+  const tryQueryLocale: typeof import('../../node_modules/.pnpm/@intlify+utils@0.13.0/node_modules/@intlify/utils/dist/h3').tryQueryLocale
   const unsealSession: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').unsealSession
   const updateSession: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').updateSession
-  const updateSiteConfig: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/updateSiteConfig').updateSiteConfig
+  const updateSiteConfig: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/updateSiteConfig').updateSiteConfig
   const useAppConfig: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/config').useAppConfig
   const useBase: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').useBase
   const useEvent: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/context').useEvent
-  const useImage: typeof import('../../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_042eac260acd4a06dc20561d81d76a68/node_modules/@nuxt/image/dist/runtime/server/utils/image').useImage
+  const useImage: typeof import('../../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_ccf096e3309a11a84b9895f1b3d36e77/node_modules/@nuxt/image/dist/runtime/server/utils/image').useImage
   const useNitroApp: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/app').useNitroApp
-  const useNitroOrigin: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/useNitroOrigin').useNitroOrigin
+  const useNitroOrigin: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/useNitroOrigin').useNitroOrigin
   const useRuntimeConfig: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/config').useRuntimeConfig
   const useSession: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').useSession
-  const useSiteConfig: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/useSiteConfig').useSiteConfig
+  const useSiteConfig: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/useSiteConfig').useSiteConfig
   const useStorage: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/storage').useStorage
-  const withSiteTrailingSlash: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/utils').withSiteTrailingSlash
-  const withSiteUrl: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/utils').withSiteUrl
+  const useTranslation: typeof import('../../node_modules/.pnpm/@intlify+h3@0.7.4/node_modules/@intlify/h3').useTranslation
+  const withSiteTrailingSlash: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/utils').withSiteTrailingSlash
+  const withSiteUrl: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/utils').withSiteUrl
   const writeEarlyHints: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').writeEarlyHints
 }
 // for type re-export
@@ -158,18 +175,22 @@ export { useEvent } from 'nitropack/runtime/internal/context';
 export { defineTask, runTask } from 'nitropack/runtime/internal/task';
 export { defineNitroErrorHandler } from 'nitropack/runtime/internal/error/utils';
 export { appendCorsHeaders, appendCorsPreflightHeaders, appendHeader, appendHeaders, appendResponseHeader, appendResponseHeaders, assertMethod, callNodeListener, clearResponseHeaders, clearSession, createApp, createAppEventHandler, createError, createEvent, createEventStream, createRouter, defaultContentType, defineEventHandler, defineLazyEventHandler, defineNodeListener, defineNodeMiddleware, defineRequestMiddleware, defineResponseMiddleware, defineWebSocket, defineWebSocketHandler, deleteCookie, dynamicEventHandler, eventHandler, fetchWithEvent, fromNodeMiddleware, fromPlainHandler, fromWebHandler, getCookie, getHeader, getHeaders, getMethod, getProxyRequestHeaders, getQuery, getRequestFingerprint, getRequestHeader, getRequestHeaders, getRequestHost, getRequestIP, getRequestPath, getRequestProtocol, getRequestURL, getRequestWebStream, getResponseHeader, getResponseHeaders, getResponseStatus, getResponseStatusText, getRouterParam, getRouterParams, getSession, getValidatedQuery, getValidatedRouterParams, handleCacheHeaders, handleCors, isCorsOriginAllowed, isError, isEvent, isEventHandler, isMethod, isPreflightRequest, isStream, isWebResponse, lazyEventHandler, parseCookies, promisifyNodeListener, proxyRequest, readBody, readFormData, readMultipartFormData, readRawBody, readValidatedBody, removeResponseHeader, sanitizeStatusCode, sanitizeStatusMessage, sealSession, send, sendError, sendIterable, sendNoContent, sendProxy, sendRedirect, sendStream, sendWebResponse, serveStatic, setCookie, setHeader, setHeaders, setResponseHeader, setResponseHeaders, setResponseStatus, splitCookiesString, toEventHandler, toNodeListener, toPlainHandler, toWebHandler, toWebRequest, unsealSession, updateSession, useBase, useSession, writeEarlyHints } from 'h3';
-export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_070b0fac6bd54ce9eae3661f9dcb8d6f/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
-export { defineAppConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_070b0fac6bd54ce9eae3661f9dcb8d6f/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
-export { parseMarkdown } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+mdc@0.8.3_magicast@0.5.1/node_modules/@nuxtjs/mdc/dist/runtime/parser';
-export { useImage } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_042eac260acd4a06dc20561d81d76a68/node_modules/@nuxt/image/dist/runtime/server/utils/image';
-export { defineSitemapEventHandler } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/defineSitemapEventHandler';
-export { asSitemapUrl } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/asSitemapUrl';
-export { getPathRobotConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_e90dbe9a09a52d4e99e01dcca3eb8dbc/node_modules/@nuxtjs/sitemap/dist/runtime/server/robots-polyfill/getPathRobotConfig';
-export { getNitroOrigin } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/getNitroOrigin';
-export { getSiteConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteConfig';
-export { getSiteIndexable } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteIndexable';
-export { updateSiteConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/updateSiteConfig';
-export { useNitroOrigin } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/useNitroOrigin';
-export { useSiteConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/useSiteConfig';
-export { createSitePathResolver, withSiteTrailingSlash, withSiteUrl } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_eae980ab3c85f3132abd122efd4ff01f/node_modules/nuxt-site-config/dist/runtime/server/composables/utils';
+export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
+export { defineAppConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
+export { parseMarkdown } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+mdc@0.9.5_magicast@0.5.2/node_modules/@nuxtjs/mdc/dist/runtime/parser';
+export { useImage } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_ccf096e3309a11a84b9895f1b3d36e77/node_modules/@nuxt/image/dist/runtime/server/utils/image';
+export { defineSitemapEventHandler } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/defineSitemapEventHandler';
+export { asSitemapUrl } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/asSitemapUrl';
+export { getPathRobotConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/robots-polyfill/getPathRobotConfig';
+export { defineI18nLocale, defineI18nConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+i18n@10.2.3_@vue+co_da280962f4007d895659db3b82b3fdbf/node_modules/@nuxtjs/i18n/dist/runtime/composables/shared';
+export { defineI18nLocaleDetector } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+i18n@10.2.3_@vue+co_da280962f4007d895659db3b82b3fdbf/node_modules/@nuxtjs/i18n/dist/runtime/composables/server';
+export { useTranslation } from '@intlify/h3';
+export { getCookieLocale, getHeaderLanguage, getHeaderLanguages, getHeaderLocale, getHeaderLocales, getPathLocale, getQueryLocale, setCookieLocale, tryCookieLocale, tryHeaderLocale, tryHeaderLocales, tryPathLocale, tryQueryLocale } from '@intlify/utils/h3';
+export { getNitroOrigin } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/getNitroOrigin';
+export { getSiteConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteConfig';
+export { getSiteIndexable } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/getSiteIndexable';
+export { updateSiteConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/updateSiteConfig';
+export { useNitroOrigin } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/useNitroOrigin';
+export { useSiteConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/useSiteConfig';
+export { createSitePathResolver, withSiteTrailingSlash, withSiteUrl } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/utils';
 export { getAllArticlesMeta } from 'C:/Users/admin/Desktop/nuxt/server/utils/articles';

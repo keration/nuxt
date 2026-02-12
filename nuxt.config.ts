@@ -1,14 +1,9 @@
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui", "@nuxt/content", "@nuxt/image", "@unocss/nuxt", "@nuxtjs/sitemap"],
+  modules: ["@nuxt/content", "@nuxt/image", "@unocss/nuxt", "@nuxtjs/sitemap", "@nuxtjs/i18n"],
 
   compatibilityDate: "2026-01-19",
   devtools: { enabled: true },
   ssr: false,
-
-  // 完整配置 Nuxt UI，启用暗黑模式
-  ui: {
-    darkMode: "class",
-  },
 
   css: ["~/assets/css/tailwind.css"],
 
@@ -19,7 +14,34 @@ export default defineNuxtConfig({
 
   // Sitemap 配置
   sitemap: {
-    hostname: "https://your-blog.com"
+    hostname: "https://your-blog.com",
+  },
+
+  // 国际化配置
+  i18n: {
+    lazy: true,
+    langDir: "locales",
+    defaultLocale: "zh-CN",
+    locales: [
+      {
+        code: "zh-CN",
+        iso: "zh-CN",
+        name: "中文",
+        file: "zh-CN.json",
+      },
+      {
+        code: "en",
+        iso: "en-US",
+        name: "English",
+        file: "en.json",
+      },
+    ],
+    strategy: "prefix_except_default",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+    },
   },
 
   // 应用配置
@@ -36,8 +58,8 @@ export default defineNuxtConfig({
         { property: "og:type", content: "website" },
         // Twitter Cards 元标签
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:site", content: "@your-twitter" }
-      ]
-    }
-  }
+        { name: "twitter:site", content: "@your-twitter" },
+      ],
+    },
+  },
 });

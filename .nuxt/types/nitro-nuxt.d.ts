@@ -1,7 +1,7 @@
 
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference types="C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_070b0fac6bd54ce9eae3661f9dcb8d6f/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference path="../image/providers.d.ts" />
 /// <reference path="../module/nuxt-site-config.d.ts" />
 /// <reference path="nitro-middleware.d.ts" />

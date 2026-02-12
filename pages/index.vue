@@ -8,21 +8,41 @@
         <nav class="flex items-center gap-4">
           <ul class="flex gap-4 text-sm">
             <li><a href="/"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{
+                  t('nav.home') }}</a>
             </li>
             <li><a href="/search"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">搜索</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{
+                  t('search') }}</a>
             </li>
             <li><a href="/tags"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">标签</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{
+                  t('tags') }}</a>
             </li>
             <li><a href="/categories"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">分类</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{
+                  t('categories') }}</a>
             </li>
             <li><a href="/archives"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">归档</a>
+                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{
+                  t('archives') }}</a>
             </li>
           </ul>
+          <!-- 语言切换 -->
+          <div class="relative">
+            <button @click="toggleLanguageDropdown"
+              class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-1">
+              {{ currentLocale === 'zh-CN' ? '中文' : 'English' }}
+            </button>
+            <div v-if="languageDropdownOpen"
+              class="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-800 shadow-lg rounded-md py-1 z-10">
+              <button v-for="locale in availableLocales" :key="locale.code" @click="switchLanguage(locale.code)"
+                class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                :class="{ 'bg-gray-100 dark:bg-gray-700': currentLocale === locale.code }">
+                {{ locale.name }}
+              </button>
+            </div>
+          </div>
           <!-- 暗黑模式按钮 -->
           <button @click="toggleDarkMode"
             class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="切换暗黑模式">
@@ -36,11 +56,11 @@
       <!-- 博客标题（紧凑装饰） -->
       <div class="text-center mb-8 pt-4">
         <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-2 relative">
-          我的 Nuxt4 技术博客
+          {{ t('welcome') }}
           <span
             class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-20 h-0.5 bg-blue-500 rounded-full"></span>
         </h1>
-        <p class="text-gray-600 dark:text-gray-400 text-sm">记录 Nuxt 学习之路，分享前端技术与实战经验</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">{{ t('description') }}</p>
       </div>
 
       <!-- 加载中 -->
@@ -106,7 +126,7 @@
             <!-- 阅读更多 -->
             <NuxtLink :to="article.path"
               class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-xs font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors justify-end">
-              阅读更多
+              {{ t('readMore') }}
             </NuxtLink>
           </div>
         </article>
@@ -150,14 +170,16 @@
     <!-- 页脚（紧凑布局） -->
     <footer class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 mt-8">
       <div class="container mx-auto px-4 py-4 max-w-3xl text-center text-gray-500 dark:text-gray-400 text-xs">
-        <p>© {{ new Date().getFullYear() }} 我的 Nuxt4 技术博客 | 基于 Nuxt4 + Vue3 构建</p>
+        <p>{{ t('copyright') }} | 基于 Nuxt4 + Vue3 构建</p>
       </div>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-
+const { t, locale, availableLocales } = useI18n();
+const currentLocale = computed(() => locale.value);
+const languageDropdownOpen = ref(false);
 const loading = ref(true);
 const error = ref(null);
 const articles = ref([]);
@@ -175,10 +197,16 @@ onMounted(() => {
   refreshArticles();
 });
 
-// 暗黑模式状态
-// const isDarkMode = computed(() => {
-//   return document.documentElement.classList.contains('dark');
-// });
+// 切换语言下拉菜单
+const toggleLanguageDropdown = () => {
+  languageDropdownOpen.value = !languageDropdownOpen.value;
+};
+
+// 切换语言
+const switchLanguage = (code: string) => {
+  locale.value = code;
+  languageDropdownOpen.value = false;
+};
 
 // 切换暗黑模式
 const toggleDarkMode = () => {

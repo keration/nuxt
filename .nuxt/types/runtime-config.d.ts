@@ -14,10 +14,6 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
       envPrefix: string,
    },
 
-   icon: {
-      serverKnownCssClasses: Array<any>,
-   },
-
    content: {
       cacheVersion: number,
 
@@ -190,19 +186,55 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
       version: string,
 
       sitemaps: {
-         "sitemap.xml": {
+         index: {
             sitemapName: string,
 
-            route: string,
+            _route: string,
 
-            defaults: any,
+            sitemaps: Array<any>,
 
+            include: Array<any>,
+
+            exclude: Array<any>,
+         },
+
+         "zh-CN": {
             include: Array<any>,
 
             exclude: Array<string>,
 
             includeAppSources: boolean,
+
+            sitemapName: string,
+
+            _route: string,
          },
+
+         "en-US": {
+            include: Array<any>,
+
+            exclude: Array<string>,
+
+            includeAppSources: boolean,
+
+            sitemapName: string,
+
+            _route: string,
+         },
+      },
+
+      autoI18n: {
+         differentDomains: boolean,
+
+         defaultLocale: string,
+
+         locales: Array<{
+
+         }>,
+
+         strategy: string,
+
+         pages: any,
       },
    },
 
@@ -220,8 +252,6 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
   }
   interface SharedPublicRuntimeConfig {
    mdc: {
-      useNuxtImage: boolean,
-
       components: {
          prose: boolean,
 
@@ -386,6 +416,74 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
          depth: number,
 
          exclude: Array<number>,
+      },
+   },
+
+   i18n: {
+      baseUrl: string,
+
+      defaultLocale: string,
+
+      rootRedirect: any,
+
+      redirectStatusCode: number,
+
+      skipSettingLocaleOnNavigate: boolean,
+
+      locales: Array<{
+
+      }>,
+
+      detectBrowserLanguage: {
+         alwaysRedirect: boolean,
+
+         cookieCrossOrigin: boolean,
+
+         cookieDomain: any,
+
+         cookieKey: string,
+
+         cookieSecure: boolean,
+
+         fallbackLocale: string,
+
+         redirectOn: string,
+
+         useCookie: boolean,
+      },
+
+      experimental: {
+         localeDetector: string,
+
+         typedPages: boolean,
+
+         typedOptionsAndMessages: boolean,
+
+         alternateLinkCanonicalQueries: boolean,
+
+         devCache: boolean,
+
+         cacheLifetime: any,
+
+         stripMessagesPayload: boolean,
+
+         preload: boolean,
+
+         strictSeo: boolean,
+
+         nitroContextDetection: boolean,
+
+         httpCacheDuration: number,
+      },
+
+      domainLocales: {
+         "zh-CN": {
+            domain: string,
+         },
+
+         en: {
+            domain: string,
+         },
       },
    },
   }
