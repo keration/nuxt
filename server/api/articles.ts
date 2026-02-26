@@ -9,8 +9,9 @@ export default eventHandler(async (event: H3Event) => {
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 10;
 
-    // 复用统一的文章解析逻辑
-    const allArticles = await getAllArticlesMeta();
+    // 复用统一的文章解析逻辑，优先使用中间件设置的语言
+    const ctxLang = (event as H3Event).context?.i18n?.locale as string | undefined;
+    const allArticles = await getAllArticlesMeta(ctxLang);
 
     // 分页逻辑
     const total = allArticles.length;

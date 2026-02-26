@@ -18,4 +18,48 @@
   "backToTop": "返回顶部",
   "language": "语言",
   "copyright": "© 2026 我的 Nuxt4 技术博客. 保留所有权利."
+
+  ,"loadingArticle": "正在加载文章...",
+  "toc": {
+    "title": "文章目录",
+    "empty": "暂无章节目录"
+  },
+  "share": {
+    "title": "分享",
+    "wechat": "微信",
+    "weibo": "微博",
+    "zhihu": "知乎",
+    "juejin": "掘金"
+  },
+  "comments": {"title": "评论"},
+  "reload": "重新加载",
+  "unnamedArticle": "未命名文章",
+  "unknown": "未知",
+  "tagsLabel": "标签：",
+  "noTags": "无标签",
+  "backToTop": "返回顶部"
+  ,"minute": "分钟",
+  "words": "字"
+  ,"langName": {"zh-CN": "中文", "en": "English"}
+  ,"loadingArticles": "加载文章中..."
+  ,"published": "已发布"
+  ,"uncategorized": "未分类"
+  ,"noDescription": "暂无简介，点击阅读全文了解更多内容..."
+  ,"prevPage": "上一页"
+  ,"nextPage": "下一页"
+  ,"search": {
+    "placeholder": "搜索文章标题、内容或标签...",
+    "loading": "搜索中...",
+    "noResults": "没有找到相关文章，请尝试其他关键词",
+    "title": "搜索文章",
+    "hint": "输入关键词开始搜索"
+  },
+  "searchResults": "搜索结果"
+  ,"archives": "归档"
+  ,"archives.empty": "暂无归档文章"
+  ,"articlesSuffix": "篇文章"
+  ,"categories": "分类"
+  ,"categories.empty": "暂无该分类下的文章"
+  ,"tags": "标签"
+  ,"tags.empty": "暂无标签"
 }

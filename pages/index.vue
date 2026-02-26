@@ -29,10 +29,10 @@
             </li>
           </ul>
           <!-- 语言切换 -->
-          <div class="relative">
+            <div class="relative">
             <button @click="toggleLanguageDropdown"
               class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-1">
-              {{ currentLocale === 'zh-CN' ? '中文' : 'English' }}
+              {{ currentLocale === 'zh-CN' ? t('langName.zh-CN') : t('langName.en') }}
             </button>
             <div v-if="languageDropdownOpen"
               class="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-800 shadow-lg rounded-md py-1 z-10">
@@ -68,7 +68,7 @@
         <div
           class="inline-block w-10 h-10 border-3 border-blue-100 dark:border-blue-900 border-t-blue-500 dark:border-t-blue-400 rounded-full animate-spin mb-3">
         </div>
-        <p class="text-gray-500 dark:text-gray-400 text-sm">加载文章中...</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ t('loadingArticles') }}</p>
       </div>
 
       <!-- 错误提示 -->
@@ -79,7 +79,7 @@
         <p class="text-red-500 dark:text-red-400 text-sm font-medium">{{ error.message }}</p>
         <button class="mt-3 px-4 py-1.5 bg-blue-600 text-white rounded text-xs hover:bg-blue-700 transition-colors"
           @click="refreshArticles">
-          重新加载
+          {{ t('reload') }}
         </button>
       </div>
 
@@ -98,15 +98,15 @@
             <!-- 文章元信息（紧凑对齐） -->
             <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
               <span class="flex items-center gap-1">
-                {{ article.frontmatter?.date || '未发布' }}
+                {{ article.frontmatter?.date || t('unknown') }}
               </span>
 
               <span class="text-gray-300 dark:text-gray-600">•</span>
 
               <span class="flex items-center gap-1">
-                <NuxtLink :to="`/categories/${article.frontmatter?.category || '未分类'}`"
+                <NuxtLink :to="`/categories/${article.frontmatter?.category || t('uncategorized')}`"
                   class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  {{ article.frontmatter?.category || '未分类' }}
+                  {{ article.frontmatter?.category || t('uncategorized') }}
                 </NuxtLink>
               </span>
 
@@ -120,7 +120,7 @@
 
             <!-- 文章简介（紧凑行高） -->
             <p class="text-gray-700 dark:text-gray-300 text-sm line-clamp-2 leading-tight mb-3 flex justify-center">
-              {{ article.frontmatter?.description || '暂无简介，点击阅读全文了解更多内容...' }}
+              {{ article.frontmatter?.description || t('noDescription') }}
             </p>
 
             <!-- 阅读更多 -->
@@ -143,7 +143,7 @@
           <!-- 上一页 -->
           <button @click="goToPage(pagination.page - 1)" :disabled="!pagination.hasPrev"
             class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
-            上一页
+            {{ t('prevPage') }}
           </button>
 
           <!-- 页码 -->
@@ -161,7 +161,7 @@
           <!-- 下一页 -->
           <button @click="goToPage(pagination.page + 1)" :disabled="!pagination.hasNext"
             class="px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
-            下一页
+            {{ t('nextPage') }}
           </button>
         </nav>
       </div>
@@ -177,6 +177,7 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 const { t, locale, availableLocales } = useI18n();
 const currentLocale = computed(() => locale.value);
 const languageDropdownOpen = ref(false);

@@ -10,25 +10,25 @@
         <nav class="flex items-center gap-4">
           <ul class="hidden md:flex gap-6">
             <li><a href="/"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">首页</a>
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ t('nav.home') }}</a>
             </li>
             <li><a href="/search"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">搜索</a>
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ t('search') }}</a>
             </li>
             <li><a href="/tags"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">标签</a>
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ t('tags') }}</a>
             </li>
             <li><a href="/categories"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">分类</a>
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ t('categories') }}</a>
             </li>
             <li><a href="/archives"
-                class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">归档</a>
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">{{ t('archives') }}</a>
             </li>
           </ul>
           <!-- 暗黑模式切换按钮 -->
           <button @click="toggleDarkMode"
             class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 hover:scale-110"
-            aria-label="切换暗黑模式">
+            :aria-label="t('toggleDark')">
           </button>
         </nav>
       </div>
@@ -39,7 +39,7 @@
       class="fixed top-24 right-4 z-30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-xl shadow-md p-4 border border-gray-100 dark:border-gray-700 w-64 max-w-[80vw] overflow-y-auto max-h-[70vh] transition-all duration-300 hover:shadow-lg hidden lg:block">
       <h3
         class="text-lg font-semibold text-gray-800 dark:text-white mb-3 border-b border-gray-200 dark:border-gray-700 pb-2 flex items-center gap-2">
-        文章目录
+        {{ t('toc.title') }}
       </h3>
       <div v-if="tocItems.length > 0" class="space-y-1 text-sm">
         <li v-for="item in tocItems" :key="item.id" :class="[
@@ -51,7 +51,7 @@
         </li>
       </div>
       <div v-else class="text-sm text-gray-500 dark:text-gray-400 py-2 flex items-center gap-2">
-        暂无章节目录
+        {{ t('toc.empty') }}
       </div>
     </div>
 
@@ -96,7 +96,7 @@
           <div
             class="inline-block w-12 h-12 border-4 border-blue-200 dark:border-blue-800 border-t-blue-500 dark:border-t-blue-400 rounded-full animate-spin mb-4">
           </div>
-          <p class="text-gray-500 dark:text-gray-400 text-xl">正在加载文章...</p>
+          <p class="text-gray-500 dark:text-gray-400 text-xl">{{ t('loadingArticle') }}</p>
         </div>
 
         <!-- 错误提示 -->
@@ -119,7 +119,7 @@
           <div class="p-6 md:p-8 border-b border-gray-200 dark:border-gray-700">
             <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-6 leading-tight">{{
               articleFrontmatter?.title
-              || '未命名文章' }}</h1>
+              || t('unnamedArticle') }}</h1>
             <div class="flex flex-wrap gap-3 md:gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
               <span class="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full">
                 {{ articleFrontmatter?.date || '未知' }}
@@ -130,11 +130,11 @@
                 {{ articleFrontmatter?.updated || '未知' }}
               </span>
               <span class="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full">
-                {{ readingTime }} 分钟
+                {{ readingTime }} {{ t('minute') }}
               </span>
               <span class="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full">
 
-                {{ wordCount }} 字
+                {{ wordCount }} {{ t('words') }}
               </span>
               <!-- 分类展示 + 跳转（兜底） -->
               <span class="flex items-center gap-1.5">
@@ -148,14 +148,14 @@
             <!-- 标签展示 + 跳转（兜底） -->
             <div class="flex flex-wrap gap-2 mt-4">
               <span class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                标签：
+                {{ t('tagsLabel') }}
               </span>
               <NuxtLink v-for="tag of articleFrontmatter?.tags || []" :key="tag" :to="`/tags/${tag}`"
                 class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-xs hover:bg-blue-100 dark:hover:bg-blue-800/50 transition-all duration-200">
                 {{ tag }}
               </NuxtLink>
               <span v-if="!articleFrontmatter?.tags || articleFrontmatter.tags.length === 0"
-                class="text-xs text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-full">无标签</span>
+                class="text-xs text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-full">{{ t('noTags') }}</span>
             </div>
           </div>
 
@@ -168,28 +168,28 @@
           <!-- 分享功能 -->
           <div class="p-6 md:p-8 border-t border-gray-200 dark:border-gray-700">
             <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-              分享
+              {{ t('share.title') }}
             </h3>
             <div class="flex flex-wrap gap-3">
               <button @click="shareToWechat"
                 class="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 hover:shadow-md">
                 <i class="iconfont icon-wechat"></i>
-                微信
+                {{ t('share.wechat') }}
               </button>
               <button @click="shareToWeibo"
                 class="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 hover:shadow-md">
                 <i class="iconfont icon-weibo"></i>
-                微博
+                {{ t('share.weibo') }}
               </button>
               <button @click="shareToZhihu"
                 class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-md">
                 <i class="iconfont icon-zhihu"></i>
-                知乎
+                {{ t('share.zhihu') }}
               </button>
               <button @click="shareToJuejin"
                 class="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all duration-200 hover:shadow-md">
                 <i class="iconfont icon-juejin"></i>
-                掘金
+                {{ t('share.juejin') }}
               </button>
             </div>
           </div>
@@ -197,7 +197,7 @@
           <!-- 评论区域 -->
           <div class="p-6 md:p-8 border-t border-gray-200 dark:border-gray-700">
             <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
-              评论
+              {{ t('comments.title') }}
             </h3>
             <div id="giscus-container" class="giscus rounded-lg overflow-hidden shadow-sm"></div>
           </div>
@@ -208,7 +208,7 @@
     <!-- 返回顶部按钮 -->
     <button v-if="showBackToTop"
       class="fixed bottom-6 right-6 z-30 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:shadow-xl"
-      @click="backToTop" aria-label="返回顶部">
+      @click="backToTop" :aria-label="t('backToTop')">
     </button>
 
     <!-- 页脚 -->
@@ -219,13 +219,13 @@
           Date().getFullYear() }} 我的 Nuxt4 技术博客 | 基于 Nuxt4 构建</p>
         <div class="mt-4 flex justify-center gap-4">
           <a href="/"
-            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">首页</a>
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">{{ t('nav.home') }}</a>
           <a href="/archives"
-            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">归档</a>
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">{{ t('archives') }}</a>
           <a href="/categories"
-            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">分类</a>
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">{{ t('categories') }}</a>
           <a href="/tags"
-            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">标签</a>
+            class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm">{{ t('tags') }}</a>
         </div>
       </div>
     </footer>
@@ -236,6 +236,7 @@
 import { useMarkdown } from '~/composables/useMarkdown';
 import { useGiscus } from '~/composables/useGiscus';
 import type { MarkdownParsedResult } from '~/composables/useMarkdown';
+import { useI18n } from 'vue-i18n';
 // import type { ApiResponse } from '~/types/api';
 
 // 类型定义
@@ -271,6 +272,8 @@ interface ArticleApiData {
 // 初始化路由
 const route = useRoute();
 const articleId = (route.params.id as string) || '';
+
+const { locale, t } = useI18n();
 
 // 基础状态
 const loading = ref<boolean>(true);
@@ -314,9 +317,9 @@ const shareToWechat = () => {
   const url = window.location.href;
   const title = articleFrontmatter.value.title || '文章';
   // 微信分享需要生成二维码，这里简单提示用户复制链接
-  if (process.client) {
+    if (process.client) {
     navigator.clipboard.writeText(url).then(() => {
-      alert('链接已复制到剪贴板，请在微信中粘贴分享');
+      alert(t('share.copyNotice'));
     });
   }
 };
@@ -356,6 +359,7 @@ const refreshArticle = async () => {
 const fetchArticle = async () => {
   try {
     loading.value = true;
+    // 语言由服务器中间件检测并注入到 event.context.i18n.locale，前端无需手动传 lang
     const response = await $fetch<ApiResponse<ArticleApiData>>(`/api/article/${articleId}`);
 
     if (response?.code !== 200 || !response?.data) {
@@ -370,14 +374,14 @@ const fetchArticle = async () => {
     articleRawContent.value = mdData.content;
 
     const parsedResult = await useMarkdown(articleRawContent.value) as MarkdownParsedResult;
-    articleHtml.value = parsedResult.html || "<p>暂无文章内容</p>";
+    articleHtml.value = parsedResult.html || `<p>${t('noArticleContent')}</p>`;
 
     const frontmatter = parseFrontmatter(articleRawContent.value);
     articleFrontmatter.value = {
       title: frontmatter.title || articleId,
-      date: frontmatter.date || '未知',
-      updated: frontmatter.updated || frontmatter.date || '未知',
-      category: frontmatter.category || '未分类',
+      date: frontmatter.date || t('unknown'),
+      updated: frontmatter.updated || frontmatter.date || t('unknown'),
+      category: frontmatter.category || t('nav.blog'),
       tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
       description: frontmatter.description || ''
     } as ArticleFrontmatter;
@@ -589,7 +593,13 @@ const loadGiscus = async () => {
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'bottom');
     script.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
-    script.setAttribute('data-lang', 'zh-CN');
+    // 使用当前语言设置 giscus 的 data-lang
+    try {
+      const langVal = (locale && locale.value) ? locale.value : 'zh-CN';
+      script.setAttribute('data-lang', langVal);
+    } catch (e) {
+      script.setAttribute('data-lang', 'zh-CN');
+    }
     script.setAttribute('data-container-id', 'giscus-container');
     script.crossOrigin = 'anonymous';
 

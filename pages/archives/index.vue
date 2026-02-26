@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto px-4 py-8 max-w-5xl">
-    <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-8">时间归档</h1>
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-8">{{ t('archives') }}</h1>
 
     <!-- 归档列表 -->
     <div v-if="archives.length > 0" class="space-y-8">
@@ -28,12 +28,14 @@
     </div>
 
     <div v-else class="text-center py-10 text-gray-500 dark:text-gray-400">
-      暂无归档文章
+      {{ t('archives.empty') }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const archives = ref<any[]>([]);
 const loading = ref(true);
 

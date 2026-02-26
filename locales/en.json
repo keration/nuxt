@@ -18,4 +18,58 @@
   "backToTop": "Back to Top",
   "language": "Language",
   "copyright": "© 2026 My Nuxt4 Tech Blog. All rights reserved."
+
+  ,"loadingArticle": "Loading article...",
+  "toc": {
+    "title": "Table of Contents",
+    "empty": "No table of contents"
+  },
+  "share": {
+    "title": "Share",
+    "wechat": "WeChat",
+    "weibo": "Weibo",
+    "zhihu": "Zhihu",
+    "juejin": "Juejin"
+  },
+  "comments": {"title": "Comments"},
+  "reload": "Reload",
+  "unnamedArticle": "Untitled article",
+  "unknown": "Unknown",
+  "tagsLabel": "Tags:",
+  "noTags": "No tags",
+  "backToTop": "Back to Top"
+  ,"minute": "minute",
+  "words": "words"
+  ,"langName": {"zh-CN": "中文", "en": "English"}
+  ,"loadingArticles": "Loading articles..."
+  ,"published": "Published"
+  ,"uncategorized": "Uncategorized"
+  ,"noDescription": "No description yet. Click to read more..."
+  ,"prevPage": "Previous"
+  ,"nextPage": "Next"
+  ,"search": {
+    "placeholder": "Search titles, content or tags...",
+    "loading": "Searching...",
+    "noResults": "No related articles found, try other keywords",
+    "title": "Search Articles",
+    "hint": "Enter keywords to start searching"
+  },
+  "searchResults": "Search Results"
+  ,"noArticleContent": "No article content"
+  ,"share": {
+    "copyNotice": "Link copied to clipboard. Paste it in WeChat to share.",
+    "title": "Share",
+    "wechat": "WeChat",
+    "weibo": "Weibo",
+    "zhihu": "Zhihu",
+    "juejin": "Juejin"
+  }
+  ,"toggleDark": "Toggle dark mode"
+  ,"archives": "Archives"
+  ,"archives.empty": "No archived articles"
+  ,"articlesSuffix": "articles"
+  ,"categories": "Categories"
+  ,"categories.empty": "No articles under this category"
+  ,"tags": "Tags"
+  ,"tags.empty": "No tags yet"
 }

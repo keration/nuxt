@@ -1,1 +1,4 @@
-export default ({"@vite/client":{prefetch:!0,isEntry:!0,file:"@vite/client",css:[],module:!0,resourceType:"script",dynamicImports:void 0},"C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_d4bfdc55b44b9642b2f9125e70b7eeda/node_modules/nuxt/dist/app/entry.async.js":{resourceType:"script",module:!0,prefetch:!0,preload:!0,isEntry:!0,file:"C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_d4bfdc55b44b9642b2f9125e70b7eeda/node_modules/nuxt/dist/app/entry.async.js",dynamicImports:void 0}})
+
+import { viteNodeFetch } from "file:///C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+vite-builder@4.3.1_@t_c15d690f0978ca57184053c71181856c/node_modules/@nuxt/vite-builder/dist/vite-node.mjs"
+export default () => viteNodeFetch.getManifest()
+    

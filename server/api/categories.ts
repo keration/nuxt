@@ -1,9 +1,11 @@
 // server/api/categories.ts
 import { eventHandler } from "h3";
+import type { H3Event } from "h3";
 import { getAllArticlesMeta } from "~/server/utils/articles";
 
-export default eventHandler(async () => {
-  const articles = await getAllArticlesMeta();
+export default eventHandler(async (event) => {
+  const ctxLang = (event as H3Event).context?.i18n?.locale as string | undefined;
+  const articles = await getAllArticlesMeta(ctxLang);
 
   // ❶ 适配嵌套的 frontmatter.category
   const categoryMap: Record<string, number> = {};

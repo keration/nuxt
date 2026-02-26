@@ -1,7 +1,8 @@
 
+/// <reference path="nitro-layouts.d.ts" />
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference types="C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference path="../../node_modules/.pnpm/@nuxt+nitro-server@4.3.1_be_c0716681d33adcfcd0390f8015fdeadd/node_modules/@nuxt/nitro-server/dist/index.d.mts" />
 /// <reference path="../image/providers.d.ts" />
 /// <reference path="../module/nuxt-site-config.d.ts" />
 /// <reference path="nitro-middleware.d.ts" />
@@ -29,6 +30,7 @@ declare module 'nitropack' {
     /** @deprecated Use `noScripts` instead */
     experimentalNoScripts?: boolean
     appMiddleware?: Record<string, boolean>
+    appLayout?: string | false
   }
   interface NitroRuntimeHooks {
     'dev:ssr-logs': (ctx: { logs: LogObject[], path: string }) => void | Promise<void>
@@ -54,6 +56,7 @@ declare module 'nitropack/types' {
     /** @deprecated Use `noScripts` instead */
     experimentalNoScripts?: boolean
     appMiddleware?: Record<string, boolean>
+    appLayout?: string | false
   }
   interface NitroRuntimeHooks {
     'dev:ssr-logs': (ctx: { logs: LogObject[], path: string }) => void | Promise<void>

@@ -1,6 +1,8 @@
 declare global {
-  const __buildAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').buildAssetsURL
-  const __publicAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').publicAssetsURL
+  const H3Error: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').H3Error
+  const H3Event: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').H3Event
+  const __buildAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.3.1_be_c0716681d33adcfcd0390f8015fdeadd/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').buildAssetsURL
+  const __publicAssetsURL: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.3.1_be_c0716681d33adcfcd0390f8015fdeadd/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').publicAssetsURL
   const appendCorsHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendCorsHeaders
   const appendCorsPreflightHeaders: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendCorsPreflightHeaders
   const appendHeader: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').appendHeader
@@ -22,7 +24,7 @@ declare global {
   const createRouter: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').createRouter
   const createSitePathResolver: typeof import('../../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/server/composables/utils').createSitePathResolver
   const defaultContentType: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defaultContentType
-  const defineAppConfig: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/config').defineAppConfig
+  const defineAppConfig: typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.3.1_be_c0716681d33adcfcd0390f8015fdeadd/node_modules/@nuxt/nitro-server/dist/runtime/utils/config').defineAppConfig
   const defineCachedEventHandler: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/cache').defineCachedEventHandler
   const defineCachedFunction: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/cache').defineCachedFunction
   const defineEventHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').defineEventHandler
@@ -99,7 +101,6 @@ declare global {
   const lazyEventHandler: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').lazyEventHandler
   const nitroPlugin: typeof import('../../node_modules/.pnpm/nitropack@2.13.1_better-sqlite3@12.6.2/node_modules/nitropack/dist/runtime/internal/plugin').nitroPlugin
   const parseCookies: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').parseCookies
-  const parseMarkdown: typeof import('../../node_modules/.pnpm/@nuxtjs+mdc@0.9.5_magicast@0.5.2/node_modules/@nuxtjs/mdc/dist/runtime/parser').parseMarkdown
   const promisifyNodeListener: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').promisifyNodeListener
   const proxyRequest: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').proxyRequest
   const readBody: typeof import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3').readBody
@@ -160,9 +161,13 @@ declare global {
 // for type re-export
 declare global {
   // @ts-ignore
+  export type { EventHandler, EventHandlerRequest, EventHandlerResponse, EventHandlerObject, H3EventContext } from '../../node_modules/.pnpm/h3@1.15.5/node_modules/h3'
+  import('../../node_modules/.pnpm/h3@1.15.5/node_modules/h3')
+  // @ts-ignore
   export type { ArticleMeta } from '../../server/utils/articles'
   import('../../server/utils/articles')
 }
+export { H3Event, H3Error, appendCorsHeaders, appendCorsPreflightHeaders, appendHeader, appendHeaders, appendResponseHeader, appendResponseHeaders, assertMethod, callNodeListener, clearResponseHeaders, clearSession, createApp, createAppEventHandler, createError, createEvent, createEventStream, createRouter, defaultContentType, defineEventHandler, defineLazyEventHandler, defineNodeListener, defineNodeMiddleware, defineRequestMiddleware, defineResponseMiddleware, defineWebSocket, defineWebSocketHandler, deleteCookie, dynamicEventHandler, eventHandler, fetchWithEvent, fromNodeMiddleware, fromPlainHandler, fromWebHandler, getCookie, getHeader, getHeaders, getMethod, getProxyRequestHeaders, getQuery, getRequestFingerprint, getRequestHeader, getRequestHeaders, getRequestHost, getRequestIP, getRequestPath, getRequestProtocol, getRequestURL, getRequestWebStream, getResponseHeader, getResponseHeaders, getResponseStatus, getResponseStatusText, getRouterParam, getRouterParams, getSession, getValidatedQuery, getValidatedRouterParams, handleCacheHeaders, handleCors, isCorsOriginAllowed, isError, isEvent, isEventHandler, isMethod, isPreflightRequest, isStream, isWebResponse, lazyEventHandler, parseCookies, promisifyNodeListener, proxyRequest, readBody, readFormData, readMultipartFormData, readRawBody, readValidatedBody, removeResponseHeader, sanitizeStatusCode, sanitizeStatusMessage, sealSession, send, sendError, sendIterable, sendNoContent, sendProxy, sendRedirect, sendStream, sendWebResponse, serveStatic, setCookie, setHeader, setHeaders, setResponseHeader, setResponseHeaders, setResponseStatus, splitCookiesString, toEventHandler, toNodeListener, toPlainHandler, toWebHandler, toWebRequest, unsealSession, updateSession, useBase, useSession, writeEarlyHints } from 'h3';
 export { useNitroApp } from 'nitropack/runtime/internal/app';
 export { useRuntimeConfig, useAppConfig } from 'nitropack/runtime/internal/config';
 export { defineNitroPlugin, nitroPlugin } from 'nitropack/runtime/internal/plugin';
@@ -174,10 +179,8 @@ export { getRouteRules } from 'nitropack/runtime/internal/route-rules';
 export { useEvent } from 'nitropack/runtime/internal/context';
 export { defineTask, runTask } from 'nitropack/runtime/internal/task';
 export { defineNitroErrorHandler } from 'nitropack/runtime/internal/error/utils';
-export { appendCorsHeaders, appendCorsPreflightHeaders, appendHeader, appendHeaders, appendResponseHeader, appendResponseHeaders, assertMethod, callNodeListener, clearResponseHeaders, clearSession, createApp, createAppEventHandler, createError, createEvent, createEventStream, createRouter, defaultContentType, defineEventHandler, defineLazyEventHandler, defineNodeListener, defineNodeMiddleware, defineRequestMiddleware, defineResponseMiddleware, defineWebSocket, defineWebSocketHandler, deleteCookie, dynamicEventHandler, eventHandler, fetchWithEvent, fromNodeMiddleware, fromPlainHandler, fromWebHandler, getCookie, getHeader, getHeaders, getMethod, getProxyRequestHeaders, getQuery, getRequestFingerprint, getRequestHeader, getRequestHeaders, getRequestHost, getRequestIP, getRequestPath, getRequestProtocol, getRequestURL, getRequestWebStream, getResponseHeader, getResponseHeaders, getResponseStatus, getResponseStatusText, getRouterParam, getRouterParams, getSession, getValidatedQuery, getValidatedRouterParams, handleCacheHeaders, handleCors, isCorsOriginAllowed, isError, isEvent, isEventHandler, isMethod, isPreflightRequest, isStream, isWebResponse, lazyEventHandler, parseCookies, promisifyNodeListener, proxyRequest, readBody, readFormData, readMultipartFormData, readRawBody, readValidatedBody, removeResponseHeader, sanitizeStatusCode, sanitizeStatusMessage, sealSession, send, sendError, sendIterable, sendNoContent, sendProxy, sendRedirect, sendStream, sendWebResponse, serveStatic, setCookie, setHeader, setHeaders, setResponseHeader, setResponseHeaders, setResponseStatus, splitCookiesString, toEventHandler, toNodeListener, toPlainHandler, toWebHandler, toWebRequest, unsealSession, updateSession, useBase, useSession, writeEarlyHints } from 'h3';
-export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
-export { defineAppConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.2.2_be_936b1f937c97002e33a52b5251a4c2f0/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
-export { parseMarkdown } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+mdc@0.9.5_magicast@0.5.2/node_modules/@nuxtjs/mdc/dist/runtime/parser';
+export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.3.1_be_c0716681d33adcfcd0390f8015fdeadd/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
+export { defineAppConfig } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+nitro-server@4.3.1_be_c0716681d33adcfcd0390f8015fdeadd/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
 export { useImage } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_ccf096e3309a11a84b9895f1b3d36e77/node_modules/@nuxt/image/dist/runtime/server/utils/image';
 export { defineSitemapEventHandler } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/defineSitemapEventHandler';
 export { asSitemapUrl } from 'C:/Users/admin/Desktop/nuxt/node_modules/.pnpm/@nuxtjs+sitemap@7.6.0_magic_f016203c9e4774288beab65d296c63ce/node_modules/@nuxtjs/sitemap/dist/runtime/server/composables/asSitemapUrl';

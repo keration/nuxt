@@ -11,7 +11,8 @@ export default eventHandler(async (event: H3Event) => {
   const year = query.year as string;
   const month = query.month as string;
 
-  let articles = await getAllArticlesMeta();
+  const ctxLang = (event as H3Event).context?.i18n?.locale as string | undefined;
+  let articles = await getAllArticlesMeta(ctxLang);
 
   // ❶ 按标签筛选（适配 frontmatter.tags）
   if (tag) {

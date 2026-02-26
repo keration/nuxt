@@ -1,9 +1,11 @@
+import { resolve } from "path";
+
 export default defineNuxtConfig({
-  modules: ["@nuxt/content", "@nuxt/image", "@unocss/nuxt", "@nuxtjs/sitemap", "@nuxtjs/i18n"],
+  modules: ["@nuxt/image", "@unocss/nuxt", "@nuxtjs/sitemap", "@nuxtjs/i18n"],
 
   compatibilityDate: "2026-01-19",
   devtools: { enabled: true },
-  ssr: false,
+  ssr: true,
 
   css: ["~/assets/css/tailwind.css"],
 
@@ -14,13 +16,19 @@ export default defineNuxtConfig({
 
   // Sitemap 配置
   sitemap: {
-    hostname: "https://your-blog.com",
+    hostname: "https://nuxtblog.vercel.app",
   },
 
   // 国际化配置
   i18n: {
-    lazy: true,
-    langDir: "locales",
+    // By default nuxt-i18n assumes an `i18n` subdirectory for resources.
+    // `restructureDir: "."` tells it to use project root instead, so our
+    // `locales/` directory is referenced directly. Without this the module
+    // would resolve `langDir` inside `<root>/i18n` producing the earlier
+    // error.
+    restructureDir: ".",
+    // use absolute path to eliminate any relative resolution quirks
+    langDir: resolve(__dirname, "locales"),
     defaultLocale: "zh-CN",
     locales: [
       {
@@ -41,6 +49,15 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: "i18n_redirected",
       redirectOn: "root",
+    },
+  },
+
+  // @nuxt/content 配置：优先使用文件/内存存储，避免依赖本机 sqlite 绑定
+  // @ts-ignore: content module typings may not be available in this environment
+  content: {
+    // 尝试使用文件提供者以绕过 better-sqlite3，本地开发时能避免 native 绑定问题
+    database: {
+      provider: "fs",
     },
   },
 

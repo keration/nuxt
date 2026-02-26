@@ -94,7 +94,7 @@ const parseMarkdown = async (content: string): Promise<{ frontmatter: any; body:
   }
 };
 
-export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
+export const getAllArticlesMeta = async (locale?: string): Promise<ArticleMeta[]> => {
   const articlesDir = path.join(PROJECT_ROOT, "content", "articles");
 
   // 检查目录是否存在
@@ -112,44 +112,73 @@ export const getAllArticlesMeta = async (): Promise<ArticleMeta[]> => {
     console.warn("⚠️ content目录下无.md文件");
     return [];
   }
+  // 将文件按 base id 分组，支持 id.md 和 id.<lang>.md
+  const groups: Record<string, { default?: string; localized: Record<string, string> }> = {};
+  const langRegex = /(.+)\.(zh-CN|zh|en)$/i;
+
+  for (const file of markdownFiles) {
+    const name = file.slice(0, -3); // remove .md
+    const m = name.match(langRegex);
+    if (m) {
+      const base = String(m[1]);
+      const lang = String(m[2]);
+      groups[base] = groups[base] || { localized: {} };
+      groups[base]!.localized[lang] = path.join(articlesDir, file);
+    } else {
+      const base = name;
+      groups[base] = groups[base] || { localized: {} };
+      groups[base]!.default = path.join(articlesDir, file);
+    }
+  }
 
   const articles: ArticleMeta[] = [];
-  for (const file of markdownFiles) {
-    try {
-      const id = file.replace(".md", "");
-      const filePath = path.join(articlesDir, file);
-      const content = await fs.readFile(filePath, "utf-8");
+  for (const base of Object.keys(groups)) {
+    const group = groups[base]!;
+    // 选择文件优先级：完整 locale (zh-CN) -> short (zh/en) -> default
+    let chosenPath = group.default || null;
+    if (locale) {
+      const full = group.localized[locale as string];
+      if (full) chosenPath = full;
+      else {
+        const short = (String(locale).split("-")[0] || "") as string;
+        if (group.localized[short]) chosenPath = group.localized[short];
+      }
+    }
 
-      // 使用服务器端markdown解析
+    if (!chosenPath) {
+      // 如果没有任何匹配文件，跳过
+      continue;
+    }
+
+    try {
+      const content = await fs.readFile(chosenPath, "utf-8");
       const { frontmatter, body } = await parseMarkdown(content);
 
       articles.push({
-        id,
+        id: base,
         frontmatter: {
-          title: frontmatter.title || id,
-          date: frontmatter.date || "未发布",
+          title: (frontmatter.title as string) || base,
+          date: (frontmatter.date as string) || "未发布",
           updated: frontmatter.updated,
-          category: frontmatter.category || "未分类",
-          tags: frontmatter.tags || [],
-          description: frontmatter.description || "暂无简介",
+          category: (frontmatter.category as string) || "未分类",
+          tags: (frontmatter.tags as any) || [],
+          description: (frontmatter.description as string) || "暂无简介",
         },
-        path: `/${id}`,
+        path: `/${base}`,
         body,
       });
     } catch (err: any) {
-      console.warn(`⚠️ 解析文章 ${file} 失败：`, err.message);
-      // 容错：即使解析失败，也添加基础数据，避免接口空返回
-      const id = file.replace(".md", "");
+      console.warn(`⚠️ 解析文章 ${base} 失败：`, err.message);
       articles.push({
-        id,
+        id: base,
         frontmatter: {
-          title: id,
+          title: base,
           date: "未发布",
           category: "未分类",
           tags: [],
           description: "解析失败（格式错误）",
         },
-        path: `/${id}`,
+        path: `/${base}`,
         body: "",
       });
     }

@@ -29,7 +29,7 @@ export { withCtx, withDirectives, withKeys, withMemo, withModifiers, withScopeId
 export { requestIdleCallback, cancelIdleCallback } from '#app/compat/idle-callback';
 export { setInterval } from '#app/compat/interval';
 export { useRouteBaseName, useLocalePath, useLocaleRoute, useSwitchLocalePath, useLocaleHead, useBrowserLocale, useCookieLocale, useSetI18nParams, useI18nPreloadKeys, defineI18nRoute, defineI18nLocale, defineI18nConfig } from '../node_modules/.pnpm/@nuxtjs+i18n@10.2.3_@vue+co_da280962f4007d895659db3b82b3fdbf/node_modules/@nuxtjs/i18n/dist/runtime/composables/index';
-export { definePageMeta } from '../node_modules/.pnpm/nuxt@4.2.2_@parcel+watcher@_d4bfdc55b44b9642b2f9125e70b7eeda/node_modules/nuxt/dist/pages/runtime/composables';
+export { definePageMeta } from '../node_modules/.pnpm/nuxt@4.3.1_@parcel+watcher@_53698331f357056501a906ac87acb938/node_modules/nuxt/dist/pages/runtime/composables';
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { useGiscus } from '../composables/useGiscus';
 export { parseFrontmatter, useMarkdown, MarkdownParsedResult } from '../composables/useMarkdown';
@@ -38,15 +38,6 @@ export { updateSiteConfig } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_
 export { useNitroOrigin } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/app/composables/useNitroOrigin';
 export { useSiteConfig } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/app/composables/useSiteConfig';
 export { createSitePathResolver, withSiteTrailingSlash, withSiteUrl } from '../node_modules/.pnpm/nuxt-site-config@3.2.19_mag_e9b82d1516e80eaef46f733d09b54c72/node_modules/nuxt-site-config/dist/runtime/app/composables/utils';
-export { queryContent } from '../node_modules/.pnpm/@nuxt+content@2.13.4_db0@0._ec47da6ad62d5827f30d5af41ed21f34/node_modules/@nuxt/content/dist/runtime/legacy/composables/query';
-export { useContentHelpers } from '../node_modules/.pnpm/@nuxt+content@2.13.4_db0@0._ec47da6ad62d5827f30d5af41ed21f34/node_modules/@nuxt/content/dist/runtime/composables/helpers';
-export { useContentHead } from '../node_modules/.pnpm/@nuxt+content@2.13.4_db0@0._ec47da6ad62d5827f30d5af41ed21f34/node_modules/@nuxt/content/dist/runtime/composables/head';
-export { useContentPreview } from '../node_modules/.pnpm/@nuxt+content@2.13.4_db0@0._ec47da6ad62d5827f30d5af41ed21f34/node_modules/@nuxt/content/dist/runtime/composables/preview';
-export { withContentBase, useContentDisabled as useContentState, useContentDisabled as useContent } from '../node_modules/.pnpm/@nuxt+content@2.13.4_db0@0._ec47da6ad62d5827f30d5af41ed21f34/node_modules/@nuxt/content/dist/runtime/composables/utils';
-export { useUnwrap } from '../node_modules/.pnpm/@nuxt+content@2.13.4_db0@0._ec47da6ad62d5827f30d5af41ed21f34/node_modules/@nuxt/content/dist/runtime/composables/useUnwrap';
-export { fetchContentNavigation } from '../node_modules/.pnpm/@nuxt+content@2.13.4_db0@0._ec47da6ad62d5827f30d5af41ed21f34/node_modules/@nuxt/content/dist/runtime/legacy/composables/navigation';
-export { flatUnwrap as unwrapSlot } from '../node_modules/.pnpm/@nuxtjs+mdc@0.9.5_magicast@0.5.2/node_modules/@nuxtjs/mdc/dist/runtime/utils/node';
-export { parseMarkdown } from '../node_modules/.pnpm/@nuxtjs+mdc@0.9.5_magicast@0.5.2/node_modules/@nuxtjs/mdc/dist/runtime/parser';
 export { useImage } from '../node_modules/.pnpm/@nuxt+image@2.0.0_db0@0.3.4_ccf096e3309a11a84b9895f1b3d36e77/node_modules/@nuxt/image/dist/runtime/composables';
 export { useI18n } from 'vue-i18n';
 export { useNuxtDevTools } from '../node_modules/.pnpm/@nuxt+devtools@3.2.1_vite@7_8b7373410c544e00c6901d01e0194bc0/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';

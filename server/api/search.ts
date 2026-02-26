@@ -1,3 +1,4 @@
+import { defineEventHandler, getQuery } from "h3";
 import { getAllArticlesMeta } from "~/server/utils/articles";
 
 export default defineEventHandler(async (event) => {
@@ -13,8 +14,9 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // 获取所有文章
-    const allArticles = await getAllArticlesMeta();
+    // 获取所有文章（使用中间件语言优先）
+    const ctxLang = (event as any).context?.i18n?.locale as string | undefined;
+    const allArticles = await getAllArticlesMeta(ctxLang);
 
     // 客户端搜索逻辑
     const searchResults = allArticles.filter((article) => {

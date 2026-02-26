@@ -1,5 +1,5 @@
 // server/api/article/[id].ts
-import { eventHandler, H3Event } from "h3";
+import { eventHandler, H3Event, getQuery } from "h3";
 
 export default eventHandler(async (event: H3Event) => {
   // Nuxt4 下 params 兜底处理
@@ -25,15 +25,42 @@ export default eventHandler(async (event: H3Event) => {
     // console.log("目标文件路径：", filePath);
     // console.log("content 目录下的文件：", await fs.readdir(contentDir));
 
-    // 检查文件是否存在
-    try {
-      await fs.access(filePath);
-    } catch {
+    // 支持多语言：优先查找带语言后缀的文件（如: id.zh-CN.md / id.en.md），其次回退到无后缀文件
+    const q = getQuery(event) as Record<string, any>;
+    // 优先使用中间件注入的 locale，其次使用 query 参数
+    const ctxLang = (event as any).context?.i18n?.locale as string | undefined;
+    const requestedLang = ctxLang || (q.lang as string) || "";
+
+    const candidates: string[] = [];
+    if (requestedLang) {
+      // 直接尝试完整语言标识
+      candidates.push(path.resolve(contentDir, `${id}.${requestedLang}.md`));
+      // 尝试短语言码（zh, en）
+      const short = requestedLang.split("-")[0];
+      if (short && short !== requestedLang) {
+        candidates.push(path.resolve(contentDir, `${id}.${short}.md`));
+      }
+    }
+    // 最后回退到默认文件
+    candidates.push(filePath);
+
+    let foundPath: string | null = null;
+    for (const p of candidates) {
+      try {
+        await fs.access(p);
+        foundPath = p;
+        break;
+      } catch (e) {
+        // 不存在，继续尝试
+      }
+    }
+
+    if (!foundPath) {
       return { code: 404, message: `文章 ${id}.md 不存在` };
     }
 
     // 读取 Markdown 内容
-    const mdContent = await fs.readFile(filePath, "utf-8");
+    const mdContent = await fs.readFile(foundPath, "utf-8");
     return {
       code: 200,
       data: { content: mdContent, id },
