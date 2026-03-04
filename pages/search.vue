@@ -12,7 +12,7 @@
             <li><a href="/archives" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{ t('archives') }}</a></li>
           </ul>
           <!-- 暗黑模式按钮 -->
-          <button @click="toggleDarkMode" class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="切换暗黑模式">
+          <button @click="toggleDarkMode" class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" :aria-label="t('toggleDark')">
           </button>
         </nav>
       </div>
@@ -27,7 +27,7 @@
             v-model="searchQuery"
             @input="debouncedSearch"
             type="text"
-            :placeholder="t('search.placeholder')"
+            :placeholder="t('searchPage.placeholder')"
             class="w-full px-4 py-3 pl-12 text-gray-900 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -48,7 +48,7 @@
       <!-- 加载中 -->
       <div v-if="loading" class="text-center py-12">
         <div class="inline-block w-10 h-10 border-3 border-blue-100 dark:border-blue-900 border-t-blue-500 dark:border-t-blue-400 rounded-full animate-spin mb-3"></div>
-        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ t('search.loading') }}</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ t('searchPage.loading') }}</p>
       </div>
 
       <!-- 搜索结果列表 -->
@@ -98,7 +98,7 @@
 
       <!-- 无结果 -->
       <div v-else-if="searchQuery && !loading" class="text-center py-12 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ t('search.noResults') }}</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ t('searchPage.noResults') }}</p>
       </div>
 
       <!-- 初始状态 -->
@@ -108,8 +108,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </div>
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">{{ t('search.title') }}</h3>
-        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ t('search.hint') }}</p>
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">{{ t('searchPage.title') }}</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ t('searchPage.hint') }}</p>
       </div>
     </main>
 

@@ -9,13 +9,8 @@
   "description": "Recording technical growth and learning insights",
   "readMore": "Read More",
   "latestPosts": "Latest Posts",
-  "tags": "Tags",
-  "categories": "Categories",
-  "archives": "Archives",
   "search": "Search",
-  "share": "Share",
   "comment": "Comment",
-  "backToTop": "Back to Top",
   "language": "Language",
   "copyright": "© 2026 My Nuxt4 Tech Blog. All rights reserved."
 
@@ -23,13 +18,6 @@
   "toc": {
     "title": "Table of Contents",
     "empty": "No table of contents"
-  },
-  "share": {
-    "title": "Share",
-    "wechat": "WeChat",
-    "weibo": "Weibo",
-    "zhihu": "Zhihu",
-    "juejin": "Juejin"
   },
   "comments": {"title": "Comments"},
   "reload": "Reload",
@@ -46,8 +34,8 @@
   ,"uncategorized": "Uncategorized"
   ,"noDescription": "No description yet. Click to read more..."
   ,"prevPage": "Previous"
-  ,"nextPage": "Next"
-  ,"search": {
+  ,"nextPage": "Next",
+  "searchPage": {
     "placeholder": "Search titles, content or tags...",
     "loading": "Searching...",
     "noResults": "No related articles found, try other keywords",

@@ -9,13 +9,9 @@
   "description": "记录技术成长和学习心得",
   "readMore": "阅读更多",
   "latestPosts": "最新文章",
-  "tags": "标签",
-  "categories": "分类",
-  "archives": "归档",
   "search": "搜索",
-  "share": "分享",
+  "toggleDark": "切换暗黑模式",
   "comment": "评论",
-  "backToTop": "返回顶部",
   "language": "语言",
   "copyright": "© 2026 我的 Nuxt4 技术博客. 保留所有权利."
 
@@ -46,8 +42,8 @@
   ,"uncategorized": "未分类"
   ,"noDescription": "暂无简介，点击阅读全文了解更多内容..."
   ,"prevPage": "上一页"
-  ,"nextPage": "下一页"
-  ,"search": {
+  ,"nextPage": "下一页",
+  "searchPage": {
     "placeholder": "搜索文章标题、内容或标签...",
     "loading": "搜索中...",
     "noResults": "没有找到相关文章，请尝试其他关键词",

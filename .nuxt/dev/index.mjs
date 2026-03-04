@@ -765,7 +765,6 @@ const _inlineRuntimeConfig = {
         "include": [],
         "exclude": [
           "/_**",
-          "/_nuxt/**",
           "/_nuxt/**"
         ],
         "includeAppSources": true,
@@ -776,7 +775,6 @@ const _inlineRuntimeConfig = {
         "include": [],
         "exclude": [
           "/_**",
-          "/_nuxt/**",
           "/_nuxt/**"
         ],
         "includeAppSources": true,
@@ -2440,15 +2438,15 @@ var welcome$1 = "欢迎来到我的 Nuxt4 技术博客";
 var description$1 = "记录技术成长和学习心得";
 var readMore$1 = "阅读更多";
 var latestPosts$1 = "最新文章";
-var tags$3 = "标签";
-var categories$3 = "分类";
-var archives$3 = "归档";
-var search$3 = {
-	placeholder: "搜索文章标题、内容或标签...",
-	loading: "搜索中...",
-	noResults: "没有找到相关文章，请尝试其他关键词",
-	title: "搜索文章",
-	hint: "输入关键词开始搜索"
+var search$3 = "搜索";
+var toggleDark$1 = "切换暗黑模式";
+var comment$1 = "评论";
+var language$1 = "语言";
+var copyright$1 = "© 2026 我的 Nuxt4 技术博客. 保留所有权利.";
+var loadingArticle$1 = "正在加载文章...";
+var toc$1 = {
+	title: "文章目录",
+	empty: "暂无章节目录"
 };
 var share$1 = {
 	title: "分享",
@@ -2456,15 +2454,6 @@ var share$1 = {
 	weibo: "微博",
 	zhihu: "知乎",
 	juejin: "掘金"
-};
-var comment$1 = "评论";
-var backToTop$1 = "返回顶部";
-var language$1 = "语言";
-var copyright$1 = "© 2026 我的 Nuxt4 技术博客. 保留所有权利.";
-var loadingArticle$1 = "正在加载文章...";
-var toc$1 = {
-	title: "文章目录",
-	empty: "暂无章节目录"
 };
 var comments$1 = {
 	title: "评论"
@@ -2474,6 +2463,7 @@ var unnamedArticle$1 = "未命名文章";
 var unknown$1 = "未知";
 var tagsLabel$1 = "标签：";
 var noTags$1 = "无标签";
+var backToTop$1 = "返回顶部";
 var minute$1 = "分钟";
 var words$1 = "字";
 var langName$1 = {
@@ -2486,31 +2476,39 @@ var uncategorized$1 = "未分类";
 var noDescription$1 = "暂无简介，点击阅读全文了解更多内容...";
 var prevPage$1 = "上一页";
 var nextPage$1 = "下一页";
+var searchPage$1 = {
+	placeholder: "搜索文章标题、内容或标签...",
+	loading: "搜索中...",
+	noResults: "没有找到相关文章，请尝试其他关键词",
+	title: "搜索文章",
+	hint: "输入关键词开始搜索"
+};
 var searchResults$1 = "搜索结果";
+var archives$3 = "归档";
 var articlesSuffix$1 = "篇文章";
+var categories$3 = "分类";
+var tags$3 = "标签";
 const locale_zh_45CN_46json_b2354e7c = {
 	nav: nav$1,
 	welcome: welcome$1,
 	description: description$1,
 	readMore: readMore$1,
 	latestPosts: latestPosts$1,
-	tags: tags$3,
-	categories: categories$3,
-	archives: archives$3,
 	search: search$3,
-	share: share$1,
+	toggleDark: toggleDark$1,
 	comment: comment$1,
-	backToTop: backToTop$1,
 	language: language$1,
 	copyright: copyright$1,
 	loadingArticle: loadingArticle$1,
 	toc: toc$1,
+	share: share$1,
 	comments: comments$1,
 	reload: reload$1,
 	unnamedArticle: unnamedArticle$1,
 	unknown: unknown$1,
 	tagsLabel: tagsLabel$1,
 	noTags: noTags$1,
+	backToTop: backToTop$1,
 	minute: minute$1,
 	words: words$1,
 	langName: langName$1,
@@ -2520,10 +2518,14 @@ const locale_zh_45CN_46json_b2354e7c = {
 	noDescription: noDescription$1,
 	prevPage: prevPage$1,
 	nextPage: nextPage$1,
+	searchPage: searchPage$1,
 	searchResults: searchResults$1,
+	archives: archives$3,
 	"archives.empty": "暂无归档文章",
 	articlesSuffix: articlesSuffix$1,
+	categories: categories$3,
 	"categories.empty": "暂无该分类下的文章",
+	tags: tags$3,
 	"tags.empty": "暂无标签"
 };
 
@@ -2537,26 +2539,8 @@ var welcome = "Welcome to my Nuxt4 Tech Blog";
 var description = "Recording technical growth and learning insights";
 var readMore = "Read More";
 var latestPosts = "Latest Posts";
-var tags$2 = "Tags";
-var categories$2 = "Categories";
-var archives$2 = "Archives";
-var search$2 = {
-	placeholder: "Search titles, content or tags...",
-	loading: "Searching...",
-	noResults: "No related articles found, try other keywords",
-	title: "Search Articles",
-	hint: "Enter keywords to start searching"
-};
-var share = {
-	copyNotice: "Link copied to clipboard. Paste it in WeChat to share.",
-	title: "Share",
-	wechat: "WeChat",
-	weibo: "Weibo",
-	zhihu: "Zhihu",
-	juejin: "Juejin"
-};
+var search$2 = "Search";
 var comment = "Comment";
-var backToTop = "Back to Top";
 var language = "Language";
 var copyright = "© 2026 My Nuxt4 Tech Blog. All rights reserved.";
 var loadingArticle = "Loading article...";
@@ -2572,6 +2556,7 @@ var unnamedArticle = "Untitled article";
 var unknown = "Unknown";
 var tagsLabel = "Tags:";
 var noTags = "No tags";
+var backToTop = "Back to Top";
 var minute = "minute";
 var words = "words";
 var langName = {
@@ -2584,23 +2569,36 @@ var uncategorized = "Uncategorized";
 var noDescription = "No description yet. Click to read more...";
 var prevPage = "Previous";
 var nextPage = "Next";
+var searchPage = {
+	placeholder: "Search titles, content or tags...",
+	loading: "Searching...",
+	noResults: "No related articles found, try other keywords",
+	title: "Search Articles",
+	hint: "Enter keywords to start searching"
+};
 var searchResults = "Search Results";
 var noArticleContent = "No article content";
+var share = {
+	copyNotice: "Link copied to clipboard. Paste it in WeChat to share.",
+	title: "Share",
+	wechat: "WeChat",
+	weibo: "Weibo",
+	zhihu: "Zhihu",
+	juejin: "Juejin"
+};
 var toggleDark = "Toggle dark mode";
+var archives$2 = "Archives";
 var articlesSuffix = "articles";
+var categories$2 = "Categories";
+var tags$2 = "Tags";
 const locale_en_46json_a46b8886 = {
 	nav: nav,
 	welcome: welcome,
 	description: description,
 	readMore: readMore,
 	latestPosts: latestPosts,
-	tags: tags$2,
-	categories: categories$2,
-	archives: archives$2,
 	search: search$2,
-	share: share,
 	comment: comment,
-	backToTop: backToTop,
 	language: language,
 	copyright: copyright,
 	loadingArticle: loadingArticle,
@@ -2611,6 +2609,7 @@ const locale_en_46json_a46b8886 = {
 	unknown: unknown,
 	tagsLabel: tagsLabel,
 	noTags: noTags,
+	backToTop: backToTop,
 	minute: minute,
 	words: words,
 	langName: langName,
@@ -2620,12 +2619,17 @@ const locale_en_46json_a46b8886 = {
 	noDescription: noDescription,
 	prevPage: prevPage,
 	nextPage: nextPage,
+	searchPage: searchPage,
 	searchResults: searchResults,
 	noArticleContent: noArticleContent,
+	share: share,
 	toggleDark: toggleDark,
+	archives: archives$2,
 	"archives.empty": "No archived articles",
 	articlesSuffix: articlesSuffix,
+	categories: categories$2,
 	"categories.empty": "No articles under this category",
+	tags: tags$2,
 	"tags.empty": "No tags yet"
 };
 
@@ -3048,7 +3052,7 @@ const parseMarkdown = async (content) => {
       body
     };
   } catch (err) {
-    console.error("\u274C Markdown\u89E3\u6790\u5931\u8D25\uFF1A", err);
+    console.error("\u274C Markdown\u89E3\u6790\u5931\u8D25:", err);
     return {
       frontmatter: {},
       body: content
@@ -3549,7 +3553,7 @@ const _NlZRtXsx4wZtH_B94JTk7OLP4EaGtyJrsG9CHdLh2Vc = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/FQH-b37e") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/g-57cwGW") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);
@@ -3662,7 +3666,22 @@ _NlZRtXsx4wZtH_B94JTk7OLP4EaGtyJrsG9CHdLh2Vc,
 _R_4GZQjiUi_eYpzVuqFxuw8aDhlpxN1x48648gSaT08
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"41494-ezYTlUnB5IDvg/m5A4ygr2gHhDY\"",
+    "mtime": "2026-03-04T08:10:24.578Z",
+    "size": 267412,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"102395-YHIchQsK5aVTnaqxg4sezHgDrWA\"",
+    "mtime": "2026-03-04T08:10:24.579Z",
+    "size": 1057685,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));

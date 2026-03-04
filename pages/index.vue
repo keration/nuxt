@@ -29,7 +29,7 @@
             </li>
           </ul>
           <!-- 语言切换 -->
-            <div class="relative">
+          <div class="relative">
             <button @click="toggleLanguageDropdown"
               class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-1">
               {{ currentLocale === 'zh-CN' ? t('langName.zh-CN') : t('langName.en') }}
@@ -45,7 +45,7 @@
           </div>
           <!-- 暗黑模式按钮 -->
           <button @click="toggleDarkMode"
-            class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="切换暗黑模式">
+            class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" :aria-label="t('toggleDark')">
           </button>
         </nav>
       </div>

@@ -86,7 +86,7 @@ const parseMarkdown = async (content: string): Promise<{ frontmatter: any; body:
       body,
     };
   } catch (err) {
-    console.error("❌ Markdown解析失败：", err);
+    console.error("❌ Markdown解析失败:", err);
     return {
       frontmatter: {},
       body: content,
